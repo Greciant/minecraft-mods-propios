@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "legendary_monsters"
+    }
+  ],
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:end_highlands",
+    "minecraft:end_midlands"
+  ],
+  "spawners": [
+    {
+      "type": "legendary_monsters:shulker_mimic",
+      "weight": 2,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

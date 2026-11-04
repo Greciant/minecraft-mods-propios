@@ -16,5 +16,10 @@
   "ability.wipspowers.graviton_chibaku_tensei": "Chibaku Tensei",
   "ability.wipspowers.graviton_chibaku_tensei.desc": "Launch a gravitational singularity that rises into the sky, drags everything within 22 blocks into a floating planetoid, crushes it and finally implodes, slamming it down with a huge shockwave.",
   "ability.wipspowers.graviton_chibaku_tensei.busy": "Your Chibaku Tensei is still active.",
-  "subtitles.wipspowers.scaler.giant_step": "Giant footsteps"
+  "subtitles.wipspowers.scaler.giant_step": "Giant footsteps",
+  "item.wipspowers.stamina_charm_1": "Stamina Charm I",
+  "item.wipspowers.stamina_charm_2": "Stamina Charm II",
+  "item.wipspowers.stamina_charm_3": "Stamina Charm III",
+  "item.wipspowers.stamina_charm.tip": "+%s%% power energy regeneration",
+  "item.wipspowers.stamina_charm.tip2": "Works while carried or in the necklace slot (Curios). Does not stack."
 }

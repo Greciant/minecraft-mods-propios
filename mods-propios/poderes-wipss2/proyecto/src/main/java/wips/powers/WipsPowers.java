@@ -19,7 +19,23 @@ public final class WipsPowers {
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
         modBus.addListener(WipsPowers::registerPayloads);
+        if (Boolean.getBoolean("wips.audit")) {
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e) -> {
+                LOGGER.info("[wipspowers] AUDIT: aplicando todos los mixins");
+                org.spongepowered.asm.mixin.MixinEnvironment.getCurrentEnvironment().audit();
+                LOGGER.info("[wipspowers] AUDIT OK");
+                e.getServer().halt(false);
+            });
+        }
         WipsSounds.SOUNDS.register(modBus);
+        wips.powers.item.WipsItems.ITEMS.register(modBus);
+        modBus.addListener(wips.powers.content.ContentFilter::onBuildTabs);
+        modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onSpawnPlacements);
+        modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onAttributes);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.LegendaryMonstersFilter::onJoin);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.SnifferSpawns::onJoin);
+        modBus.addListener(wips.powers.content.SnifferSpawns::onSpawnPlacements);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.LegendaryMonstersFilter::onPositionCheck);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

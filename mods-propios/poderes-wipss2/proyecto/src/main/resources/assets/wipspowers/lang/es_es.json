@@ -16,5 +16,10 @@
   "ability.wipspowers.graviton_chibaku_tensei": "Chibaku Tensei",
   "ability.wipspowers.graviton_chibaku_tensei.desc": "Lanza una singularidad gravitacional que sube al cielo, arrastra todo en 22 bloques hasta formar un planetoide flotante, lo aplasta y al final implosiona y lo estrella contra el suelo con una gran onda expansiva.",
   "ability.wipspowers.graviton_chibaku_tensei.busy": "Tu Chibaku Tensei sigue activo.",
-  "subtitles.wipspowers.scaler.giant_step": "Pisadas gigantes"
+  "subtitles.wipspowers.scaler.giant_step": "Pisadas gigantes",
+  "item.wipspowers.stamina_charm_1": "Amuleto de estamina I",
+  "item.wipspowers.stamina_charm_2": "Amuleto de estamina II",
+  "item.wipspowers.stamina_charm_3": "Amuleto de estamina III",
+  "item.wipspowers.stamina_charm.tip": "+%s%% de regeneracion de energia del poder",
+  "item.wipspowers.stamina_charm.tip2": "Funciona con llevarlo encima o en el collar (Curios). No se suman."
 }

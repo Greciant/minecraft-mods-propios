@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "legendary_monsters"
+    }
+  ],
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:jagged_peaks",
+    "minecraft:frozen_peaks",
+    "minecraft:stony_peaks"
+  ],
+  "spawners": [
+    {
+      "type": "legendary_monsters:cloud_golem",
+      "weight": 2,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

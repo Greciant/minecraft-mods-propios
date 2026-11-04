@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ESE",
+    "EPE",
+    "EOE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    },
+    "P": {
+      "item": "awakened:precise_catalyst"
+    },
+    "O": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "result": {
+    "id": "awakened:perfect_catalyst",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "DLD",
+    "DCD",
+    " D "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "L": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "C": {
+      "item": "wipspowers:stamina_charm_1"
+    }
+  },
+  "result": {
+    "id": "wipspowers:stamina_charm_2",
+    "count": 1
+  }
+}

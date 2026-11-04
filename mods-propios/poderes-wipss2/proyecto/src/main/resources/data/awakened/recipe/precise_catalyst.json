@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ANA",
+    "ACA",
+    "ANA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "C": {
+      "item": "awakened:refined_catalyst"
+    }
+  },
+  "result": {
+    "id": "awakened:precise_catalyst",
+    "count": 1
+  }
+}

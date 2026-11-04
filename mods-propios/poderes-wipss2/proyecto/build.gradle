@@ -34,6 +34,13 @@ neoForge {
     runs {
         client { client() }
         server { server(); programArgument '--nogui' }
+        // Prueba: aplica todos los mixins (fuerza cargar cada clase destino), revisa datos y cierra el server.
+        audit {
+            server()
+            programArgument '--nogui'
+            systemProperty 'wips.audit', 'true'
+            gameDirectory = file('run')
+        }
         fx {
             client()
             systemProperty 'wips.autotest', 'true'
@@ -54,10 +61,12 @@ dependencies {
     runtimeOnly files('../_jars/awakened-1.23.1+1.21.1.jar')
     runtimeOnly files('../_jars/grandline-1.21.1-0.3.0.jar')
     runtimeOnly 'top.theillusivec4.curios:curios-neoforge:9.5.1+1.21.1'
+    compileOnly 'top.theillusivec4.curios:curios-neoforge:9.5.1+1.21.1:api'
     // Los dos mods que parcheamos: solo para compilar, no se redistribuyen.
     compileOnly files('../_jars/awakened-1.23.1+1.21.1.jar')
     compileOnly files('../_jars/grandline-1.21.1-0.3.0.jar')
     compileOnly files('../_jars/impactframe-1.1.0-neoforge.jar')
+    compileOnly files('../_jars/weaponleveling-1.21.1-neoforge-3.2.0-beta.1.jar')
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
