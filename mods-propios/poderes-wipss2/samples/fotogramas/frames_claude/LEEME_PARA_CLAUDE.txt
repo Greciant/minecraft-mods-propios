@@ -1,0 +1,21 @@
+BIBLIOTECA DE FOTOGRAMAS PARA CLAUDE CODE
+
+Videos procesados: 29
+Fotogramas extraídos: 5265
+
+Contenido:
+- Una carpeta por video, con todos sus fotogramas en orden.
+- Hojas_de_contacto: vistas rápidas con 12 muestras distribuidas por cada video.
+- INDICE_FOTOGRAMAS.csv: relación entre cada video y su carpeta/cantidad de fotogramas.
+
+Los fotogramas se exportaron como JPG y se redujeron proporcionalmente solo cuando superaban 768 px en ancho o alto.
+La extracción conserva todos los fotogramas decodificados del video; no es un muestreo temporal.
+
+Uso recomendado con Claude:
+1. Descomprimir el paquete.
+2. Darle primero el README y el CSV.
+3. Pedirle que revise las hojas de contacto para clasificar los efectos.
+4. Después, indicarle qué carpetas/fotogramas debe inspeccionar con más detalle.
+
+Nota: son referencias visuales. No son automáticamente texturas, spritesheets ni partículas listas para Minecraft.
+Verifica las licencias de los videos antes de reutilizar contenido en el mod.
