@@ -1,0 +1,1100 @@
+#Availability.
+[fruit]
+	#Whether a casket can roll this fruit and it can be eaten. Existing users keep their power.
+	enabled = true
+	#Rarity when a Devil Fruit Casket opens: LEGENDARY, RARE, UNCOMMON or COMMON (tier weights: devilfruits-common.toml [gacha]).
+	#Allowed Values: LEGENDARY, RARE, UNCOMMON, COMMON
+	gachaTier = "LEGENDARY"
+	#Relative weight among the fruits of the same gacha tier when a casket opens (0 = never in a casket).
+	# Default: 4
+	# Range: 0 ~ 10000
+	lootWeight = 4
+	#Balance updates this file has received (the mod raises it itself when it resets values whose defaults
+	#changed; lower it to take an update's new defaults again).
+	# Default: 0
+	# Range: 0 ~ 10000
+	configRevision = 0
+
+#Energy.
+[energy]
+	#Maximum energy at mastery 1.
+	# Default: 150
+	# Range: 10 ~ 10000
+	baseEnergy = 150
+	#Additional maximum energy per mastery level above 1.
+	# Default: 15
+	# Range: 0 ~ 1000
+	energyPerLevel = 15
+	#Energy regenerated per second while in combat.
+	# Default: 3.0
+	# Range: 0.0 ~ 1000.0
+	regenInCombat = 3.0
+	#Energy regenerated per second out of combat.
+	# Default: 8.0
+	# Range: 0.0 ~ 1000.0
+	regenOutOfCombat = 8.0
+	#Multiplier for this fruit's mastery XP (on top of the global one).
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	xpMultiplier = 1.0
+
+#Fruit-wide settings.
+[settings]
+	#Bonus damage of melee blows (doubled in Hybrid form): lightning and flame crackle on hit.
+	# Default: 2.0
+	# Range: 0.0 ~ 50.0
+	meleeAuraDamage = 2.0
+	#Chance that a melee blow sets the target on fire.
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	meleeIgniteChance = 0.25
+	#Hybrid moveset: damage of a weight-1 hit at mastery 1 (each technique's 'damage' is its weight, e.g. 0.25 per Hellfire Ray hit).
+	# Default: 6.0
+	# Range: 0.0 ~ 100.0
+	hybridBaseHit = 6.0
+	#Hybrid form: fraction of incoming damage ignored (on top of its armor).
+	# Default: 0.15
+	# Range: 0.0 ~ 0.9
+	hybridDamageReduction = 0.15
+	#The Hybrid form shrinks to fit doors and tunnels and grows back outside.
+	hybridAdaptiveSize = true
+	#Length of the Azure Dragon's body in blocks (head to tail tip).
+	# Default: 140.0
+	# Range: 12.0 ~ 300.0
+	dragonBodyLength = 140.0
+	#Number of hitboxes along the dragon's body (attacks can hit the body); about one per 3.3 blocks of body leaves no gaps.
+	# Default: 42.0
+	# Range: 4.0 ~ 64.0
+	dragonHitboxParts = 42.0
+	#Cruising flight speed of the dragon in blocks per tick.
+	# Default: 2.7
+	# Range: 0.2 ~ 6.0
+	dragonFlightSpeed = 2.7
+	#Flight speed while boosting in blocks per tick.
+	# Default: 5.1
+	# Range: 0.2 ~ 8.0
+	dragonBoostSpeed = 5.1
+	#Slithering speed on the ground in blocks per tick.
+	# Default: 0.42
+	# Range: 0.1 ~ 2.0
+	dragonGroundSpeed = 0.42
+
+#Forms.
+[forms]
+
+	[forms.human]
+		#Factor on energy regeneration while in this form.
+		# Default: 1.0
+		# Range: 0.0 ~ 10.0
+		regenMultiplier = 1.0
+		#Cooldown in ticks after returning to the base form before transforming again.
+		# Default: 0
+		# Range: 0 ~ 72000
+		switchCooldownTicks = 0
+
+	[forms.hybrid]
+		#Factor on energy regeneration while in this form.
+		# Default: 0.35
+		# Range: 0.0 ~ 10.0
+		regenMultiplier = 0.35
+		#Mastery level (1-10) required to enter this form.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Energy paid to enter this form.
+		# Default: 20
+		# Range: 0 ~ 10000
+		enterEnergyCost = 20
+		#Energy drained per second while in this form.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		energyDrainPerSecond = 0.0
+		#Cooldown in ticks after entering this form before the next voluntary switch.
+		# Default: 60
+		# Range: 0 ~ 72000
+		switchCooldownTicks = 60
+		#Wind-up in ticks before a voluntary switch into this form completes (0 = instant).
+		# Default: 30
+		# Range: 0 ~ 600
+		castTicks = 30
+		#Seconds a full energy bar lasts in this form: it then drains max energy / this each second, whatever the mastery, instead of energyDrainPerSecond and boostDrainPerSecond (0 = those drains).
+		# Default: 0
+		# Range: 0 ~ 3600
+		timeLimitSeconds = 0
+		#Techniques cost no energy in this form (the form itself spends it).
+		freeAbilities = false
+
+		#Attribute modifiers of the form (amounts; the operation is fixed by the fruit).
+		[forms.hybrid.attributes]
+			# Default: 1.0
+			# Range: -1000.0 ~ 1000.0
+			generic_scale = 1.0
+			# Default: 20.0
+			# Range: -1000.0 ~ 1000.0
+			generic_max_health = 20.0
+			# Default: 4.0
+			# Range: -1000.0 ~ 1000.0
+			generic_attack_damage = 4.0
+			# Default: 6.0
+			# Range: -1000.0 ~ 1000.0
+			generic_armor = 6.0
+			# Default: 3.0
+			# Range: -1000.0 ~ 1000.0
+			generic_armor_toughness = 3.0
+			# Default: 0.4
+			# Range: -1000.0 ~ 1000.0
+			generic_knockback_resistance = 0.4
+			# Default: 0.6
+			# Range: -1000.0 ~ 1000.0
+			generic_step_height = 0.6
+			# Default: 1.5
+			# Range: -1000.0 ~ 1000.0
+			player_entity_interaction_range = 1.5
+			# Default: 1.0
+			# Range: -1000.0 ~ 1000.0
+			player_block_interaction_range = 1.0
+			# Default: -1.0
+			# Range: -1000.0 ~ 1000.0
+			generic_fall_damage_multiplier = -1.0
+
+	[forms.dragon]
+		#Factor on energy regeneration while in this form.
+		# Default: 0.0
+		# Range: 0.0 ~ 10.0
+		regenMultiplier = 0.0
+		#Mastery level (1-10) required to enter this form.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Energy paid to enter this form.
+		# Default: 0
+		# Range: 0 ~ 10000
+		enterEnergyCost = 0
+		#Energy drained per second while in this form.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		energyDrainPerSecond = 0.0
+		#Cooldown in ticks after entering this form before the next voluntary switch.
+		# Default: 100
+		# Range: 0 ~ 72000
+		switchCooldownTicks = 100
+		#Wind-up in ticks before a voluntary switch into this form completes (0 = instant).
+		# Default: 50
+		# Range: 0 ~ 600
+		castTicks = 50
+		#Extra energy drained per second while the boost key is held.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		boostDrainPerSecond = 0.0
+		#Seconds a full energy bar lasts in this form: it then drains max energy / this each second, whatever the mastery, instead of energyDrainPerSecond and boostDrainPerSecond (0 = those drains).
+		# Default: 60
+		# Range: 0 ~ 3600
+		timeLimitSeconds = 60
+		#Techniques cost no energy in this form (the form itself spends it).
+		freeAbilities = true
+
+		#Attribute modifiers of the form (amounts; the operation is fixed by the fruit).
+		[forms.dragon.attributes]
+			# Default: 60.0
+			# Range: -1000.0 ~ 1000.0
+			generic_max_health = 60.0
+			# Default: 8.0
+			# Range: -1000.0 ~ 1000.0
+			generic_attack_damage = 8.0
+			# Default: 10.0
+			# Range: -1000.0 ~ 1000.0
+			generic_armor = 10.0
+			# Default: 4.0
+			# Range: -1000.0 ~ 1000.0
+			generic_armor_toughness = 4.0
+			# Default: 1.0
+			# Range: -1000.0 ~ 1000.0
+			generic_knockback_resistance = 1.0
+			# Default: 3.0
+			# Range: -1000.0 ~ 1000.0
+			player_entity_interaction_range = 3.0
+			# Default: 2.0
+			# Range: -1000.0 ~ 1000.0
+			player_block_interaction_range = 2.0
+			# Default: -1.0
+			# Range: -1000.0 ~ 1000.0
+			generic_fall_damage_multiplier = -1.0
+
+#Per-ability balance.
+[abilities]
+
+	[abilities.thunder_bagua]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 25
+		# Range: 0 ~ 1000
+		energyCost = 25
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 120
+		# Range: 0 ~ 72000
+		cooldownTicks = 120
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 10.0
+		# Range: 0.0 ~ 1000.0
+		damage = 10.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 4.5
+		# Range: 0.5 ~ 128.0
+		range = 4.5
+		#Knockback strength.
+		# Default: 2.4
+		# Range: 0.0 ~ 20.0
+		knockback = 2.4
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Wind-up before the club lands.
+		# Default: 8.0
+		# Range: 0.0 ~ 40.0
+		windupTicks = 8.0
+		#Opening angle of the lightning cone in degrees.
+		# Default: 70.0
+		# Range: 10.0 ~ 180.0
+		coneOpening = 70.0
+		#Damage multiplier while holding a club (Hassaikai).
+		# Default: 1.25
+		# Range: 1.0 ~ 5.0
+		clubBonus = 1.25
+		#Blocks torn out at the impact point (Hybrid: x4, as cracks).
+		# Default: 4.0
+		# Range: 0.0 ~ 64.0
+		blocks = 4.0
+		#Hybrid: how many extra mobs the thunder arcs jump to from each target.
+		# Default: 4.0
+		# Range: 0.0 ~ 16.0
+		chainTargets = 4.0
+		#Hybrid: maximum jump distance of a thunder arc.
+		# Default: 7.0
+		# Range: 1.0 ~ 32.0
+		chainRange = 7.0
+		#Hybrid: damage of an arc relative to the blow.
+		# Default: 0.5
+		# Range: 0.0 ~ 2.0
+		chainDamage = 0.5
+
+	[abilities.blast_breath]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 18
+		# Range: 0 ~ 1000
+		energyCost = 18
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 140
+		# Range: 0 ~ 72000
+		cooldownTicks = 140
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 9.0
+		# Range: 0.0 ~ 1000.0
+		damage = 9.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 9.0
+		# Range: 0.5 ~ 128.0
+		range = 9.0
+		#Knockback strength.
+		# Default: 0.8
+		# Range: 0.0 ~ 20.0
+		knockback = 0.8
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Charge used by a quick tap.
+		# Default: 0.35
+		# Range: 0.0 ~ 1.0
+		minCharge = 0.35
+		#Half-width of the breath in blocks (x form range factor).
+		# Default: 1.0
+		# Range: 0.2 ~ 6.0
+		width = 1.0
+		#Seconds targets keep burning.
+		# Default: 4.0
+		# Range: 0.0 ~ 30.0
+		burnSeconds = 4.0
+		#Hybrid: beam duration at full charge.
+		# Default: 30.0
+		# Range: 5.0 ~ 200.0
+		hybridBeamTicks = 30.0
+		#Dragon: beam duration at full charge.
+		# Default: 120.0
+		# Range: 5.0 ~ 300.0
+		dragonBeamTicks = 120.0
+		#Dragon: beam length in blocks at full charge.
+		# Default: 200.0
+		# Range: 10.0 ~ 400.0
+		dragonBeamLength = 200.0
+		#Hybrid: blocks torn up at the beam's end each tick.
+		# Default: 2.0
+		# Range: 0.0 ~ 16.0
+		beamBlocksPerTick = 2.0
+		#Dragon: radius of the burnt crater where the beam lands (3: six blocks across).
+		# Default: 3.0
+		# Range: 1.0 ~ 64.0
+		dragonBlastRadius = 3.0
+		#Dragon: depth of that crater at its centre.
+		# Default: 3.0
+		# Range: 1.0 ~ 32.0
+		dragonBlastDepth = 3.0
+		#Dragon: blocks the crater takes each tick.
+		# Default: 24.0
+		# Range: 1.0 ~ 1024.0
+		dragonBlastBlocksPerTick = 24.0
+		#Dragon: most blocks one breath may tear up (its own limit instead of maxBlocksPerCast).
+		# Default: 2000.0
+		# Range: 0.0 ~ 100000.0
+		dragonBlastBlocks = 2000.0
+		#Chance for each scorched spot to catch fire (0: the breath sets no fire).
+		# Default: 0.35
+		# Range: 0.0 ~ 1.0
+		groundFireChance = 0.35
+
+	[abilities.flame_cloud]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 20
+		# Range: 0 ~ 1000
+		energyCost = 20
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 100
+		# Range: 0 ~ 72000
+		cooldownTicks = 100
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 6.0
+		# Range: 0.0 ~ 1000.0
+		damage = 6.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 8.0
+		# Range: 0.5 ~ 128.0
+		range = 8.0
+		#Knockback strength.
+		# Default: 0.8
+		# Range: 0.0 ~ 20.0
+		knockback = 0.8
+		#Duration of the dash.
+		# Default: 6.0
+		# Range: 2.0 ~ 20.0
+		dashTicks = 6.0
+		#How long the flame clouds keep burning.
+		# Default: 40.0
+		# Range: 0.0 ~ 200.0
+		lingerTicks = 40.0
+		#Seconds targets keep burning.
+		# Default: 4.0
+		# Range: 0.0 ~ 30.0
+		burnSeconds = 4.0
+
+	[abilities.dragon_dash]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 15
+		# Range: 0 ~ 1000
+		energyCost = 15
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 60
+		# Range: 0 ~ 72000
+		cooldownTicks = 60
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 5.0
+		# Range: 0.0 ~ 1000.0
+		damage = 5.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 10.0
+		# Range: 0.5 ~ 128.0
+		range = 10.0
+		#Knockback strength.
+		# Default: 1.6
+		# Range: 0.0 ~ 20.0
+		knockback = 1.6
+		#Duration of the lunge.
+		# Default: 4.0
+		# Range: 2.0 ~ 20.0
+		dashTicks = 4.0
+
+	[abilities.transform_hybrid]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 0
+		# Range: 0 ~ 1000
+		energyCost = 0
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 0
+		# Range: 0 ~ 72000
+		cooldownTicks = 0
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		damage = 0.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 1.0
+		# Range: 0.5 ~ 128.0
+		range = 1.0
+		#Knockback strength.
+		# Default: 0.0
+		# Range: 0.0 ~ 20.0
+		knockback = 0.0
+
+	[abilities.transform_dragon]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 0
+		# Range: 0 ~ 1000
+		energyCost = 0
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 0
+		# Range: 0 ~ 72000
+		cooldownTicks = 0
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		damage = 0.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 1.0
+		# Range: 0.5 ~ 128.0
+		range = 1.0
+		#Knockback strength.
+		# Default: 0.0
+		# Range: 0.0 ~ 20.0
+		knockback = 0.0
+
+	[abilities.hellfire_ray]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 20
+		# Range: 0 ~ 1000
+		energyCost = 20
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 240
+		# Range: 0 ~ 72000
+		cooldownTicks = 240
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 4
+		# Range: 1 ~ 10
+		requiredMastery = 4
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.25
+		# Range: 0.0 ~ 1000.0
+		damage = 0.25
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 14.0
+		# Range: 0.5 ~ 128.0
+		range = 14.0
+		#Knockback strength.
+		# Default: 0.6
+		# Range: 0.0 ~ 20.0
+		knockback = 0.6
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Hits of a channel held to the end.
+		# Default: 49.0
+		# Range: 1.0 ~ 200.0
+		maxHits = 49.0
+		#Longest channel (seconds).
+		# Default: 3.5
+		# Range: 0.5 ~ 10.0
+		maxSeconds = 3.5
+		#Radius of the fire rings: what is inside is caught and hit.
+		# Default: 2.5
+		# Range: 0.5 ~ 6.0
+		ringRadius = 2.5
+		#How fast the spinning body flies after its target (blocks per tick).
+		# Default: 1.35
+		# Range: 0.0 ~ 4.0
+		chaseSpeed = 1.35
+		#How high the body hovers over the target's head.
+		# Default: 1.4
+		# Range: 0.0 ~ 4.0
+		hoverHeight = 1.4
+		#Extra energy the channel burns per second.
+		# Default: 6.0
+		# Range: 0.0 ~ 100.0
+		burnPerSecond = 6.0
+		#The fire can set flammable blocks alight (with the block damage switch and mobGriefing).
+		igniteBlocks = true
+
+	[abilities.thunderclaw_rush]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 25
+		# Range: 0 ~ 1000
+		energyCost = 25
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 160
+		# Range: 0 ~ 72000
+		cooldownTicks = 160
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.7
+		# Range: 0.0 ~ 1000.0
+		damage = 0.7
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 12.0
+		# Range: 0.5 ~ 128.0
+		range = 12.0
+		#Knockback strength.
+		# Default: 1.6
+		# Range: 0.0 ~ 20.0
+		knockback = 1.6
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Lunge speed in blocks per tick.
+		# Default: 2.2
+		# Range: 0.5 ~ 5.0
+		lungeSpeed = 2.2
+		#Half angle of the cone in front in which the lunge homes onto an enemy (degrees).
+		# Default: 35.0
+		# Range: 0.0 ~ 90.0
+		homingAngle = 35.0
+		#How long the first claw freezes the target (ticks).
+		# Default: 38.0
+		# Range: 0.0 ~ 200.0
+		stunTicks = 38.0
+		#Weight of the lightning finisher (x hybridBaseHit); only under Thunderclad Veil after all three claws.
+		# Default: 1.5
+		# Range: 0.0 ~ 10.0
+		finisherWeight = 1.5
+		#Radius of the lightning finisher.
+		# Default: 3.0
+		# Range: 0.0 ~ 10.0
+		finisherRadius = 3.0
+		#Blocks the finisher tears out of the ground.
+		# Default: 10.0
+		# Range: 0.0 ~ 64.0
+		craterBlocks = 10.0
+
+	[abilities.draconic_cataclysm]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 60
+		# Range: 0 ~ 1000
+		energyCost = 60
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 400
+		# Range: 0 ~ 72000
+		cooldownTicks = 400
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 5
+		# Range: 1 ~ 10
+		requiredMastery = 5
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 4.0
+		# Range: 0.0 ~ 1000.0
+		damage = 4.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 8.0
+		# Range: 0.5 ~ 128.0
+		range = 8.0
+		#Knockback strength.
+		# Default: 3.0
+		# Range: 0.0 ~ 20.0
+		knockback = 3.0
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Upward velocity of the leap.
+		# Default: 1.6
+		# Range: 0.2 ~ 4.0
+		leapHeight = 1.6
+		#Ticks spent spinning at the top of the leap.
+		# Default: 10.0
+		# Range: 0.0 ~ 40.0
+		hangTicks = 10.0
+		#Blocks torn out of the ground by the impact (they heal).
+		# Default: 40.0
+		# Range: 0.0 ~ 256.0
+		craterBlocks = 40.0
+		#How long the impact stuns what it hits (ticks).
+		# Default: 30.0
+		# Range: 0.0 ~ 200.0
+		stunTicks = 30.0
+		#Damage multiplier while holding a club (Hassaikai).
+		# Default: 1.25
+		# Range: 1.0 ~ 5.0
+		clubBonus = 1.25
+
+	[abilities.thunderclad_veil]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 30
+		# Range: 0 ~ 1000
+		energyCost = 30
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 400
+		# Range: 0 ~ 72000
+		cooldownTicks = 400
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 4
+		# Range: 1 ~ 10
+		requiredMastery = 4
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		damage = 0.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 0.0
+		# Range: 0.5 ~ 128.0
+		range = 0.5
+		#Knockback strength.
+		# Default: 0.0
+		# Range: 0.0 ~ 20.0
+		knockback = 0.0
+		#How long the veil lasts (pressing again ends it early).
+		# Default: 30.0
+		# Range: 1.0 ~ 600.0
+		durationSeconds = 30.0
+		#Extra damage dealt while veiled (fraction).
+		# Default: 0.1
+		# Range: 0.0 ~ 2.0
+		damageBonus = 0.1
+		#Fraction of incoming damage the veil absorbs (after the Hybrid's own reduction).
+		# Default: 0.25
+		# Range: 0.0 ~ 0.9
+		damageReduction = 0.25
+
+	[abilities.draconic_ascension]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 25
+		# Range: 0 ~ 1000
+		energyCost = 25
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 200
+		# Range: 0 ~ 72000
+		cooldownTicks = 200
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 4
+		# Range: 1 ~ 10
+		requiredMastery = 4
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 1.0
+		# Range: 0.0 ~ 1000.0
+		damage = 1.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 16.0
+		# Range: 0.5 ~ 128.0
+		range = 16.0
+		#Knockback strength.
+		# Default: 0.8
+		# Range: 0.0 ~ 20.0
+		knockback = 0.8
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#How high the arc rises over its ends (blocks).
+		# Default: 4.0
+		# Range: 0.0 ~ 16.0
+		arcHeight = 4.0
+		#Ticks the arc takes.
+		# Default: 12.0
+		# Range: 4.0 ~ 40.0
+		flightTicks = 12.0
+		#How long the slam stuns what it hits (ticks).
+		# Default: 30.0
+		# Range: 0.0 ~ 200.0
+		stunTicks = 30.0
+		#Radius of the slam.
+		# Default: 3.0
+		# Range: 0.5 ~ 10.0
+		impactRadius = 3.0
+		#Floor blocks the slam tears out (they heal).
+		# Default: 8.0
+		# Range: 0.0 ~ 64.0
+		craterBlocks = 8.0
+
+	[abilities.draconic_thunderfall]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 40
+		# Range: 0 ~ 1000
+		energyCost = 40
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 300
+		# Range: 0 ~ 72000
+		cooldownTicks = 300
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 1.5
+		# Range: 0.0 ~ 1000.0
+		damage = 1.5
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 9.0
+		# Range: 0.5 ~ 128.0
+		range = 9.0
+		#Knockback strength.
+		# Default: 0.5
+		# Range: 0.0 ~ 20.0
+		knockback = 0.5
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Strikes even a short press calls down.
+		# Default: 6.0
+		# Range: 1.0 ~ 64.0
+		minStrikes = 6.0
+		#Strikes of a press held to the end.
+		# Default: 18.0
+		# Range: 1.0 ~ 64.0
+		maxStrikes = 18.0
+		#Ticks between strikes while the key is held.
+		# Default: 4.0
+		# Range: 1.0 ~ 40.0
+		strikeInterval = 4.0
+		#Radius each strike hurts round its point.
+		# Default: 2.2
+		# Range: 0.5 ~ 8.0
+		strikeRadius = 2.2
+		#Floor blocks one strike tears out (they heal).
+		# Default: 3.0
+		# Range: 0.0 ~ 32.0
+		craterBlocks = 3.0
+
+	[abilities.draconic_tail_slam]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 18
+		# Range: 0 ~ 1000
+		energyCost = 18
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 120
+		# Range: 0 ~ 72000
+		cooldownTicks = 120
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 1.2
+		# Range: 0.0 ~ 1000.0
+		damage = 1.2
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 4.5
+		# Range: 0.5 ~ 128.0
+		range = 4.5
+		#Knockback strength.
+		# Default: 2.2
+		# Range: 0.0 ~ 20.0
+		knockback = 2.2
+		#How far round the tail sweeps (degrees, centred on the view).
+		# Default: 180.0
+		# Range: 30.0 ~ 360.0
+		sweepDegrees = 180.0
+
+	[abilities.serpentine_flight]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 5
+		# Range: 0 ~ 1000
+		energyCost = 5
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 20
+		# Range: 0 ~ 72000
+		cooldownTicks = 20
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 0.0
+		# Range: 0.0 ~ 1000.0
+		damage = 0.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 1.0
+		# Range: 0.5 ~ 128.0
+		range = 1.0
+		#Knockback strength.
+		# Default: 0.0
+		# Range: 0.0 ~ 20.0
+		knockback = 0.0
+		#Extra drain while flying (the form already drains).
+		# Default: 0.0
+		# Range: 0.0 ~ 100.0
+		drainPerSecond = 0.0
+
+	[abilities.bolo_breath]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 40
+		# Range: 0 ~ 1000
+		energyCost = 40
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 200
+		# Range: 0 ~ 72000
+		cooldownTicks = 200
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 4
+		# Range: 1 ~ 10
+		requiredMastery = 4
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 7.0
+		# Range: 0.0 ~ 1000.0
+		damage = 7.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 24.0
+		# Range: 0.5 ~ 128.0
+		range = 24.0
+		#Knockback strength.
+		# Default: 0.9
+		# Range: 0.0 ~ 20.0
+		knockback = 0.9
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Hybrid: fireballs per full volley.
+		# Default: 8.0
+		# Range: 1.0 ~ 40.0
+		fireballs = 8.0
+		#Dragon: meteors per full barrage.
+		# Default: 14.0
+		# Range: 1.0 ~ 80.0
+		meteors = 14.0
+		#Explosion radius of one fireball (no vanilla explosion).
+		# Default: 2.5
+		# Range: 0.5 ~ 12.0
+		impactRadius = 2.5
+		#Seconds targets keep burning.
+		# Default: 4.0
+		# Range: 0.0 ~ 30.0
+		burnSeconds = 4.0
+		#How far fireballs scatter around the view.
+		# Default: 14.0
+		# Range: 0.0 ~ 60.0
+		spreadDegrees = 14.0
+		#Dragon: how far away the barrage can land, times the ability's range.
+		# Default: 1.4
+		# Range: 0.2 ~ 4.0
+		meteorReach = 1.4
+		#Dragon: radius of the area the meteors rain on at full charge.
+		# Default: 9.0
+		# Range: 1.0 ~ 40.0
+		meteorArea = 9.0
+		#Dragon: radius of the crater one meteor leaves (2.5: five blocks across).
+		# Default: 2.5
+		# Range: 0.5 ~ 12.0
+		meteorCraterRadius = 2.5
+		#Dragon: depth of that crater at its centre.
+		# Default: 2.5
+		# Range: 0.5 ~ 12.0
+		meteorCraterDepth = 2.5
+		#Chance for each scorched spot to catch fire (0: no fire).
+		# Default: 0.5
+		# Range: 0.0 ~ 1.0
+		groundFireChance = 0.5
+
+	[abilities.dragon_twister]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 50
+		# Range: 0 ~ 1000
+		energyCost = 50
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 300
+		# Range: 0 ~ 72000
+		cooldownTicks = 300
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 7
+		# Range: 1 ~ 10
+		requiredMastery = 7
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 5.0
+		# Range: 0.0 ~ 1000.0
+		damage = 5.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 10.0
+		# Range: 0.5 ~ 128.0
+		range = 10.0
+		#Knockback strength.
+		# Default: 0.4
+		# Range: 0.0 ~ 20.0
+		knockback = 0.4
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Pull strength towards the vortex.
+		# Default: 0.35
+		# Range: 0.0 ~ 3.0
+		pull = 0.35
+		#Upward lift inside the vortex.
+		# Default: 0.18
+		# Range: 0.0 ~ 2.0
+		lift = 0.18
+		#Ticks between damage pulses.
+		# Default: 10.0
+		# Range: 1.0 ~ 40.0
+		hitInterval = 10.0
+		#Blocks ripped up as debris per second.
+		# Default: 6.0
+		# Range: 0.0 ~ 64.0
+		blocksPerSecond = 6.0
+		#Longest spin in ticks.
+		# Default: 120.0
+		# Range: 20.0 ~ 600.0
+		maxTicks = 120.0
+
+	[abilities.thunder_storm]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 80
+		# Range: 0 ~ 1000
+		energyCost = 80
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 600
+		# Range: 0 ~ 72000
+		cooldownTicks = 600
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 8
+		# Range: 1 ~ 10
+		requiredMastery = 8
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 14.0
+		# Range: 0.0 ~ 1000.0
+		damage = 14.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 18.0
+		# Range: 0.5 ~ 128.0
+		range = 18.0
+		#Knockback strength.
+		# Default: 0.6
+		# Range: 0.0 ~ 20.0
+		knockback = 0.6
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Lightning strikes per storm.
+		# Default: 16.0
+		# Range: 1.0 ~ 100.0
+		strikes = 16.0
+		#Duration of the storm.
+		# Default: 160.0
+		# Range: 20.0 ~ 1200.0
+		durationTicks = 160.0
+		#Radius hurt by one strike.
+		# Default: 3.0
+		# Range: 0.5 ~ 12.0
+		strikeRadius = 3.0
+		#Height of the cloud layer above the dragon.
+		# Default: 18.0
+		# Range: 6.0 ~ 64.0
+		cloudHeight = 18.0
+		#Also turn the world's weather into a thunderstorm while the storm lasts.
+		changeWeather = false
+		#Use real lightning bolts (can set fires) instead of visual-only bolts.
+		realLightning = false
+
+	[abilities.tail_whip]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 25
+		# Range: 0 ~ 1000
+		energyCost = 25
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 160
+		# Range: 0 ~ 72000
+		cooldownTicks = 160
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 16.0
+		# Range: 0.0 ~ 1000.0
+		damage = 16.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 1.0
+		# Range: 0.5 ~ 128.0
+		range = 1.0
+		#Knockback strength.
+		# Default: 2.5
+		# Range: 0.0 ~ 20.0
+		knockback = 2.5
+		#Whether this ability may break / move blocks (the global world rules and mobGriefing still apply).
+		blockDamage = true
+		#Coil Crush damage per second.
+		# Default: 6.0
+		# Range: 0.0 ~ 100.0
+		crushDamagePerSecond = 6.0
+		#Coil Crush duration.
+		# Default: 60.0
+		# Range: 10.0 ~ 400.0
+		crushTicks = 60.0
+		#How far from the head the coil reaches for a victim.
+		# Default: 14.0
+		# Range: 2.0 ~ 48.0
+		crushReach = 14.0
+
+	[abilities.roar]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 30
+		# Range: 0 ~ 1000
+		energyCost = 30
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 240
+		# Range: 0 ~ 72000
+		cooldownTicks = 240
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 6
+		# Range: 1 ~ 10
+		requiredMastery = 6
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 4.0
+		# Range: 0.0 ~ 1000.0
+		damage = 4.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 16.0
+		# Range: 0.5 ~ 128.0
+		range = 16.0
+		#Knockback strength.
+		# Default: 2.5
+		# Range: 0.0 ~ 20.0
+		knockback = 2.5
+		#Slowness / weakness duration on hit targets.
+		# Default: 50.0
+		# Range: 0.0 ~ 400.0
+		stunTicks = 50.0
+		#Opening angle of the roar in degrees.
+		# Default: 120.0
+		# Range: 10.0 ~ 360.0
+		coneOpening = 120.0

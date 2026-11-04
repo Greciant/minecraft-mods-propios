@@ -1,0 +1,353 @@
+#Availability.
+[fruit]
+	#Whether a casket can roll this fruit and it can be eaten. Existing users keep their power.
+	enabled = true
+	#Rarity when a Devil Fruit Casket opens: LEGENDARY, RARE, UNCOMMON or COMMON (tier weights: devilfruits-common.toml [gacha]).
+	#Allowed Values: LEGENDARY, RARE, UNCOMMON, COMMON
+	gachaTier = "UNCOMMON"
+	#Relative weight among the fruits of the same gacha tier when a casket opens (0 = never in a casket).
+	# Default: 10
+	# Range: 0 ~ 10000
+	lootWeight = 10
+	#Balance updates this file has received (the mod raises it itself when it resets values whose defaults
+	#changed; lower it to take an update's new defaults again).
+	# Default: 0
+	# Range: 0 ~ 10000
+	configRevision = 1
+
+#Energy.
+[energy]
+	#Maximum energy at mastery 1.
+	# Default: 200
+	# Range: 10 ~ 10000
+	baseEnergy = 200
+	#Additional maximum energy per mastery level above 1.
+	# Default: 20
+	# Range: 0 ~ 1000
+	energyPerLevel = 20
+	#Energy regenerated per second while in combat.
+	# Default: 2.5
+	# Range: 0.0 ~ 1000.0
+	regenInCombat = 2.5
+	#Energy regenerated per second out of combat.
+	# Default: 7.0
+	# Range: 0.0 ~ 1000.0
+	regenOutOfCombat = 7.0
+	#Multiplier for this fruit's mastery XP (on top of the global one).
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	xpMultiplier = 1.0
+
+#Fruit-wide settings.
+[settings]
+	#How much more terrain the techniques tear up at mastery 10 than at mastery 1 (rising evenly in between).
+	# Default: 3.5
+	# Range: 1.0 ~ 10.0
+	destructionAtMaxMastery = 3.5
+
+#Per-ability balance.
+[abilities]
+
+	[abilities.kaishin]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 14
+		# Range: 0 ~ 1000
+		energyCost = 14
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 22
+		# Range: 0 ~ 72000
+		cooldownTicks = 22
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 11.0
+		# Range: 0.0 ~ 1000.0
+		damage = 11.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 7.0
+		# Range: 0.5 ~ 128.0
+		range = 7.0
+		#Knockback strength.
+		# Default: 1.5
+		# Range: 0.0 ~ 20.0
+		knockback = 1.5
+		#Ticks to reach a full charge.
+		# Default: 36.0
+		# Range: 5.0 ~ 200.0
+		chargeTicks = 36.0
+		#Additional energy at full charge.
+		# Default: 22.0
+		# Range: 0.0 ~ 500.0
+		fullChargeExtraEnergy = 22.0
+		#Additional cooldown ticks at full charge.
+		# Default: 60.0
+		# Range: 0.0 ~ 2000.0
+		fullChargeExtraCooldown = 60.0
+		#Half-angle of the shockwave cone in degrees.
+		# Default: 28.0
+		# Range: 5.0 ~ 80.0
+		coneAngle = 28.0
+		#Minimum charge (0-1) at which the punch tears out blocks.
+		# Default: 0.5
+		# Range: 0.0 ~ 1.0
+		blockDamageCharge = 0.5
+
+	[abilities.gekishin]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 22
+		# Range: 0 ~ 1000
+		energyCost = 22
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 90
+		# Range: 0 ~ 72000
+		cooldownTicks = 90
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 1
+		# Range: 1 ~ 10
+		requiredMastery = 1
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 24.0
+		# Range: 0.0 ~ 1000.0
+		damage = 24.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 4.5
+		# Range: 0.5 ~ 128.0
+		range = 4.5
+		#Knockback strength.
+		# Default: 3.0
+		# Range: 0.0 ~ 20.0
+		knockback = 3.0
+		#Wind-up before the punch lands.
+		# Default: 5.0
+		# Range: 0.0 ~ 40.0
+		windupTicks = 5.0
+		#Upward component of the launch.
+		# Default: 0.55
+		# Range: 0.0 ~ 3.0
+		launchUp = 0.55
+		#Damage of the impact ring where the target lands.
+		# Default: 9.0
+		# Range: 0.0 ~ 200.0
+		impactDamage = 9.0
+
+	[abilities.kabutowari]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 30
+		# Range: 0 ~ 1000
+		energyCost = 30
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 160
+		# Range: 0 ~ 72000
+		cooldownTicks = 160
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 2
+		# Range: 1 ~ 10
+		requiredMastery = 2
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 16.0
+		# Range: 0.0 ~ 1000.0
+		damage = 16.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 7.0
+		# Range: 0.5 ~ 128.0
+		range = 7.0
+		#Knockback strength.
+		# Default: 1.1
+		# Range: 0.0 ~ 20.0
+		knockback = 1.1
+		#Number of main fissure lines.
+		# Default: 7.0
+		# Range: 3.0 ~ 16.0
+		lines = 7.0
+		#Upward velocity of the leap.
+		# Default: 0.95
+		# Range: 0.2 ~ 3.0
+		leapVelocity = 0.95
+		#Fissure growth in blocks per tick.
+		# Default: 1.6
+		# Range: 0.2 ~ 10.0
+		spreadSpeed = 1.6
+		#Chance that a block on a fissure line is torn out.
+		# Default: 0.7
+		# Range: 0.0 ~ 1.0
+		liftChance = 0.7
+
+	[abilities.kaisho]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 45
+		# Range: 0 ~ 1000
+		energyCost = 45
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 300
+		# Range: 0 ~ 72000
+		cooldownTicks = 300
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 4
+		# Range: 1 ~ 10
+		requiredMastery = 4
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 14.0
+		# Range: 0.0 ~ 1000.0
+		damage = 14.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 22.0
+		# Range: 0.5 ~ 128.0
+		range = 22.0
+		#Knockback strength.
+		# Default: 1.8
+		# Range: 0.0 ~ 20.0
+		knockback = 1.8
+		#Width of the tsunami in blocks.
+		# Default: 10.0
+		# Range: 2.0 ~ 64.0
+		waveWidth = 10.0
+		#Height of the tsunami in blocks.
+		# Default: 5.0
+		# Range: 1.0 ~ 32.0
+		waveHeight = 5.0
+		#Travel speed in blocks per tick.
+		# Default: 0.75
+		# Range: 0.1 ~ 4.0
+		speed = 0.75
+		#How far ahead (blocks) water is searched for.
+		# Default: 8.0
+		# Range: 2.0 ~ 32.0
+		waterSearch = 8.0
+
+	[abilities.shindo]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 10
+		# Range: 0 ~ 1000
+		energyCost = 10
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 40
+		# Range: 0 ~ 72000
+		cooldownTicks = 40
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 5.0
+		# Range: 0.0 ~ 1000.0
+		damage = 5.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 3.5
+		# Range: 0.5 ~ 128.0
+		range = 3.5
+		#Knockback strength.
+		# Default: 0.8
+		# Range: 0.0 ~ 20.0
+		knockback = 0.8
+		#Energy drained per second while the aura is active.
+		# Default: 4.0
+		# Range: 0.0 ~ 200.0
+		drainPerSecond = 4.0
+		#Energy per shattered / deflected projectile.
+		# Default: 2.0
+		# Range: 0.0 ~ 200.0
+		deflectCost = 2.0
+		#Energy per empowered melee hit.
+		# Default: 1.0
+		# Range: 0.0 ~ 200.0
+		hitCost = 1.0
+
+	[abilities.quake_infusion]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 12
+		# Range: 0 ~ 1000
+		energyCost = 12
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 24
+		# Range: 0 ~ 72000
+		cooldownTicks = 24
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 3
+		# Range: 1 ~ 10
+		requiredMastery = 3
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 9.0
+		# Range: 0.0 ~ 1000.0
+		damage = 9.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 18.0
+		# Range: 0.5 ~ 128.0
+		range = 18.0
+		#Knockback strength.
+		# Default: 1.0
+		# Range: 0.0 ~ 20.0
+		knockback = 1.0
+		#Travel speed of the crescent in blocks per tick.
+		# Default: 1.3
+		# Range: 0.2 ~ 5.0
+		slashSpeed = 1.3
+		#Width of the crescent in blocks.
+		# Default: 3.2
+		# Range: 0.5 ~ 16.0
+		slashWidth = 3.2
+		#Fraction of the held weapon's attack damage added to the slash.
+		# Default: 0.8
+		# Range: 0.0 ~ 10.0
+		weaponDamageFactor = 0.8
+
+	[abilities.shima_yurashi]
+		#Whether this ability can be used at all.
+		enabled = true
+		#Energy consumed per cast.
+		# Default: 80
+		# Range: 0 ~ 1000
+		energyCost = 80
+		#Cooldown in ticks (20 ticks = 1 second) before mastery reduction.
+		# Default: 1200
+		# Range: 0 ~ 72000
+		cooldownTicks = 1200
+		#Mastery level (1-10) required to unlock this ability.
+		# Default: 5
+		# Range: 1 ~ 10
+		requiredMastery = 5
+		#Base damage (half-hearts) before mastery scaling.
+		# Default: 7.0
+		# Range: 0.0 ~ 1000.0
+		damage = 7.0
+		#Base radius / reach in blocks before mastery scaling.
+		# Default: 28.0
+		# Range: 0.5 ~ 128.0
+		range = 28.0
+		#Knockback strength.
+		# Default: 0.7
+		# Range: 0.0 ~ 20.0
+		knockback = 0.7
+		#Duration of the tremor.
+		# Default: 5.0
+		# Range: 1.0 ~ 30.0
+		tremorSeconds = 5.0
+		#Ticks between damage / push pulses.
+		# Default: 10.0
+		# Range: 2.0 ~ 100.0
+		pulseInterval = 10.0
+		#Distance of the sky crack in front of the user.
+		# Default: 14.0
+		# Range: 4.0 ~ 64.0
+		crackDistance = 14.0
+		#Radius of the sky crack.
+		# Default: 9.0
+		# Range: 2.0 ~ 40.0
+		crackRadius = 9.0
+		#Blocks torn out per pulse.
+		# Default: 7.0
+		# Range: 0.0 ~ 64.0
+		debrisPerPulse = 7.0

@@ -1,0 +1,13 @@
+#Server-side features that clients with the mod can opt into.
+[timeFreeze]
+	#Let players on a dedicated server / LAN world with several players freeze time for everyone.
+	#Players must also opt in through the Server stuff menu. Set this to false to disable multiplayer freezes.
+	allowOnMultiplayer = true
+	#Hard cap on how long one request may freeze time, in ticks (20 ticks = 1 second).
+	# Default: 10
+	# Range: 1 ~ 40
+	maxFreezeTicks = 10
+	#Minimum ticks between two freeze requests from the same player.
+	# Default: 20
+	# Range: 0 ~ 600
+	playerCooldownTicks = 20

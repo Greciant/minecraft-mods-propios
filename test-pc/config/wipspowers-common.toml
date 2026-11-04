@@ -1,0 +1,21 @@
+[critical]
+	#Criticos con impact frame (Ridiculous Impact Frames). false = sin criticos.
+	enabled = true
+	#Probabilidad de critico por golpe o habilidad de un jugador (0.25 = 25%).
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	chance = 0.25
+	#Multiplicador de dano del critico.
+	# Default: 3.0
+	# Range: 1.0 ~ 20.0
+	damageMultiplier = 3.0
+	#Ticks minimos entre criticos del mismo jugador (20 = 1 s). Evita que rayos y danos continuos saturen.
+	# Default: 20
+	# Range: 0 ~ 1200
+	cooldownTicks = 20
+
+[terrain]
+	#Las habilidades de Awakened que rompen bloques (Ruin Breach, etc.) preguntan a los demas mods si se puede romper.
+	#Si algun mod dice que no a todo, salen mensajes como 'Nothing here can rot away'. true = se ignora esa respuesta
+	#(se siguen respetando la proteccion del spawn y el modo aventura). false = comportamiento original de Awakened.
+	ignoreBreakVeto = true

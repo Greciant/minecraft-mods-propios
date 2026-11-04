@@ -1,0 +1,108 @@
+[general]
+	enabled = true
+	preset = "normal"
+	# Default: 0.8
+	# Range: 0.0 ~ 1.0
+	intensity = 0.8
+	# Default: 6
+	# Range: 0 ~ 100
+	cooldownTicks = 6
+	safeMode = false
+	soundEnabled = true
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	soundVolume = 1.0
+
+[serverFeatures]
+	enabled = false
+	freezeOnImpact = true
+	# Default: 3
+	# Range: 1 ~ 10
+	freezeTicks = 3
+	lockMovement = true
+
+[triggers]
+	onAttack = false
+	onDamage = false
+	onBlockBreak = false
+	onBlockPlace = false
+	onFootstep = false
+	onExplosion = true
+	onKill = true
+	onLand = false
+	onCrit = false
+	onMace = true
+	# Default: 0.6
+	# Range: 0.0 ~ 1.0
+	attackIntensity = 0.6
+	# Default: 0.68
+	# Range: 0.0 ~ 1.0
+	damageIntensity = 0.68
+	# Default: 0.52
+	# Range: 0.0 ~ 1.0
+	blockBreakIntensity = 0.52
+	# Default: 0.36
+	# Range: 0.0 ~ 1.0
+	blockPlaceIntensity = 0.36
+	# Default: 0.36
+	# Range: 0.0 ~ 1.0
+	footstepIntensity = 0.36
+	# Default: 0.76
+	# Range: 0.0 ~ 1.0
+	explosionIntensity = 0.76
+	# Default: 0.8
+	# Range: 0.0 ~ 1.0
+	killIntensity = 0.8
+	# Default: 0.6
+	# Range: 0.0 ~ 1.0
+	landIntensity = 0.6
+	# Default: 0.72
+	# Range: 0.0 ~ 1.0
+	critIntensity = 0.72
+	# Default: 0.8
+	# Range: 0.0 ~ 1.0
+	maceIntensity = 0.8
+	# Default: 2.0
+	# Range: 0.0 ~ 10.0
+	minimumDamage = 2.0
+	# Default: 3.0
+	# Range: 0.0 ~ 12.0
+	minimumFallDistance = 3.0
+	# Default: 0.6
+	# Range: 0.35 ~ 1.0
+	minimumExplosionStrength = 0.6
+	# Default: 1.5
+	# Range: 0.0 ~ 20.0
+	minimumBlockHardness = 1.5
+
+[effects]
+	directionalStreaks = true
+	zoomEnabled = true
+	# Default: 1.5
+	# Range: 0.0 ~ 3.0
+	zoomStrength = 1.5
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	halftone = 0.25
+	onomatopoeia = true
+	# Default: 1.0
+	# Range: 0.5 ~ 2.0
+	onomatopoeiaScale = 1.0
+	colorKeyedFrames = false
+	letterbox = true
+	# Default: 0.12
+	# Range: 0.02 ~ 0.25
+	letterboxSize = 0.12
+	# Default: 30
+	# Range: 0 ~ 60
+	flashBudget = 30
+	# Default: 0.35
+	# Range: 0.0 ~ 1.0
+	chromaticAberration = 0.35
+	letterboxOnBigHits = true
+	letterboxOnExplosions = true
+	letterboxOnSmashes = true
+
+[compatibility]
+	depthOutlines = true
+	liteWithShaderPacks = true

@@ -1,0 +1,110 @@
+[awakening]
+	#Health at or below which a player awakens, in half-hearts (6 = 3 hearts).
+	# Default: 6.0
+	# Range: 0.5 ~ 20.0
+	healthThreshold = 6.0
+
+[uniquePowers]
+	#Old setting, now in awakened-rules-server.toml.
+	# Default: 0.0
+	# Range: 0.0 ~ 3650.0
+	staleAfterDays = 0.0
+	#Old setting, now in awakened-rules-server.toml.
+	# Default: 1
+	# Range: 0 ~ 1000
+	defaultLimit = 1
+	#Old setting, now in awakened-rules-server.toml.
+	limits = []
+
+[stamina]
+	#Old setting, now in awakened-balance-server.toml.
+	# Default: 100.0
+	# Range: 1.0 ~ 10000.0
+	max = 100.0
+	#Old setting, now in awakened-balance-server.toml.
+	# Default: 11.0
+	# Range: 0.0 ~ 10000.0
+	regenPerSecond = 11.0
+	#Old setting, now in awakened-balance-server.toml.
+	# Default: 1.5
+	# Range: 0.0 ~ 60.0
+	regenDelaySeconds = 1.5
+
+[abilities]
+	#Old setting, now in awakened-balance-server.toml.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	damageMultiplier = 1.0
+	#Old setting, now in awakened-balance-server.toml.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	staminaMultiplier = 1.0
+	#Old setting, now in awakened-balance-server.toml.
+	additiveDamageStacking = true
+	#Old setting, now in awakened-balance-server.toml.
+	damageOverrides = []
+	#Old setting, now in awakened-balance-server.toml.
+	staminaOverrides = []
+
+[nuclear]
+	#Seconds before a Nuclear player's Overheat can explode again. 0 = no cooldown.
+	# Default: 60.0
+	# Range: 0.0 ~ 3600.0
+	overheatCooldownSeconds = 60.0
+
+[gameplay]
+	#What happens to blocks an ability breaks. RESTORE: they come back. PERMANENT: they stay broken. OFF: nothing breaks. Nuclear's Excavate ignores this.
+	#Allowed Values: RESTORE, PERMANENT, OFF
+	blockBreaking = "RESTORE"
+	#Old setting, replaced by gameplay.blockBreaking.
+	allowTerrainDamage = false
+	#Old setting, replaced by gameplay.blockBreaking.
+	ruinVisualOnlyTerrain = false
+
+[bosses]
+	#Bosses ignore hits from far away.
+	rangeImmunity = true
+	#Bosses take limited damage from one hit.
+	damageCap = true
+	#Bosses break the blocks around them when their target hides. Also needs the mobGriefing gamerule.
+	blockBreaking = false
+	#Bosses play a death scene before dropping loot.
+	deathCinematics = true
+	#Players hear a warning ping before a boss attack hits them.
+	dangerCloseCue = true
+	#Multiplier on the Arbiter's damage.
+	# Default: 1.0
+	# Range: 0.0 ~ 10.0
+	arbiterDamageScale = 1.0
+	#Health of each Leviathan cannon.
+	# Default: 110.0
+	# Range: 10.0 ~ 2000.0
+	leviathanCannonHp = 110.0
+	#Share of cannon damage that also hurts the Leviathan.
+	# Default: 0.5
+	# Range: 0.0 ~ 1.0
+	leviathanCannonBleed = 0.5
+
+[teams]
+	#Players can make teams.
+	enabled = true
+	#New teams start with friendly fire on.
+	friendlyFireDefault = false
+	#Most players on one team, leader included.
+	# Default: 8
+	# Range: 2 ~ 100
+	maxMembers = 8
+	#Seconds a team invite lasts.
+	# Default: 60
+	# Range: 5 ~ 3600
+	inviteTimeoutSeconds = 60
+
+[community]
+	#Show a 'join our Discord' message in chat on login.
+	discordAdvert = true
+	#Discord invite link for the message.
+	discordInviteUrl = "https://discord.gg/nmfnB8z9Ve"
+	#Hours before the same player sees the message again.
+	# Default: 48.0
+	# Range: 0.0 ~ 100000.0
+	discordAdvertCooldownHours = 48.0

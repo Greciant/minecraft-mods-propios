@@ -1,0 +1,69 @@
+[catalyst]
+	#Players can use the Catalyst.
+	enabled = true
+	#Players can use the Focused, Honed, Refined, Precise and Perfect Catalysts.
+	focusedEnabled = true
+	#Multiplier on Catalysts from chests, boss drops and powered NPCs. 0 = none.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	dropMultiplier = 1.0
+	#Experience levels the Catalyst costs. 0 = free.
+	# Default: 0
+	# Range: 0 ~ 1000
+	xpCost = 0
+	#Seconds a player waits between Catalyst uses. 0 = no wait.
+	# Default: 0
+	# Range: 0 ~ 86400
+	cooldownSeconds = 0
+	#Players keep each power's mastery and Trial progress when they switch powers.
+	bankProgress = true
+
+	[catalyst.focused]
+		#Powers a player picks for the Focused Catalyst before it rolls one of them.
+		# Default: 12
+		# Range: 1 ~ 256
+		picks = 12
+		#Experience levels the Focused Catalyst costs. 0 = free.
+		# Default: 0
+		# Range: 0 ~ 1000
+		xpCost = 0
+
+	[catalyst.honed]
+		#Powers a player picks for the Honed Catalyst before it rolls one of them.
+		# Default: 8
+		# Range: 1 ~ 256
+		picks = 8
+		#Experience levels the Honed Catalyst costs. 0 = free.
+		# Default: 0
+		# Range: 0 ~ 1000
+		xpCost = 0
+
+	[catalyst.refined]
+		#Powers a player picks for the Refined Catalyst before it rolls one of them.
+		# Default: 5
+		# Range: 1 ~ 256
+		picks = 5
+		#Experience levels the Refined Catalyst costs. 0 = free.
+		# Default: 0
+		# Range: 0 ~ 1000
+		xpCost = 0
+
+	[catalyst.precise]
+		#Powers a player picks for the Precise Catalyst before it rolls one of them.
+		# Default: 3
+		# Range: 1 ~ 256
+		picks = 3
+		#Experience levels the Precise Catalyst costs. 0 = free.
+		# Default: 0
+		# Range: 0 ~ 1000
+		xpCost = 0
+
+	[catalyst.perfect]
+		#Powers a player picks for the Perfect Catalyst before it rolls one of them.
+		# Default: 1
+		# Range: 1 ~ 256
+		picks = 1
+		#Experience levels the Perfect Catalyst costs. 0 = free.
+		# Default: 0
+		# Range: 0 ~ 1000
+		xpCost = 0

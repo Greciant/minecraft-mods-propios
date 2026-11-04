@@ -1,0 +1,295 @@
+[input]
+	#Slot keys activate the ability as well as select it.
+	quickKeyMode = false
+	#Hold Activate to open the ability wheel and release to fire the chosen slot.
+	abilityWheel = false
+
+[fx]
+	#Camera shake from boss impacts and big ability hits.
+	screenShake = true
+	#Camera shake strength. 0 = off, 1 = default, 2 = double.
+	# Default: 1.0
+	# Range: 0.0 ~ 2.0
+	screenShakeIntensity = 1.0
+	#How the Infinite Void intro plays when one catches you: FULL, SHORT or NO_CAMERA (your own view).
+	#Allowed Values: FULL, SHORT, NO_CAMERA
+	voidIntro = "FULL"
+	#Play the spinner animation on a Catalyst roll. Off = instant reveal.
+	catalystSpinner = true
+	#Play note-block boss themes. Off = vanilla music.
+	bossNoteMusic = true
+	#Play the Brawler combo sounds only you hear.
+	brawlerComboSounds = true
+	#Show the Spider-Sense screen ripple and sound when a threat targets you.
+	spiderSense = true
+	#Show your own Reaper aura in first person. Affects only your view.
+	reaperAuraSelfFirstPerson = true
+	#Show your own Reaper aura in third person. Affects only your view.
+	reaperAuraSelfThirdPerson = true
+
+[hud]
+	#Show only the slot number above the ability tray, not the ability name.
+	abilityNumberOnly = false
+	#Hide the stamina bar while it is full.
+	hideStaminaWhenFull = false
+	#Hide the ability tray and show only the current ability's icon beside the hotbar.
+	iconsOff = false
+	#In the HUD layout editor, moving one part of a multi-part element moves the rest too.
+	moveTogether = true
+	#Show the stamina bar (with a power's resource bar under it) on your HUD.
+	powerHud = true
+	#Whether you have moved the stamina bar (with a power's resource bar under it). False = default spot; the settings below are ignored.
+	powerHudPlaced = false
+	#Which point of the stamina bar (with a power's resource bar under it)'s box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	powerHudAnchor = "TOP_LEFT"
+	#Horizontal position of the stamina bar (with a power's resource bar under it), as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	powerHudX = 0.0
+	#Vertical position of the stamina bar (with a power's resource bar under it), as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	powerHudY = 0.0
+	#Show the ability tray and the ability's name above it on your HUD.
+	abilityHud = true
+	#Whether you have moved the ability tray and the ability's name above it. False = default spot; the settings below are ignored.
+	abilityHudPlaced = false
+	#Which point of the ability tray and the ability's name above it's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	abilityHudAnchor = "TOP_LEFT"
+	#Horizontal position of the ability tray and the ability's name above it, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	abilityHudX = 0.0
+	#Vertical position of the ability tray and the ability's name above it, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	abilityHudY = 0.0
+	#Show the selected ability's icon beside the hotbar (shown while the ability tray is off) on your HUD.
+	abilityIcon = true
+	#Whether you have moved the selected ability's icon beside the hotbar (shown while the ability tray is off). False = default spot; the settings below are ignored.
+	abilityIconPlaced = false
+	#Which point of the selected ability's icon beside the hotbar (shown while the ability tray is off)'s box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	abilityIconAnchor = "TOP_LEFT"
+	#Horizontal position of the selected ability's icon beside the hotbar (shown while the ability tray is off), as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	abilityIconX = 0.0
+	#Vertical position of the selected ability's icon beside the hotbar (shown while the ability tray is off), as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	abilityIconY = 0.0
+	#Show the tall power gauge on the right edge on your HUD.
+	resourceGauge = true
+	#Whether you have moved the tall power gauge on the right edge. False = default spot; the settings below are ignored.
+	resourceGaugePlaced = false
+	#Which point of the tall power gauge on the right edge's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	resourceGaugeAnchor = "TOP_LEFT"
+	#Horizontal position of the tall power gauge on the right edge, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	resourceGaugeX = 0.0
+	#Vertical position of the tall power gauge on the right edge, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	resourceGaugeY = 0.0
+	#Show the pinned-quest tracker on your HUD.
+	questTracker = true
+	#Whether you have moved the pinned-quest tracker. False = default spot; the settings below are ignored.
+	questTrackerPlaced = true
+	#Which point of the pinned-quest tracker's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	questTrackerAnchor = "TOP_LEFT"
+	#Horizontal position of the pinned-quest tracker, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	questTrackerX = 0.0
+	#Vertical position of the pinned-quest tracker, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	questTrackerY = 0.0
+	#Show the Gamma rage meter on your HUD.
+	gammaRage = true
+	#Whether you have moved the Gamma rage meter. False = default spot; the settings below are ignored.
+	gammaRagePlaced = false
+	#Which point of the Gamma rage meter's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	gammaRageAnchor = "TOP_LEFT"
+	#Horizontal position of the Gamma rage meter, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	gammaRageX = 0.0
+	#Vertical position of the Gamma rage meter, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	gammaRageY = 0.0
+	#Show the Brawler combo counter on your HUD.
+	brawlerCombo = true
+	#Whether you have moved the Brawler combo counter. False = default spot; the settings below are ignored.
+	brawlerComboPlaced = false
+	#Which point of the Brawler combo counter's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	brawlerComboAnchor = "TOP_LEFT"
+	#Horizontal position of the Brawler combo counter, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	brawlerComboX = 0.0
+	#Vertical position of the Brawler combo counter, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	brawlerComboY = 0.0
+	#Show the Shadow darkness gauge on your HUD.
+	shadowDarkness = true
+	#Whether you have moved the Shadow darkness gauge. False = default spot; the settings below are ignored.
+	shadowDarknessPlaced = false
+	#Which point of the Shadow darkness gauge's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	shadowDarknessAnchor = "TOP_LEFT"
+	#Horizontal position of the Shadow darkness gauge, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	shadowDarknessX = 0.0
+	#Vertical position of the Shadow darkness gauge, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	shadowDarknessY = 0.0
+	#Show the Summoning active-soul chip on your HUD.
+	soulChip = true
+	#Whether you have moved the Summoning active-soul chip. False = default spot; the settings below are ignored.
+	soulChipPlaced = false
+	#Which point of the Summoning active-soul chip's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	soulChipAnchor = "TOP_LEFT"
+	#Horizontal position of the Summoning active-soul chip, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	soulChipX = 0.0
+	#Vertical position of the Summoning active-soul chip, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	soulChipY = 0.0
+	#Show the Summoning army roster on your HUD.
+	soulRoster = true
+	#Whether you have moved the Summoning army roster. False = default spot; the settings below are ignored.
+	soulRosterPlaced = false
+	#Which point of the Summoning army roster's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	soulRosterAnchor = "TOP_LEFT"
+	#Horizontal position of the Summoning army roster, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	soulRosterX = 0.0
+	#Vertical position of the Summoning army roster, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	soulRosterY = 0.0
+	#Show the Spider loaded-web chip on your HUD.
+	spiderWeb = true
+	#Whether you have moved the Spider loaded-web chip. False = default spot; the settings below are ignored.
+	spiderWebPlaced = false
+	#Which point of the Spider loaded-web chip's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	spiderWebAnchor = "TOP_LEFT"
+	#Horizontal position of the Spider loaded-web chip, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	spiderWebX = 0.0
+	#Vertical position of the Spider loaded-web chip, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	spiderWebY = 0.0
+	#Show the Sentinel's absorbed-power arsenal readout on your HUD.
+	sentinelArsenal = true
+	#Whether you have moved the Sentinel's absorbed-power arsenal readout. False = default spot; the settings below are ignored.
+	sentinelArsenalPlaced = false
+	#Which point of the Sentinel's absorbed-power arsenal readout's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	sentinelArsenalAnchor = "TOP_LEFT"
+	#Horizontal position of the Sentinel's absorbed-power arsenal readout, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	sentinelArsenalX = 0.0
+	#Vertical position of the Sentinel's absorbed-power arsenal readout, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	sentinelArsenalY = 0.0
+	#Show the jump-charge bar shown while possessing a horse on your HUD.
+	possessJump = true
+	#Whether you have moved the jump-charge bar shown while possessing a horse. False = default spot; the settings below are ignored.
+	possessJumpPlaced = false
+	#Which point of the jump-charge bar shown while possessing a horse's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	possessJumpAnchor = "TOP_LEFT"
+	#Horizontal position of the jump-charge bar shown while possessing a horse, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	possessJumpX = 0.0
+	#Vertical position of the jump-charge bar shown while possessing a horse, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	possessJumpY = 0.0
+	#Show the Stone Mech controls box shown while piloting on your HUD.
+	stoneMechControls = true
+	#Whether you have moved the Stone Mech controls box shown while piloting. False = default spot; the settings below are ignored.
+	stoneMechControlsPlaced = false
+	#Which point of the Stone Mech controls box shown while piloting's box the position refers to.
+	#Allowed Values: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
+	stoneMechControlsAnchor = "TOP_LEFT"
+	#Horizontal position of the Stone Mech controls box shown while piloting, as a fraction of screen width (0 = left, 1 = right).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	stoneMechControlsX = 0.0
+	#Vertical position of the Stone Mech controls box shown while piloting, as a fraction of screen height (0 = top, 1 = bottom).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	stoneMechControlsY = 0.0
+	#Show the controls reminder in chat when you join a world. Also set by /awakened controlshint.
+	awakenControlsChat = true
+
+[exosavant]
+	#Show the Exosavant visor status cluster.
+	hudStatusCluster = true
+	#Show the Exosavant visor target panel while a foe is locked.
+	hudTargetDossier = true
+	#Show the Exosavant visor flight instruments, horizon and speed streaks while flying.
+	hudFlightInstruments = true
+	#Screen corner for the Exosavant status cluster.
+	#Allowed Values: TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+	hudStatusClusterCorner = "TOP_LEFT"
+	#Screen corner for the Exosavant target panel.
+	#Allowed Values: TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+	hudTargetDossierCorner = "BOTTOM_RIGHT"
+	#Screen corner for the Exosavant flight instruments.
+	#Allowed Values: TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+	hudFlightInstrumentsCorner = "TOP_RIGHT"
+	#Internal: times the Exosavant flight tip has been shown. Set to 0 to see it again.
+	# Default: 0
+	# Range: 0 ~ 99
+	flightHintsShown = 0
+
+[aero]
+	#Internal: whether the Aerokinetic flight tip has been shown. Set to false to see it again.
+	flightHintShown = false
+
+[velocity]
+	#Internal: times the Velocity gear tip has been shown. Set to 0 to see it again.
+	# Default: 0
+	# Range: 0 ~ 99
+	gearHintsShown = 0
+
+[pyrokinetic]
+	#Internal: whether the Pyrokinetic overdrive tip has been shown. Set to false to see it again.
+	overdriveHintShown = true
+	#Internal: whether the Pyrokinetic blue fire tip has been shown. Set to false to see it again.
+	blueHintShown = true
+
+[command]
+	#Internal: whether the Command first-rule tip has been shown. Set to false to see it again.
+	rulesHintShown = true
+
+[contest]
+	#Show the Mod of the Year nomination reminder (ends November 9, 2026).
+	nominationReminder = true

@@ -1,0 +1,137 @@
+#Visual effects, camera and sound.
+[effects]
+	#Particle density and crack detail. Also scaled by the vanilla Particles setting.
+	#Allowed Values: LOW, MEDIUM, HIGH
+	vfxQuality = "HIGH"
+	#Camera shake intensity multiplier (0 disables).
+	# Default: 1.0
+	# Range: 0.0 ~ 2.0
+	cameraShake = 1.0
+	#Camera roll during huge area tremors (e.g. Shima Yurashi).
+	cameraRoll = true
+	#Short FOV kick on big impacts.
+	fovPunch = true
+	#Subtle white flash at the screen edges on big impacts.
+	screenFlash = true
+	#Stack pitched vanilla sound layers on top of each signature sound. Disable after installing custom .ogg sounds.
+	layeredSounds = true
+	#Animate the first-person arms during abilities.
+	firstPersonAnimations = true
+	#Physics structures (Sable): camera shake when the structure you stand on is struck (0 disables).
+	# Default: 1.0
+	# Range: 0.0 ~ 2.0
+	structureShake = 1.0
+	#Physics structures (Sable): most marks (cracks, scorches, lightning scars) kept on one structure.
+	# Default: 24
+	# Range: 0 ~ 256
+	structureDecals = 24
+	#Physics structures (Sable): dust drifting past the screen edges when your structure takes a heavy hit.
+	structureEdgeDust = true
+
+#Heads-up display.
+[hud]
+	#Show the ability bar (toggle in game with V).
+	showAbilityBar = true
+	#Hide the whole Devil Fruits interface: ability bar, energy, form, Haki, Logia and charge indicators (toggle in game with F7).
+	hideHud = false
+	#The fruit is switched off: techniques, transformations and the Logia keys do nothing, so nothing is cast by accident (toggle in game with O).
+	fruitLocked = true
+	#Ability bar position. AUTO uses the space right of the hotbar and falls back to the right screen edge.
+	#Allowed Values: AUTO, RIGHT_OF_HOTBAR, LEFT_OF_HOTBAR, RIGHT_EDGE, LEFT_EDGE
+	hudAnchor = "AUTO"
+	#Horizontal offset of the ability bar in GUI pixels.
+	# Default: 0
+	# Range: -1000 ~ 1000
+	hudOffsetX = 0
+	#Vertical offset of the ability bar in GUI pixels.
+	# Default: 0
+	# Range: -1000 ~ 1000
+	hudOffsetY = 0
+	#Show the energy value next to the energy bar.
+	showEnergyText = true
+
+#Logia bodies (every Logia fruit).
+[logia]
+	#Elemental body key: TOGGLE (press to switch) or HOLD (element while held).
+	#Allowed Values: TOGGLE, HOLD
+	elementalKeyMode = "TOGGLE"
+	#Dissolving bodies: LOW (whole limbs, no hit holes), MEDIUM (4-step dither, holes) or HIGH (8-step dither, holes, element-coloured edges).
+	#Allowed Values: LOW, MEDIUM, HIGH
+	bodyQuality = "HIGH"
+	#Dissolved Logia bodies shed their element (crumbling limbs, the swirl and trail of an elemental body). A solid body never sheds.
+	shedding = true
+
+#Cinematic layer of showcase techniques (bloom, distortion, hi-fi sprites, camera direction). See docs/VFX_AAA.md.
+[vfx]
+	#ULTRA: everything. HIGH: no screen distortion, lighter bloom. MEDIUM: additive sprites only, no post-processing. LOW: the simple vanilla-particle effects, no shaders. A shader pack (Iris) forces LOW.
+	#Allowed Values: ULTRA, HIGH, MEDIUM, LOW
+	quality = "ULTRA"
+	#Photosensitivity: halves flashes, chromatic aberration and zoom blur and drops per-hit flashes. Flashes are always capped and never repeat faster than 3 times a second.
+	reduceFlashing = false
+	#Glow intensity of fire and lightning (0 disables bloom).
+	# Default: 1.0
+	# Range: 0.0 ~ 2.0
+	bloomStrength = 1.0
+	#Most hi-fi particles alive at once.
+	# Default: 3000
+	# Range: 256 ~ 16384
+	maxParticles = 3000
+	#Most ribbon trail points alive at once.
+	# Default: 1024
+	# Range: 64 ~ 8192
+	maxRibbonPoints = 1024
+	#Most shader meshes (rings, cones, spirals) drawn per frame.
+	# Default: 64
+	# Range: 8 ~ 512
+	maxMeshes = 64
+	#While effects pile up and frames take longer than 40 ms, render the glow buffer at a quarter of the resolution, shorten the bloom chain and spawn fewer particles; back to full once frames are under 28 ms.
+	adaptiveLoad = true
+
+#Over-the-shoulder camera: the 4th F5 state (first person > back > front > shoulder). The camera looks exactly where the player looks, so the crosshair stays in the screen centre.
+[shoulderCamera]
+	#Add the shoulder state to F5. Off: F5 cycles the three vanilla states.
+	enabled = true
+	#Distance behind the eyes in blocks.
+	# Default: 3.2
+	# Range: 1.0 ~ 8.0
+	distance = 3.2
+	#Sideways offset in blocks (positive = towards the chosen shoulder).
+	# Default: 0.65
+	# Range: -2.0 ~ 2.0
+	horizontalOffset = 0.65
+	#Height above the eyes in blocks.
+	# Default: 0.15
+	# Range: -2.0 ~ 2.0
+	verticalOffset = 0.15
+	#Shoulder side (swap in game with the "Swap shoulder side" key).
+	#Allowed Values: RIGHT, LEFT
+	side = "RIGHT"
+	#Ticks a change of state, side, pose or form takes to blend (0 = instant).
+	# Default: 4
+	# Range: 0 ~ 20
+	smoothingTicks = 4
+	#Pull the camera in front of blocks instead of into them.
+	collision = true
+	#Scale the offsets with the player's size (big forms keep their framing).
+	scaleWithEntity = true
+	#Field of view multiplier in the shoulder state.
+	# Default: 1.0
+	# Range: 0.5 ~ 1.5
+	fovMultiplier = 1.0
+	#Techniques aim at what the crosshair points at (the client sends that point; the server checks it). Vanilla attacks stay vanilla.
+	aimFromCrosshair = true
+	#Hide your own model while the camera is pulled closer than this to the eyes (x size).
+	# Default: 0.6
+	# Range: 0.0 ~ 3.0
+	hideModelBelowDistance = 0.6
+	#Per-form framing replacing distance, horizontalOffset, verticalOffset: "<form>=<distance>,<horizontal>,<vertical>" (form name such as hybrid, or its full id). Forms with their own camera (the Azure Dragon) never use the shoulder state.
+	formOverrides = ["hybrid=2.6,0.75,0.1"]
+
+#Stretched limbs (Gomu Gomu no Mi), drawn with the player's own skin. See docs/GOMU_LIMBS.md.
+[limbs]
+	#Keep drawing armour where a stretched limb's own part would be (it does not stretch with the limb).
+	showArmorOnStretch = false
+	#Most stretched limbs drawn at once, everyone's together (the oldest give way); halved below HIGH cinematic quality. A swarm (the Gatling's punches and afterimages) has its own budget, three times this.
+	# Default: 12
+	# Range: 2 ~ 64
+	maxLimbs = 12

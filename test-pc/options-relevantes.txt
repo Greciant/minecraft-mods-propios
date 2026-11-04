@@ -1,0 +1,3 @@
+graphicsMode:0
+particles:2
+renderDistance:12

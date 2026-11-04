@@ -1,0 +1,19 @@
+#Rendering of the Uo Uo no Mi, Model: Seiryu.
+[rendering]
+	#Human form: draw the horn bumps, rope belt and spiked wristbands over the player skin.
+	humanOverlay = true
+	#Human form: faint glow in the eyes.
+	humanEyeGlow = true
+	#Azure Dragon body detail: AUTO follows vfxQuality (LOW 32 / MEDIUM 48 / HIGH 64 segments per 60 blocks of body).
+	#Allowed Values: AUTO, LOW, MEDIUM, HIGH
+	dragonDetail = "AUTO"
+	#Blue / gold sparks drifting around the Hybrid and the Dragon.
+	formSparks = true
+	#Hybrid techniques: a "HIT n" counter with the damage dealt at the left of the screen while blows land.
+	hitCounter = false
+
+#Controls of the Seiryu forms.
+[controls]
+	#Hybrid form: cast its eight techniques straight from the direct slot keys (default C X Z B T R E F, rebindable in
+	#Controls) instead of selecting them on the bar. Those keys then do nothing else in the Hybrid form (E inventory, T chat, F swap hands ...).
+	hybridDirectKeys = false

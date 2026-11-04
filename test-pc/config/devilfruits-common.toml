@@ -1,0 +1,225 @@
+#Devil Fruit rules (anime-faithful defaults).
+[fruit]
+	#Each Devil Fruit exists only once per world: a casket cannot roll it while it is held, carried or eaten.
+	onePerWorld = false
+	#When a user dies the power is lost and the fruit reincarnates. If false the power survives death.
+	loseOnDeath = true
+	#Where a reincarnated fruit appears: NEARBY_CHEST (random container near the death spot, falls back to DROP), DROP (at the death spot) or LOOT_POOL (free again: a casket may roll it).
+	#Allowed Values: NEARBY_CHEST, DROP, LOOT_POOL
+	reincarnationMode = "NEARBY_CHEST"
+	#Search radius in blocks for NEARBY_CHEST reincarnation.
+	# Default: 64
+	# Range: 8 ~ 256
+	reincarnationRadius = 64
+	#Keep mastery level/XP when the power is lost (so re-eating the same fruit restores it).
+	keepMasteryOnLoss = true
+	#Eating a second Devil Fruit (any item in #devilfruits:devil_fruits) kills the eater.
+	secondFruitKills = true
+	#Multiplier applied to the chances in data/devilfruits/loot_modifiers/*.json.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	lootChanceMultiplier = 1.0
+
+#Devil Fruit Caskets: dungeon chests hold caskets, a Golden Key in the off hand opens one and only then a fruit is rolled.
+#A fruit's rarity is its own gacha tier (each fruit file: [fruit] gachaTier), never the chest it came from.
+[gacha]
+	#Dungeon chests may contain Devil Fruit Caskets.
+	casketLoot = true
+	#Chance of a casket per chest, "<loot table>=<chance>" (x lootChanceMultiplier). Common dungeons are low,
+	#rare dungeons higher; archaeology tables replace the brushed item. Tables not listed use the chance in
+	#data/devilfruits/loot_modifiers/casket_in_*.json.
+	tableChances = ["minecraft:chests/shipwreck_treasure=0.04", "minecraft:chests/buried_treasure=0.06", "minecraft:chests/desert_pyramid=0.04", "minecraft:chests/jungle_temple=0.05", "minecraft:chests/simple_dungeon=0.04", "minecraft:chests/pillager_outpost=0.04", "minecraft:chests/abandoned_mineshaft=0.02", "minecraft:chests/stronghold_library=0.12", "minecraft:chests/woodland_mansion=0.15", "minecraft:chests/trial_chambers/reward=0.06", "minecraft:chests/trial_chambers/reward_ominous=0.12", "minecraft:chests/ancient_city=0.1", "minecraft:chests/bastion_treasure=0.15", "minecraft:chests/end_city_treasure=0.1", "minecraft:chests/nether_bridge=0.06", "minecraft:archaeology/desert_well=0.03", "minecraft:archaeology/desert_pyramid=0.02"]
+	#Seconds the use key is held to unlock a casket.
+	# Default: 2.5
+	# Range: 0.5 ~ 10.0
+	openSeconds = 2.5
+	#Seconds of the reveal before the fruit lands in the inventory.
+	# Default: 3.0
+	# Range: 0.5 ~ 10.0
+	revealSeconds = 3.0
+	#Opening a casket uses up the Golden Key.
+	keyConsumed = true
+	#From which tier on everybody reads "X opened a casket and found Y" in chat (NONE: never).
+	#Allowed Values: NONE, LEGENDARY, RARE, UNCOMMON, COMMON
+	announceFromTier = "LEGENDARY"
+	#The reveal plays as a cinematic (light, rings, camera; each client's VFX quality still applies).
+	#Off: every client plays the simple vanilla-particle reveal.
+	cinematic = true
+
+	#Weights of the tiers when a casket opens; tiers without a free fruit are skipped and the rest renormalised.
+	[gacha.tierWeights]
+		# Default: 2
+		# Range: 0 ~ 10000
+		legendary = 2
+		# Default: 8
+		# Range: 0 ~ 10000
+		rare = 8
+		# Default: 25
+		# Range: 0 ~ 10000
+		uncommon = 25
+		# Default: 65
+		# Range: 0 ~ 10000
+		common = 65
+
+#Devil Fruit weaknesses.
+[weakness]
+	#Submerged deeper than one block: Slowness, Weakness, sinking and no abilities.
+	waterWeakness = true
+	#Downward speed (blocks/tick) forced on a submerged user.
+	# Default: 0.08
+	# Range: 0.0 ~ 1.0
+	sinkSpeed = 0.08
+	#Holding seastone (#devilfruits:seastone items) or standing on seastone blocks suppresses the powers like deep water.
+	seastoneWeakness = true
+
+#Forms (Zoan transformations and other alternate forms).
+[forms]
+	#Return to the base form on death.
+	revertOnDeath = true
+	#Return to the base form when the powers are suppressed (deep water, seastone).
+	revertInWater = true
+	#Return to the base form when a form's energy drain empties the energy bar.
+	revertOnDepletion = true
+
+#Energy (amounts and regeneration are set per fruit).
+[energy]
+	#Seconds after dealing/taking damage or casting during which the user counts as in combat.
+	# Default: 6
+	# Range: 0 ~ 600
+	combatSeconds = 6
+	#Creative-mode players do not consume energy (cooldowns still apply).
+	creativeFreeEnergy = true
+
+#Mastery (levels 1-10).
+[mastery]
+	#Multiplier for all mastery XP gains (each fruit has its own multiplier on top).
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	xpMultiplier = 1.0
+	#Mastery XP per entity hit by an ability.
+	# Default: 2.0
+	# Range: 0.0 ~ 1000.0
+	xpPerHit = 2.0
+	#XP needed to go from level N to N+1 (9 entries for levels 1->10).
+	xpCurve = [100, 180, 300, 450, 650, 900, 1200, 1600, 2100]
+	#Damage bonus per mastery level above 1 (0.12 = +12%).
+	# Default: 0.12
+	# Range: 0.0 ~ 10.0
+	damagePerLevel = 0.12
+	#Radius/reach bonus per mastery level above 1.
+	# Default: 0.06
+	# Range: 0.0 ~ 10.0
+	rangePerLevel = 0.06
+	#Cooldown reduction per mastery level above 1 (0.03 = -3%).
+	# Default: 0.03
+	# Range: 0.0 ~ 0.1
+	cooldownReductionPerLevel = 0.03
+
+#Terrain interaction.
+[world]
+	#Abilities may tear out / shatter blocks.
+	blockDestruction = true
+	#Also require the mobGriefing game rule for block destruction.
+	respectMobGriefing = true
+	#TEMPORARY: torn-out blocks fly as debris and the terrain heals after restoreDelaySeconds. PERMANENT: blocks are destroyed.
+	#Allowed Values: TEMPORARY, PERMANENT
+	debrisMode = "TEMPORARY"
+	#Seconds before TEMPORARY terrain damage heals (staggered per block).
+	# Default: 12
+	# Range: 1 ~ 3600
+	restoreDelaySeconds = 12
+	#Upper bound of blocks affected by a single cast.
+	# Default: 160
+	# Range: 0 ~ 4096
+	maxBlocksPerCast = 160
+	#Upper bound of flying debris entities spawned by a single cast (the rest only produces particles).
+	# Default: 40
+	# Range: 0 ~ 512
+	maxDebrisEntitiesPerCast = 40
+	#Blocks harder than this are never affected by block changes that have no rule of their own (stone = 1.5, obsidian = 50). Block-breaking techniques ignore it: they break everything but #devilfruits:resists_techniques.
+	# Default: 6.0
+	# Range: 0.0 ~ 100.0
+	maxBlockHardness = 6.0
+	#PERMANENT mode only: destroyed blocks drop as items.
+	dropBlocks = false
+
+#Combat.
+[combat]
+	#Abilities can hurt other players (still subject to the server PvP setting and teams).
+	affectPlayers = true
+	#Multiplier for all ability damage.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	globalDamageMultiplier = 1.0
+
+#Logia fruits: the body is the element. A fruit's own file can override rules per element and tunes its counters.
+[logia]
+	#Logia bodies let hits pass through (off = Logia users are hit like anybody).
+	intangibility = true
+	#Damage factor of hits a Logia body only softens (rule PARTIAL).
+	# Default: 0.5
+	# Range: 0.0 ~ 1.0
+	partialFactor = 0.5
+	#Optional balancing: energy each negated hit costs. 0 (default) = intangibility is free, like in the story;
+	#above 0 an exhausted user is hit.
+	# Default: 0.0
+	# Range: 0.0 ~ 1000.0
+	energyPerNegatedHit = 0.0
+	#Optional balancing: extra energy per point of damage a negated hit would have dealt (0 = free).
+	# Default: 0.0
+	# Range: 0.0 ~ 100.0
+	energyPerNegatedDamage = 0.0
+	#Weapons in #devilfruits:seastone_weapon hit a Logia body.
+	seastoneWeaponsBypass = true
+	#Attackers under the Armament Coating effect hit a Logia body.
+	armamentBypass = true
+	#Damage type ids that always hit a Logia body (besides the tag #devilfruits:logia_bypass).
+	bypassDamageTypes = []
+	#Ticks an elemental body takes to reform.
+	# Default: 8
+	# Range: 0 ~ 100
+	reformTicks = 8
+	#Elemental dash: longest relocation in blocks.
+	# Default: 8.0
+	# Range: 1.0 ~ 64.0
+	dashRange = 8.0
+	#Elemental dash: cooldown in ticks.
+	# Default: 40
+	# Range: 0 ~ 1200
+	dashCooldownTicks = 40
+	#Elemental dash: energy cost.
+	# Default: 10.0
+	# Range: 0.0 ~ 1000.0
+	dashEnergy = 10.0
+	#Elemental dash: average speed of the flowing body in blocks per tick (the body really travels the way).
+	# Default: 1.0
+	# Range: 0.3 ~ 4.0
+	dashSpeed = 1.0
+
+	#What a Logia body does with each kind of harm: PASS (goes through), PARTIAL (softened), CONNECT (hits).
+	#Damage that bypasses invulnerability, the void, the border, starvation, suffocation, cramming and drowning always connect.
+	[logia.rules]
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		melee = "PASS"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		projectile = "PASS"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		explosion = "PASS"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		fall = "PASS"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		fire = "PARTIAL"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		lightning = "PARTIAL"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		freeze = "PARTIAL"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		magic = "CONNECT"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		ability = "PARTIAL"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		water = "CONNECT"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		environment = "PASS"
+		#Allowed Values: PASS, PARTIAL, CONNECT
+		other = "CONNECT"

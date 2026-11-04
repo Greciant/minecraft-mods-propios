@@ -1,0 +1,29 @@
+[stamina]
+	#Base maximum stamina.
+	# Default: 100.0
+	# Range: 1.0 ~ 10000.0
+	max = 100.0
+	#Base stamina regained per second.
+	# Default: 11.0
+	# Range: 0.0 ~ 10000.0
+	regenPerSecond = 11.0
+	#Seconds after using stamina before it starts to come back.
+	# Default: 1.5
+	# Range: 0.0 ~ 60.0
+	regenDelaySeconds = 1.5
+
+[abilities]
+	#Multiplier on ability damage, range, radius, speed and duration.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	damageMultiplier = 1.0
+	#Multiplier on ability stamina costs.
+	# Default: 1.0
+	# Range: 0.0 ~ 100.0
+	staminaMultiplier = 1.0
+	#true = damage bonuses add up. false = they multiply.
+	additiveDamageStacking = true
+	#Damage multipliers for single abilities, e.g. "WebShotAbility=1.5". The startup log lists every ability key.
+	damageOverrides = []
+	#Stamina cost multipliers for single abilities, in the same format.
+	staminaOverrides = []
