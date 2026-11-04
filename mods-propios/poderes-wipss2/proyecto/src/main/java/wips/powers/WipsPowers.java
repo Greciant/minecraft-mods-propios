@@ -19,6 +19,9 @@ public final class WipsPowers {
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
         modBus.addListener(WipsPowers::registerPayloads);
+        if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient() && net.neoforged.fml.ModList.get().isLoaded("lodestar_trail")) {
+            wips.powers.client.compat.CompassTrail.register();
+        }
         if (Boolean.getBoolean("wips.audit")) {
             net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e) -> {
                 LOGGER.info("[wipspowers] AUDIT: aplicando todos los mixins");
