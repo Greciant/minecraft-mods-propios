@@ -29,7 +29,10 @@
     "StaminaCharmMixin",
     "PyroFireDamageMixin$Beam",
     "PyroFireDamageMixin$Backdraft",
-    "PyroFireDamageMixin$Ground"
+    "PyroFireDamageMixin$Ground",
+    "MageKitsMixin",
+    "NpcMasteryCapMixin",
+    "AwakenFxMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",

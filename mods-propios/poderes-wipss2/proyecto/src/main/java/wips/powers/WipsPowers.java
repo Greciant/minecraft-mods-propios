@@ -23,6 +23,18 @@ public final class WipsPowers {
             net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e) -> {
                 LOGGER.info("[wipspowers] AUDIT: aplicando todos los mixins");
                 org.spongepowered.asm.mixin.MixinEnvironment.getCurrentEnvironment().audit();
+                var level = e.getServer().overworld();
+                int n = 0;
+                for (var kit : com.awakenedmod.awakened.core.npc.NpcKits.all()) {
+                    var npc = kit.type().get().create(level);
+                    LOGGER.info("[wipspowers] AUDIT mago {} -> {} ({} movimientos)", kit.id(), npc == null ? "NULL" : npc.getName().getString(),
+                            kit.createMoves().size());
+                    n++;
+                }
+                LOGGER.info("[wipspowers] AUDIT magos: {} | maestria max: {}", n, com.awakenedmod.awakened.core.npc.NpcConfig.maxMastery());
+                var hidden = net.minecraft.core.registries.BuiltInRegistries.ITEM.stream().filter(wips.powers.content.ContentFilter::hidden).count();
+                LOGGER.info("[wipspowers] AUDIT items ocultos: {} | sniffer biome modifiers y amuletos: {}", hidden,
+                        wips.powers.item.WipsItems.STAMINA_CHARM_3.getId());
                 LOGGER.info("[wipspowers] AUDIT OK");
                 e.getServer().halt(false);
             });
