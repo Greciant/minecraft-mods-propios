@@ -1,0 +1,69 @@
+# Guion de packtest (10-oct-2026): Spatial GUI 1.5.1 con el INVENTARIO DE CREATIVO, mas Panoptic.
+# Lanzar con -Dpacktest.script=<ruta de este archivo> en la instancia del PC, con
+# spatial_gui-1.5.1-forge1.20.1-port.jar y Panoptic-1.08a-Forge-1.20.1.jar en mods\.
+# Sin ReAnimated (los dos tocan las pantallas de inventario).
+# Spatial GUI 1.5.1 escribe en el log lineas "[diag]": que pantalla engancho, si se dibujo y si
+# otro mod habia cancelado el dibujado antes.
+# Ji AFK Cinematic tiene que estar apagado (ver ports.txt).
+
+gap 40
+hud on
+cmdtry kill @e[type=!player,distance=..40]
+cmdtry clear @s
+waitload 4
+wait 100
+
+cmd give @s minecraft:diamond_sword
+cmd setblock 2 220 0 minecraft:chest[facing=west]
+cmd item replace block 2 220 0 container.0 with minecraft:diamond 5
+tp 0.5 220 0.5
+look 0 15
+view back
+wait 40
+
+echo === Spatial GUI: creativo ===
+# el arnes deja al jugador en creativo; "inventory" abre InventoryScreen y vanilla lo cambia
+# por CreativeModeInventoryScreen, igual que al pulsar E
+inventory
+wait 60
+shot sg-creativo-tercera
+expect_log \[diag\] pantalla enganchada: .*CreativeModeInventoryScreen
+expect_log \[diag\] primer dibujado de .*CreativeModeInventoryScreen
+close
+wait 40
+
+echo === Spatial GUI: supervivencia (control) ===
+cmd gamemode survival
+gap 10
+cmdtry effect give @s minecraft:resistance infinite 4 true
+cmdtry effect give @s minecraft:slow_falling infinite 0 true
+gap 40
+inventory
+wait 60
+shot sg-supervivencia-tercera
+close
+wait 40
+look -90 20
+wait 20
+useat 2 220 0 minecraft:chest
+wait 60
+shot sg-cofre-supervivencia
+close
+cmd gamemode creative
+wait 40
+
+echo === Spatial GUI: cofre en creativo ===
+useat 2 220 0 minecraft:chest
+wait 60
+shot sg-cofre-creativo
+close
+wait 40
+
+echo === Panoptic: menu de pausa ===
+view first
+look 0 15
+pause
+wait 60
+shot panoptic-pausa
+close
+wait 40

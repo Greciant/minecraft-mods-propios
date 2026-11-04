@@ -1,0 +1,10 @@
+{
+  "aura_chad": {
+    "subtitle": "subtitles.aurachad.aura_chad",
+    "sounds": [ { "name": "aurachad:aura_chad", "stream": true } ]
+  },
+  "aura_chad_others": {
+    "subtitle": "subtitles.aurachad.aura_chad",
+    "sounds": [ { "name": "aurachad:aura_chad_mono", "stream": true } ]
+  }
+}

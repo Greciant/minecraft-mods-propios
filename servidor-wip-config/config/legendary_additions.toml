@@ -1,0 +1,95 @@
+
+# Options related to the Meat Rack. It is used to decay rotten meat to leather and then to bone
+[meat-rack]
+	#Range: 1 ~ 100000
+	"Tick Amount Before Leather, 20 ticks = 1s" = 2400
+	#Range: 1 ~ 100000
+	"Tick Amount Before Bone, 20 ticks = 1s" = 2400
+
+# Options related to the Honey Pond. It is used to heal the player and can be refilled with honey bottle
+[honey-pond]
+	#Range: 0 ~ 100000
+	"Max Healing Charges" = 10
+	#Range: 0 ~ 100000
+	"Health Restored Per Use" = 6
+	#Range: 0 ~ 100000
+	"Healing Charges Restored By Honey Bottle" = 5
+
+[obelisk]
+	"Default Obelisk Xp Values In Creative Tab" = [250, 500, 1000, 1500]
+	"Can Obelisk Be Destroyed" = false
+
+# Options related to the Obelisk XP reward.
+[obelisk-xp-reward]
+	#Range: 0 ~ 100000
+	"XP Amount" = 1000
+	#Range: 0 ~ 100
+	"XP Radius" = 20
+
+[mud-trap]
+	#Range: 0 ~ 100
+	"Default Height Of The Mud Trap Poison Gas" = 3
+	#Range: 0 ~ 100
+	"Default Diameter Of The Mud Trap Poison Gas" = 1
+
+[glowing-bulb]
+	# Whether the Glowing Bulb plant is enabled. When false, any existing or newly-generated bulbs break on next tick.
+	"Glowing Bulb Enabled" = true
+
+[death-scroll]
+	# Whether the Death Scroll is enabled or not.
+	# It won't make the item or its recipe disappear, but will prevent the capability management behind the Death Scroll behavior.
+	"Death Scroll Enabled" = true
+
+[f1-hud-cycle]
+	# When enabled, F1 cycles through 3 states: HUD+hand visible, hand only, all hidden.
+	"F1 HUD Cycle Enabled" = true
+
+[player-locator]
+	# Whether the player locator bar is enabled.
+	Enabled = true
+	# If true, the locator bar only shows while Tab is held.
+	"Only On Tab" = false
+	# Server tick interval between locator updates. 20 ticks = 1 second.
+	#Range: 1 ~ 200
+	"Ticks Between Updates" = 10
+	# Players further than this (in blocks) are not shown. 0 = unlimited.
+	#Range: 0 ~ 100000
+	"Max Distance" = 2000
+	# Maximum number of player markers visible at once.
+	#Range: 1 ~ 50
+	"Max Markers" = 8
+
+[spawners]
+
+	[spawners.spider-eggs]
+		#Range: 1 ~ 1000
+		" Horizontal Detection Range Of Spider Eggs In Blocks" = 10
+		#Range: 1 ~ 1000
+		" Y Detection Range Of Spider Eggs" = 4
+
+		[spawners.spider-eggs." Mobs spawning when activated"]
+			" Formatted like 'mob namespace; weight'" = ["minecraft:spider;20"]
+
+[reset-trades]
+	# Whether the reset trade button is enabled or not
+	" Reset Trade Enabled" = true
+	# Amount of item removed at each reset merchant trade
+	#Range: 0 ~ 100000
+	" Reset Trade Item Amount Cost" = 2
+	# Item removed at each reset merchant trade
+	"Reset Trade Item Cost" = "minecraft:emerald"
+	# Horizontal position offset of Reset Trade Button in Merchant Trade Screen
+	#Range: -10000 ~ 10000
+	"Reset Trade Button Offset X" = 0
+	# Vertical position offset of Reset Trade Button in Merchant Trade Screen
+	#Range: -10000 ~ 10000
+	"Reset Trade Button Offset Y" = 0
+
+[integration]
+
+	[integration.legendary-survival-overhaul]
+		# Amount of health restored of the most damaged limb at each honey pond consumption
+		#Range: 0 ~ 10000
+		"Limb Health Restored" = 10
+

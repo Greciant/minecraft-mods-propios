@@ -1,0 +1,12 @@
+build/
+.gradle/
+run/
+run-*/
+*.jar
+*.zip
+*.mp4
+*.mca
+*.log
+*.out
+.idea/
+node_modules/

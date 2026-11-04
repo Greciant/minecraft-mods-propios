@@ -1,0 +1,32 @@
+// Ceniza gris que cae despacio y gira en los deltas de basalto y el valle de almas.
+{
+  "id": "ceniza_nether",
+  "enabled": false,
+  "sprite": "minecraft:generic_3",
+  "render": "lit",
+  "when": {
+    "dimensions": ["minecraft:the_nether"],
+    "biomes": ["minecraft:basalt_deltas", "minecraft:soul_sand_valley"]
+  },
+  "spawn": {
+    "anchor": "player",
+    "range": 18,
+    "height": [2, 10],
+    "density": 1.5,
+    "max": 250
+  },
+  "particle": {
+    "life": [120, 220],
+    "size": [0.04, 0.08],
+    "velocity": { "x": [-0.01, 0.01], "y": [-0.02, -0.01], "z": [-0.01, 0.01] },
+    "drag": 0.0,
+    "wobble": 0.008,
+    "wobble_speed": 0.06,
+    "spin": [-0.05, 0.05],
+    "collide": "die",
+    "color": "#9A9490",
+    "alpha": 0.85,
+    "fade_in": 20,
+    "fade_out": 30
+  }
+}

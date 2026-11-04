@@ -1,0 +1,42 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "wips.powers.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PowerRegistryMixin",
+    "ScalingMixin",
+    "AwakenedPowersMixin",
+    "SeiryuFormMixin",
+    "DenseAbilityMixin",
+    "ScalerShiftMixin",
+    "PowerActivateMixin",
+    "ActiveAbilityMixin",
+    "PyroBurstMixin",
+    "StormStrikeMixin",
+    "ScalerMegaShiftMixin",
+    "ScalingMegaMixin",
+    "ScaleAttributeMaxMixin",
+    "ScalerReachMixin",
+    "ScalerLeapMixin",
+    "ClamberDashMixin",
+    "TerrainVetoMixin",
+    "RuinDiagnosticMixin"
+  ],
+  "client": [
+    "GammaSkinLayerMixin",
+    "BreathMouthMixin",
+    "PlasmaBeamLookMixin",
+    "BreathWidthMixin",
+    "BoloChargeMixin",
+    "MeteorSizeMixin",
+    "DebrisScaleMixin",
+    "FlameCloudSmokeMixin",
+    "IslandShakerLookMixin",
+    "DenseAuraMixin",
+    "VfxShaderTierMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "scaler.giant_step": {
+    "subtitle": "subtitles.wipspowers.scaler.giant_step",
+    "sounds": [
+      {"name": "wipspowers:giant_step1", "attenuation_distance": 48},
+      {"name": "wipspowers:giant_step2", "attenuation_distance": 48},
+      {"name": "wipspowers:giant_step3", "attenuation_distance": 48},
+      {"name": "wipspowers:giant_step4", "attenuation_distance": 48}
+    ]
+  }
+}

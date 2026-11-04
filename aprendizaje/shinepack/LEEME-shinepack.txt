@@ -1,0 +1,122 @@
+EFECTOS PROPIOS DE SHINEPORT (.shinepack)
+==========================================
+
+Con esto se pueden crear efectos de particulas nuevos sin recompilar el mod.
+
+Carpetas (dentro de .minecraft/config/shineport/):
+  packs/      aqui van los archivos .shinepack (puede haber subcarpetas)
+  textures/   aqui van los PNG propios que usen los efectos
+
+La primera vez que arranca, shineport crea estas carpetas y deja 4 ejemplos
+APAGADOS ("enabled": false). Para probar uno, cambialo a true y recarga.
+
+Recargar sin reiniciar el juego:
+  /shineport reload      vuelve a leer todo y muestra en el chat los avisos
+  F3+T                   tambien recarga los efectos
+  /shineport list        lista los efectos, si estan activos y cuantas particulas tienen
+  /shineport on <id>     activa un efecto hasta la proxima recarga
+  /shineport off <id>    lo apaga hasta la proxima recarga
+
+Si un archivo tiene un error, el juego no se cae: el aviso sale en el chat
+(con /shineport reload) y en logs/latest.log, diciendo archivo, efecto y
+campo. Lo que este mal se queda con su valor por defecto. Los campos con un
+nombre desconocido tambien avisan (suele ser una errata). Un campo que
+empiece por "_" se ignora sin avisar (sirve como nota).
+
+Se admiten comentarios // dentro del archivo.
+
+
+FORMATO
+-------
+Un archivo puede tener un efecto suelto { ... }, una lista [ {...}, {...} ]
+o { "effects": [ {...}, {...} ] }.
+
+Numeros con intervalo: donde dice "numero o [min, max]" se puede poner un
+numero fijo (0.05) o un intervalo ([0.03, 0.08]); cada particula sortea su
+valor dentro del intervalo.
+
+Tiempos en ticks (20 ticks = 1 segundo). Distancias en bloques.
+Velocidades en bloques por tick (0.05 = 1 bloque por segundo).
+
+
+CAMPOS DEL EFECTO
+-----------------
+id             nombre unico del efecto (obligatorio). Mejor sin espacios.
+enabled        true / false. Por defecto true.
+
+texture        archivo PNG dentro de config/shineport/textures, p. ej. "copo.png"
+sprite         o una textura de particula del juego o de otro mod, p. ej.
+               "minecraft:glow", "minecraft:flame", "minecraft:spark_5",
+               "minecraft:generic_3", "minecraft:cherry_4", "shineport:pollen"
+               (son los archivos de assets/<mod>/textures/particle/).
+               Hay que poner uno de los dos.
+frames         fotogramas de animacion, apilados en vertical en la textura. Defecto 1.
+frame_time     ticks por fotograma (en bucle). 0 = la animacion dura la vida
+               de la particula, de arriba a abajo. Defecto 0.
+render         "emissive" (brilla igual de dia y de noche, como chispas o
+               esporas) o "lit" (la ilumina el mundo, como ceniza o nieve).
+               Defecto "emissive".
+brightness     brillo del modo emissive, 0..1. Defecto 1.
+double_sided   true para dibujar tambien la cara de atras (si gira). Defecto false.
+
+when { ... }   CUANDO aparece. Todo es opcional; si falta, vale siempre.
+  dimensions       lista de dimensiones: ["minecraft:overworld"], "minecraft:the_nether", "minecraft:the_end"
+  biomes           lista de biomas o tags con #: ["minecraft:plains", "#minecraft:is_forest"]
+  not_biomes       lo mismo, pero donde NO aparece
+  time             "any", "day" o "night". Defecto "any".
+  weather          "any", "clear", "rain" (lluvia o nieve) o "thunder". Defecto "any".
+  min_y / max_y    altura del jugador entre la que funciona
+  min_sky_light / max_sky_light       luz de cielo (0..15) del punto donde nace
+  min_block_light / max_block_light   luz de antorchas etc. (0..15) del punto donde nace
+
+spawn { ... }  DONDE y CUANTAS.
+  anchor       "player": alrededor del jugador (altura relativa a sus pies)
+               "surface": sobre el bloque mas alto de cada columna (para cosas que caen)
+               "block": junto a bloques concretos (ver blocks)
+               Defecto "player".
+  density      particulas nuevas por tick. Con anchor "block" es por tick
+               Y POR BLOQUE encontrado (usa valores pequenos, 0.02-0.1). Defecto 1.
+  max          particulas vivas como maximo de este efecto. Defecto 100.
+  range        radio alrededor del jugador. Defecto 16 (maximo 64, o 24 con "block").
+  height       numero o [min, max]: altura de nacimiento sobre el jugador
+               (player) o sobre el suelo (surface). Defecto [-1, 5] / [0, 3].
+  blocks       con anchor "block": lista de bloques o tags,
+               p. ej. ["minecraft:lantern", "#minecraft:campfires"]
+  scan_height  con anchor "block": cuantos bloques arriba y abajo del jugador
+               se buscan. Defecto 8.
+  offset { x, y, z }   desplazamiento de nacimiento (numero o [min, max]).
+               Con "block" se mide desde el centro-abajo del bloque; por
+               defecto x/z [-0.5, 0.5] e y 0.5.
+  need_air     true = no nace dentro de la parte solida de un bloque (sobre una
+               fogata o una losa si puede nacer). Defecto true.
+
+particle { ... }  COMO es cada particula.
+  life         vida en ticks (numero o [min, max]). Defecto [60, 120].
+  size         radio en bloques (numero o [min, max]). Defecto [0.05, 0.08].
+  size_end     multiplica el tamano al final de la vida (0.3 = encoge, 2 = crece). Defecto 1.
+  velocity { x, y, z }   velocidad inicial (numero o [min, max]). Defecto 0.
+  gravity      cuanto acelera hacia abajo por tick (negativo = sube). Defecto 0.
+  drag         fraccion de velocidad que pierde por tick (0 = nada, 1 = se para). Defecto 0.02.
+  wind         cuanto la arrastra el viento de shineport. Defecto 0.
+  wobble       vaiven: amplitud en bloques por tick. Defecto 0.
+  wobble_speed rapidez del vaiven. Defecto 0.05.
+  spin         giro sobre si misma en radianes por tick (numero o [min, max]). Defecto 0.
+  collide      al tocar un bloque: "die" (se desvanece), "stop" (se queda
+               quieta, como nieve posada) o "none" (lo atraviesa). Defecto "die".
+  color        "#RRGGBB" al nacer. Defecto "#FFFFFF".
+  color_end    "#RRGGBB" al morir (pasa poco a poco). Defecto igual a color.
+  alpha        opacidad maxima 0..1. Defecto 0.8.
+  fade_in      ticks que tarda en aparecer. Defecto 10.
+  fade_out     ticks que tarda en desaparecer al final. Defecto 20.
+  twinkle      parpadeo 0..1 (0 = nada). Defecto 0.
+  twinkle_speed rapidez del parpadeo. Defecto 0.2.
+
+
+LIMITES Y RENDIMIENTO
+---------------------
+En config/shineport-client.toml, seccion [shinepack]:
+  enabled     apaga todos los efectos propios de golpe
+  max_total   tope de particulas sumando todos los efectos (defecto 1500)
+
+Solo se dibujan hasta 64 bloques. Los efectos son solo visuales y solo del
+cliente: no hace falta ponerlos en el servidor.

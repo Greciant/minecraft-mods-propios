@@ -1,0 +1,276 @@
+{
+ "walk_start": 17.91,
+ "total": 21.8,
+ "hits": [
+  {
+   "t": 0.0,
+   "pose": "SHY",
+   "strength": 0.5,
+   "model": {
+    "right_arm": [
+     -0.35,
+     0.55,
+     0.12
+    ],
+    "left_arm": [
+     -0.35,
+     -0.55,
+     -0.12
+    ],
+    "head": [
+     0.4,
+     0.15
+    ],
+    "body": 0.1,
+    "chest": 1.0,
+    "spread": 0,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 3.86,
+   "pose": "UPV",
+   "strength": 0.7,
+   "model": {
+    "right_arm": [
+     -0.1,
+     0.0,
+     2.5
+    ],
+    "left_arm": [
+     -0.1,
+     0.0,
+     -1.8
+    ],
+    "head": [
+     -0.05,
+     0.0
+    ],
+    "body": 0.0,
+    "chest": 1.06,
+    "spread": 0.1,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 4.5,
+   "pose": "DBLTHIN",
+   "strength": 0.8,
+   "model": {
+    "right_arm": [
+     -0.15,
+     0.0,
+     1.75
+    ],
+    "left_arm": [
+     -0.15,
+     0.0,
+     -1.75
+    ],
+    "head": [
+     -0.1,
+     0.0
+    ],
+    "body": -0.05,
+    "chest": 1.0,
+    "spread": 0.22,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 5.13,
+   "pose": "DOUBLE",
+   "strength": 1.5,
+   "model": {
+    "right_arm": [
+     -0.15,
+     0.0,
+     1.75
+    ],
+    "left_arm": [
+     -0.15,
+     0.0,
+     -1.75
+    ],
+    "head": [
+     -0.1,
+     0.0
+    ],
+    "body": -0.05,
+    "chest": 1.12,
+    "spread": 0.22,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 7.69,
+   "pose": "SIDE",
+   "strength": 1.0,
+   "model": {
+    "right_arm": [
+     -0.35,
+     0.55,
+     0.0
+    ],
+    "left_arm": [
+     -0.35,
+     -0.45,
+     0.0
+    ],
+    "head": [
+     0.25,
+     -1.1
+    ],
+    "body": 0.05,
+    "chest": 1.1,
+    "spread": 0.18,
+    "yaw": 65,
+    "walk": 0,
+    "zoom": 0.8
+   }
+  },
+  {
+   "t": 9.93,
+   "pose": "ONEUP",
+   "strength": 1.0,
+   "model": {
+    "right_arm": [
+     -0.2,
+     0.0,
+     1.35
+    ],
+    "left_arm": [
+     0.0,
+     0.0,
+     -2.4
+    ],
+    "head": [
+     -0.1,
+     0.0
+    ],
+    "body": -0.05,
+    "chest": 1.1,
+    "spread": 0.2,
+    "yaw": -15,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 12.81,
+   "pose": "FINGER",
+   "strength": 1.2,
+   "model": {
+    "right_arm": [
+     -0.9,
+     0.0,
+     0.1
+    ],
+    "left_arm": [
+     -0.6,
+     -0.4,
+     -0.2
+    ],
+    "head": [
+     0.0,
+     0.0
+    ],
+    "body": 0.0,
+    "chest": 1.1,
+    "spread": 0.1,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 0.6
+   }
+  },
+  {
+   "t": 14.08,
+   "pose": "SHYMUS",
+   "strength": 1.2,
+   "model": {
+    "right_arm": [
+     -0.35,
+     0.55,
+     0.12
+    ],
+    "left_arm": [
+     -0.35,
+     -0.55,
+     -0.12
+    ],
+    "head": [
+     0.2,
+     0.0
+    ],
+    "body": 0.05,
+    "chest": 1.12,
+    "spread": 0.15,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 15.04,
+   "pose": "THIN",
+   "strength": 0.7,
+   "model": {
+    "right_arm": [
+     -0.05,
+     0.0,
+     0.15
+    ],
+    "left_arm": [
+     0.1,
+     0.0,
+     -0.35
+    ],
+    "head": [
+     0.0,
+     0.1
+    ],
+    "body": 0.0,
+    "chest": 1.0,
+    "spread": 0.05,
+    "yaw": 0,
+    "walk": 0,
+    "zoom": 1.0
+   }
+  },
+  {
+   "t": 17.91,
+   "pose": "TURN",
+   "strength": 0.5,
+   "model": {
+    "right_arm": [
+     0.05,
+     0.0,
+     0.12
+    ],
+    "left_arm": [
+     0.05,
+     0.0,
+     -0.12
+    ],
+    "head": [
+     0.0,
+     0.0
+    ],
+    "body": 0.0,
+    "chest": 1.0,
+    "spread": 0.0,
+    "yaw": 180,
+    "walk": 1,
+    "zoom": 1.0
+   }
+  }
+ ]
+}

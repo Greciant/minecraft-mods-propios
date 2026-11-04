@@ -1,0 +1,14 @@
+.gradle/
+build/
+run/
+runs/
+out/
+.idea/
+*.iml
+bin/
+.vscode/
+ref/mortals_completo.ogg
+ref/entregas/
+run-compat/
+run-pal/
+run-bend/

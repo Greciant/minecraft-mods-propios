@@ -1,0 +1,56 @@
+
+#Sound Attract Mod - Guns Configuration
+[guns]
+
+	#Tacz Integration Configuration
+	[guns.tacz]
+		#[DEPRECATED as of 6.3.3] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		enableTaczIntegration = true
+		#Range: 1.0 ~ 128.0
+		taczReloadRange = 9.0
+		#Range: 0.0 ~ 10.0
+		taczReloadWeight = 1.0
+		#Range: 1.0 ~ 256.0
+		taczShootRange = 140.0
+		#Range: 0.0 ~ 10.0
+		taczShootWeight = 10.0
+		#Tacz gun shoot decibels. Format: 'modid:item;decibels'
+		taczGunShootDecibels = ["suffuse:aks74u;157.0", "suffuse:python;155.0", "suffuse:tec9;160.0", "suffuse:tt33;158.0", "tacz:deagle_golder;164.0", "suffuse:tti2011;158.0", "tacz:m1911;157.0", "suffuse:trapper50cal;172.0", "tacz:deagle;164.0", "tacz:cz75;157.0", "tacz:p320;157.0", "suffuse:viper2011;158.0", "tacz:m700;160.0", "tacz:m107;171.0", "tacz:m95;172.0", "tacz:ai_awp;170.0", "suffuse:aw50;173.0", "suffuse:gm6;172.0", "suffuse:m200;173.0", "suffuse:xm7;165.0", "suffuse:qbu191;164.0", "suffuse:n4;161.0", "suffuse:qbz951;160.0", "suffuse:ash12;165.0", "suffuse:qbz951s;160.0", "suffuse:qbz192;159.0", "suffuse:an94;161.0", "tacz:sks_tactical;159.0", "tacz:ak47;159.0", "tacz:type_81;158.0", "tacz:qbz_95;160.0", "tacz:hk416d;161.0", "tacz:m4a1;159.0", "tacz:m16a1;159.0", "tacz:hk_g3;161.0", "tacz:m16a4;159.0", "tacz:mk14;162.0", "tacz:scar_l;161.0", "tacz:scar_h;162.0", "tacz:aug;160.0", "tacz:db_short;165.0", "tacz:db_long;166.0", "tacz:m870;165.0", "tacz:aa12;161.0", "tacz:ump45;158.0", "tacz:hk_mp5a5;158.0", "tacz:uzi;157.0", "suffuse:pp19;157.0", "tacz:vector45;158.0", "tacz:p90;156.0", "tacz:rpg7;180.0", "tacz:m320;172.0", "suffuse:m79;172.0", "suffuse:pkp;165.0", "tacz:m249;165.0", "tacz:rpk;164.0", "tacz:g36k;135.0", "tacz:spr15hb;140.0", "tacz:b93r;125.0", "tacz:glock_17;125.0"]
+		#Tacz attachment sound reduction. Positive values decrease range (silence), negative values increase range. Format: 'modid:item;reduction'
+		taczAttachmentReductions = ["tacz:muzzle_brake_cthulhu;-3.0", "tacz:muzzle_brake_pioneer;-3.0", "tacz:muzzle_brake_cyclone_d2;-3.0", "tacz:muzzle_brake_trex;-5.0", "tacz:muzzle_silencer_mirage;35.0", "tacz:muzzle_silencer_vulture;45.0", "tacz:muzzle_silencer_knight_qd;40.0", "tacz:muzzle_silencer_ursus;30.0", "tacz:muzzle_silencer_ptilopsis;30.0", "tacz:muzzle_silencer_phantom_s1;30.0", "tacz:muzzle_compensator_trident;-2.0", "tacz:deagle_golden_long_barrel;20.0"]
+		#Range: -300.0 ~ 300.0
+		taczAttachmentReductionDefault = 20.0
+		#Base visual detection range when gunshot occurs.
+		#Range: 16.0 ~ 512.0
+		gunshotBaseDetectionRange = 128.0
+		#Duration of increased detection from gunshot (ticks).
+		#Range: 1 ~ 200
+		gunshotDetectionDurationTicks = 60
+		#Tacz attachment VISUAL FLASH reduction. Positive values decrease detection distance, negative values increase it. Format: 'modid:item;reduction'
+		taczMuzzleFlashReductions = ["tacz:muzzle_silencer_mirage;100.0", "tacz:muzzle_silencer_vulture;110.0", "tacz:muzzle_silencer_knight_qd;105.0", "tacz:muzzle_silencer_ursus;90.0", "tacz:muzzle_silencer_ptilopsis;90.0", "tacz:muzzle_silencer_phantom_s1;90.0", "tacz:muzzle_brake_cthulhu;-10.0", "tacz:muzzle_brake_pioneer;-10.0", "tacz:muzzle_brake_cyclone_d2;-10.0", "tacz:muzzle_brake_trex;-15.0", "tacz:muzzle_compensator_trident;-5.0"]
+		#Range: -300.0 ~ 300.0
+		taczAttachmentFlashReductionDefault = 0.0
+
+	#Point Blank Integration Configuration
+	[guns.pointblank]
+		#[DEPRECATED as of 6.3.3] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		enablePointBlankIntegration = true
+		#Range: 1.0 ~ 128.0
+		pointBlankReloadRange = 9.0
+		#Range: 0.0 ~ 10.0
+		pointBlankReloadWeight = 1.0
+		#Range: 1.0 ~ 256.0
+		pointBlankShootRange = 140.0
+		#Range: 0.0 ~ 10.0
+		pointBlankShootWeight = 10.0
+		#Point Blank gun shoot ranges. Format: 'modid:item;range'
+		pointBlankGunShootRanges = ["pointblank:glock17;128.0", "pointblank:glock18;128.0", "pointblank:m9;128.0", "pointblank:m1911a1;128.0", "pointblank:tti_viper;128.0", "pointblank:p30l;128.0", "pointblank:mk23;128.0", "pointblank:deserteagle;140.0", "pointblank:rhino;138.0", "pointblank:m4a1;118.0", "pointblank:m4a1mod1;118.0", "pointblank:star15;90.0", "pointblank:m4sopmodii;118.0", "pointblank:m16a1;90.0", "pointblank:hk416;118.0", "pointblank:scarl;72.0", "pointblank:xm7;118.0", "pointblank:g36c;132.0", "pointblank:g36k;132.0", "pointblank:aug;118.0", "pointblank:g41;118.0", "pointblank:ak74;128.0", "pointblank:ak12;128.0", "pointblank:an94;128.0", "pointblank:ar57;128.0", "pointblank:xm29;128.0", "pointblank:mp5;128.0", "pointblank:mp7;128.0", "pointblank:ro635;119.0", "pointblank:ump45;128.0", "pointblank:vector;90.0", "pointblank:p90;128.0", "pointblank:m950;128.0", "pointblank:tmp;128.0", "pointblank:sl8;128.0", "pointblank:mk14ebr;128.0", "pointblank:uar10;156.0", "pointblank:g3;128.0", "pointblank:wa2000;128.0", "pointblank:xm3;128.0", "pointblank:c14;128.0", "pointblank:l96a1;128.0", "pointblank:ballista;128.0", "pointblank:gm6lynx;128.0", "pointblank:m590;128.0", "pointblank:m870;128.0", "pointblank:spas12;128.0", "pointblank:m1014;128.0", "pointblank:citoricxs;128.0", "pointblank:hs12;128.0", "pointblank:lamg;128.0", "pointblank:mk48;128.0", "pointblank:m249;128.0", "pointblank:m32mgl;128.0", "pointblank:smaw;128.0", "pointblank:at4;128.0", "pointblank:javelin;200.0", "pointblank:m134minigun;156.0", "pointblank:aughbar;128.0", "pointblank:aa12;128.0", "pointblank:ak47;128.0"]
+		#Point Blank attachment sound reduction. Positive values decrease range (silence), negative values increase range. Format: 'modid:item;reduction'
+		pointBlankAttachmentSoundReductions = ["pointblank:ar_suppressor;40.0", "pointblank:ar_suppressor_tan;40.0", "pointblank:xm7_suppressor;40.0", "pointblank:ak_suppressor;40.0", "pointblank:smg_suppressor;40.0", "pointblank:rf_suppressor;40.0", "pointblank:hp_suppressor;40.0", "pointblank:sg_suppressor;40.0"]
+		#Range: -300.0 ~ 300.0
+		pointBlankAttachmentReductionDefault = 20.0
+		#Point Blank attachment VISUAL FLASH reduction. Positive values decrease detection distance, negative values increase it. Format: 'modid:item;reduction'
+		pointBlankMuzzleFlashReductions = ["pointblank:ar_suppressor;90.0", "pointblank:ar_suppressor_tan;90.0", "pointblank:xm7_suppressor;90.0", "pointblank:ak_suppressor;90.0", "pointblank:smg_suppressor;90.0", "pointblank:rf_suppressor;90.0", "pointblank:hp_suppressor;90.0", "pointblank:sg_suppressor;90.0"]
+

@@ -1,0 +1,89 @@
+
+[general]
+	#Whether or not to disable fall damage.
+	disable_fall_damage = false
+
+[parry]
+	#Whether or not to enable parrying.
+	parry_enabled = true
+	#Cooldown in ticks before the player is able to parry again.
+	punch_cooldown = 20.0
+	#The amount of damage (2 = 1 heart) that the player deals on a punch.
+	punch_damage = 1.0
+	#The amount of damage (2 = 1 heart) that the player deals on a successful parry.
+	parry_damage = 4.0
+	#Window in ticks after pressing the parry key that successful parries can occur.
+	parry_window = 5.0
+
+[dash]
+	#Whether or not to enable dashing.
+	dash_enabled = true
+	#Cooldown in ticks before the player is able to dash again.
+	dash_cooldown = 20.0
+	#Duration in ticks of invincibility granted during a dash.
+	dash_invincibility_duration = 4.0
+
+[slide]
+	#Whether or not to enable sliding.
+	slide_enabled = true
+	#Cooldown in ticks before the player is able to slide again.
+	slide_cooldown = 40.0
+
+[style]
+	#Whether or not to give bonus effects upon killing an enemy while sliding.
+	style_kills = true
+	#The duration in ticks of the effects granted upon a style kill.
+	effects_duration = 400.0
+	#Whether or not to give the player speed upon a style kill.
+	speed = true
+	#The level of speed granted to the player upon a style kill.
+	speed_level = 3.0
+	#Whether or not to give the player jump boost upon a style kill.
+	jump_boost = true
+	#The level of jump boost granted to the player upon a style kill.
+	jump_boost_level = 2.0
+	#Whether or not to give the player resistance upon a style kill.
+	resistance = true
+	#The level of resistance granted to the player upon a style kill.
+	resistance_level = 1.0
+
+[slam]
+	#Whether or not to enable slamming.
+	slam_enabled = true
+	#Cooldown in ticks before the player is able to slam again.
+	slam_cooldown = 20.0
+	#The amount of damage (2 = 1 heart) that the player deals on a slam.
+	slam_damage = 4.0
+
+[double_jump]
+	#Whether or not to enable double jumping.
+	double_jump_enabled = true
+	#Cooldown in ticks before the player is able to double jump again.
+	double_jump_cooldown = 20.0
+
+[blood]
+	#Whether or not to enable blood spatters.
+	blood_spatters = true
+	#Whether or not to enable the blood spatter sound.
+	blood_spatter_sound = true
+	#Whether or not to heal when close to a blood spatter.
+	blood_is_fuel = true
+	#The amount of health (2 = 1 heart) the player heals from a blood spatter.
+	heal_amount = 8.0
+	#Whether or not to restore hunger when close to a blood spatter. 
+	restore_hunger = false
+	#The amount of hunger (2 = 1 notch) the player gains from a blood splatter.
+	hunger_amount = 8.0
+
+[hunger]
+	#Whether or not movement abilities should consume hunger.
+	use_hunger = false
+	#The amount of hunger (2 = 1 notch) the player consumes per dash.
+	dash_hunger = 1.0
+	#The amount of hunger (2 = 1 notch) the player consumes per double jump.
+	double_jump_hunger = 1.0
+	#The amount of hunger (2 = 1 notch) the player consumes per slam.
+	slam_hunger = 2.0
+	#The amount of hunger (2 = 1 notch) the player consumes per slide.
+	slide_hunger = 2.0
+

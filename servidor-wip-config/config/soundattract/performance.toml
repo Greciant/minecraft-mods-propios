@@ -1,0 +1,72 @@
+
+#Performance and optimization settings
+[performance]
+	#Maximum number of sound sources tracked per world.
+	#Range: 1 ~ 1000000
+	maxSoundsTracked = 2048
+	#Delay in ticks before the first mob group computation is run after server startup.
+	#Range: 0 ~ 72000
+	initialGroupComputationDelay = 50
+	#Number of background worker threads used for off-thread computations (e.g., group building).
+	#Range: 1 ~ 64
+	workerThreads = 2
+	#Soft per-task time budget in milliseconds for worker computations before yielding.
+	#Range: 1 ~ 1000
+	workerTaskBudgetMs = 10
+	#Minimum time in ticks between mob scans for new sounds.
+	#Range: 1 ~ 1000000
+	scanCooldownTicks = 25
+	#How many ticks to add to the base scan cooldown for each active mob.
+	#Range: 0.0 ~ 10.0
+	cooldownTicksPerMob = 0.15
+	#TPS below which scanCooldownTicks is dynamically increased. 0 to disable.
+	#Range: 0.0 ~ 20.0
+	minTpsForScanCooldown = 15.0
+	#TPS above which scanCooldownTicks is dynamically decreased. 21 to disable.
+	#Range: 0.0 ~ 21.0
+	maxTpsForScanCooldown = 19.0
+	#Enable tiered stealth performance scaling based on TPS.
+	enableTieredStealthPerformance = true
+	#Range: 0.0 ~ 21.0
+	stealthTierSkipExpensiveChecksTps = 19.0
+	#Range: 0.0 ~ 21.0
+	stealthTierCurrentTargetsOnlyTps = 18.0
+	#Range: 0.0 ~ 21.0
+	stealthTierSharedRangeTps = 17.0
+	#Range: 0.0 ~ 21.0
+	stealthTierVanillaTps = 15.0
+	#Range: 0.0 ~ 256.0
+	stealthShareTargetToNearbyMobsRadius = 16.0
+	#Cooldown per mob between async sound scoring submissions.
+	#Range: 0 ~ 10000
+	soundScoringSubmitCooldownTicks = 1
+	#Time-to-live for cached async sound scoring results.
+	#Range: 1 ~ 10000
+	asyncResultTtlTicks = 10
+	#Enable caching for raycast results.
+	enableRaycastCache = true
+	#Range: 1 ~ 1000000
+	raycastCacheTtlTicks = 200
+	#Range: 100 ~ 1000000
+	raycastCacheMaxEntries = 5000
+	enableOptimizedLos = true
+	enableOptimizedLosPairCache = true
+	#Range: 256 ~ 1000000
+	optimizedLosPairCacheMaxEntries = 8192
+	enableOptimizedLosVanillaFallback = true
+	enableLosBatching = true
+	#Range: 1 ~ 1000000
+	losBatchBudgetPerTick = 64
+	#Range: 64 ~ 1000000
+	losBatchQueueMaxSize = 4096
+	enableLivingEntityLosOverride = true
+	#Maximum number of blocks to check for muffling between sound and mob.
+	#Range: 8 ~ 256
+	maxMufflingBlocksToCheck = 16
+	#Maximum number of entries in internal tracking caches (e.g. stealth/scent memory) before oldest are evicted. Protects server RAM.
+	#Range: 100 ~ 1000000
+	globalCacheMaxSize = 10000
+	#Time in minutes before an offline player or dead mob's data is naturally purged from memory.
+	#Range: 1 ~ 1440
+	globalCacheExpireMins = 5
+

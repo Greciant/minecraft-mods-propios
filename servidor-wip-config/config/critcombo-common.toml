@@ -1,0 +1,19 @@
+
+[combat]
+	#Maximum combo cap (default: 15)
+	#Range: 1 ~ 100
+	maxCombo = 15
+	#Bonus crit damage per combo stack as a percentage (default: 3 = 3%)
+	#Range: 0.1 ~ 50.0
+	bonusPerStack = 3.0
+	#Seconds of inactivity before combo resets (default: 10)
+	#Range: 1 ~ 60
+	comboTimeoutSeconds = 10
+
+[sounds]
+	#Enable or disable combo sounds
+	soundEnabled = true
+	#Volume of the combo sound (0.0 = silent, 1.0 = full volume)
+	#Range: 0.0 ~ 1.0
+	soundVolume = 0.3
+

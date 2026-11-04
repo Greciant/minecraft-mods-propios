@@ -1,0 +1,138 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.148'
+    id 'idea'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    // Player Animation Library (ZigyTheBird): dependencia OPCIONAL, solo para compilar; en runtime la pone el pack
+    maven { name = 'RedlanceMinecraft'; url = uri('https://repo.redlance.org/public') }
+    // Bendy-lib (KosmX): dependencia OPCIONAL para los codos y rodillas del modo chad; solo para compilar
+    maven { name = 'KosmX'; url = uri('https://maven.kosmx.dev/'); content { includeGroup 'io.github.kosmx.bendy-lib' } }
+}
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+sourceSets {
+    devtest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        autotest {
+            client()
+            systemProperty 'aurachad.autotest', 'true'
+            sourceSet = sourceSets.devtest
+        }
+        // Pila de WIPSS2 solo en runtime (mods en run-compat/mods, resourcepacks en run-compat/resourcepacks)
+        autotestCompat {
+            client()
+            systemProperty 'aurachad.autotest', 'true'
+            sourceSet = sourceSets.devtest
+            gameDirectory = file('run-compat')
+            systemProperty 'aurachad.haki', providers.gradleProperty('hakiMode').getOrElse('')
+            systemProperty 'aurachad.palTest', providers.gradleProperty('palTest').getOrElse('')
+        }
+        // Solo Player Animation Library (run-pal/mods): calibracion de la capa PAL sin EMF
+        autotestPal {
+            client()
+            systemProperty 'aurachad.autotest', 'true'
+            sourceSet = sourceSets.devtest
+            gameDirectory = file('run-pal')
+            systemProperty 'aurachad.haki', providers.gradleProperty('hakiMode').getOrElse('')
+            systemProperty 'aurachad.palTest', providers.gradleProperty('palTest').getOrElse('')
+        }
+        // PAL + bendy-lib (run-bend/mods): codos y rodillas sin EMF
+        autotestBend {
+            client()
+            systemProperty 'aurachad.autotest', 'true'
+            sourceSet = sourceSets.devtest
+            gameDirectory = file('run-bend')
+            systemProperty 'aurachad.haki', providers.gradleProperty('hakiMode').getOrElse('')
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+            sourceSet(sourceSets.devtest)
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    compileOnly "com.zigythebird.playeranim:PlayerAnimationLibNeo:${pal_version}"
+    compileOnly "io.github.kosmx.bendy-lib:bendy-lib-forge:${bendylib_version}"
+}
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

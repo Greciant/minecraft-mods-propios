@@ -1,0 +1,91 @@
+
+#Sound Attract Mod - Scent System Configuration
+[scent_system]
+	#Enable the scent tracking system for mobs.
+	enableScentSystem = true
+	#List of mobs that can smell and track scent trails.
+	scentEligibleMobs = ["minecraft:zombie", "minecraft:husk", "minecraft:drowned", "minecraft:wolf"]
+	#Render debug particles for scent nodes (debug only, one-shot).
+	enableScentParticles = false
+	#Enable persistent gameplay scent particles that last as long as the scent node. Per-player colored.
+	enableGameplayScentParticles = false
+	#Ticks between re-spawning particles at each living scent node (lower = more frequent, higher = better performance).
+	#Range: 5 ~ 200
+	scentParticleSpawnInterval = 40
+	#Maximum distance from a player to render scent particles.
+	#Range: 8.0 ~ 128.0
+	scentParticleRenderDistance = 32.0
+	#How long a scent node lasts in ticks (default 6000 = 5 minutes).
+	#Range: 100 ~ 72000
+	scentNodeDurationTicks = 6000
+	#Distance in blocks the player must move to create a new scent node.
+	#Range: 1.0 ~ 64.0
+	scentCreationIntervalBlocks = 5.0
+
+	[scent_system.environmental_logic]
+		#Biome temperature above which scent decays faster (Hot).
+		#Range: 0.0 ~ 2.0
+		tempHeavyDecayThreshold = 1.0
+		#Biome temperature below which scent is preserved but has reduced range (Cold).
+		#Range: -1.0 ~ 2.0
+		tempFreezeThreshold = 0.15
+		#Biome rainfall/humidity above which scent lasts longer (High Humidity).
+		#Range: 0.0 ~ 1.0
+		humidityPreserveThreshold = 0.8
+		#Multiplier for scent decay rate when raining.
+		#Range: 1.0 ~ 100.0
+		rainDecayMultiplier = 4.0
+		#If true, players in water will not leave scent trails.
+		waterStopsScent = true
+		#If true, rain will wash away scents faster.
+		rainWashesScents = true
+
+	[scent_system.ai_logic]
+		#How long a mob will 'camp' at the last known location of an offline player.
+		#Range: 0 ~ 72000
+		scentAmbushDurationTicks = 400
+		#Interval (in ticks) for updating scent logic.
+		#Range: 1 ~ 100
+		scentUpdateInterval = 20
+		#Amount of scent strength lost per tick.
+		#Range: 0.0 ~ 1.0
+		scentStrengthDecay = 0.01
+		#Radius within which mobs can detect scents.
+		#Range: 1.0 ~ 64.0
+		scentDetectionRadius = 16.0
+		#Maximum number of mobs that can compute a new scent path per tick (prevents lag spikes during horde scent tracking).
+		#Range: 1 ~ 100
+		scentScanBudgetPerTick = 5
+
+	[scent_system.arrow_scent]
+		#Enable scent trails from arrows and projectiles.
+		enableArrowScentTrail = true
+		#Distance in blocks an arrow must travel to emit a new scent node.
+		#Range: 0.5 ~ 16.0
+		arrowScentEmissionIntervalBlocks = 3.0
+		#Base strength of arrow scent nodes.
+		#Range: 0.1 ~ 2.0
+		arrowScentStrength = 0.8
+		#How long arrow scent nodes last in ticks (default 500 = 25 seconds).
+		#Range: 100 ~ 72000
+		arrowScentNodeDurationTicks = 500
+		#If true, fresh scent trails override sound attraction priority.
+		scentOverrideSoundPriority = true
+		#Render particles for arrow scent trails.
+		enableScentParticlesForArrows = false
+		#Max arrow scent nodes a single shooter can create per minute.
+		#Range: 10 ~ 500
+		arrowScentRateLimitPerShooterPerMinute = 20
+		#When scentOverrideSoundPriority=true: sounds with weight strictly below this value always lose to fresh scent.
+		#Range: 0.0 ~ 1000.0
+		scentOverrideSoundWeightThreshold = 10.0
+		#Above the threshold: soundWeight is compared against (scentStrength * multiplier). Higher = scent wins more often.
+		#Range: 0.0 ~ 100.0
+		scentVsSoundHybridMultiplier = 1.0
+		#How long scent-query results are cached per mob (ticks). Lower = fresher but more CPU.
+		#Range: 1 ~ 200
+		scentQueryCacheTtlTicks = 5
+		#Maximum mobs tracked in the scent-query cache (memory cap).
+		#Range: 128 ~ 65536
+		scentQueryCacheMaxEntries = 4096
+

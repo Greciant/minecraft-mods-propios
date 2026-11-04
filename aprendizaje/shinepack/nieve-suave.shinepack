@@ -1,0 +1,36 @@
+// Copos grandes que caen sobre el suelo en biomas nevados al nevar.
+// Usa una textura propia: config/shineport/textures/copo.png
+// "anchor": "surface" hace nacer los copos a cierta altura sobre el bloque mas alto.
+{
+  "id": "nieve_suave",
+  "enabled": false,
+  "texture": "copo.png",
+  "render": "lit",
+  "double_sided": true,
+  "when": {
+    "biomes": ["#minecraft:spawns_snow_foxes", "minecraft:snowy_slopes", "minecraft:grove"],
+    "weather": "rain"
+  },
+  "spawn": {
+    "anchor": "surface",
+    "range": 20,
+    "height": [6, 14],
+    "density": 3,
+    "max": 400
+  },
+  "particle": {
+    "life": [200, 300],
+    "size": [0.06, 0.11],
+    "velocity": { "y": [-0.05, -0.035] },
+    "drag": 0.0,
+    "wind": 1.5,
+    "wobble": 0.012,
+    "wobble_speed": 0.07,
+    "spin": [-0.03, 0.03],
+    "collide": "stop",
+    "color": "#FFFFFF",
+    "alpha": 0.9,
+    "fade_in": 15,
+    "fade_out": 40
+  }
+}

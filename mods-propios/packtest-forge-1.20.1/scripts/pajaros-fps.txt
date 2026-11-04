@@ -1,0 +1,23 @@
+# Guion de packtest: coste de los pajaros de shineport en FPS (mismo sitio, con y sin pajaros).
+# El script de fuera pone [birds] enabled=false en el toml al ver "=== SIN PAJAROS ===".
+gap 40
+hud on
+view first
+waitload 4
+wait 100
+cmd time set 6000
+cmd weather clear
+cmd gamemode spectator
+cmd spreadplayers 400 400 0 300 false @s
+cmd tp @s ~ ~1.5 ~
+waitload 4
+wait 1600
+look 90 -5
+wait 200
+shot fps-con-pajaros
+echo === SIN PAJAROS ===
+wait 400
+shot fps-sin-pajaros
+echo === CON PAJAROS ===
+wait 600
+shot fps-con-pajaros-2

@@ -1,0 +1,48 @@
+# Guion de packtest: mariposas de shineport 1.4.0 con el pack completo (Prism "Prueba-Ports").
+# Lanzar con -Dpacktest.script=/home/grec/Minecraft/desarrollo/mods-propios/packtest-forge-1.20.1/scripts/mariposas.txt
+# Convierte la plataforma de piedra en un prado de flores a mediodia, espera a que aparezcan
+# mariposas, saca capturas, se acerca (deben huir) y pone lluvia (deben irse).
+gap 40
+hud off
+view first
+cmdtry kill @e[type=!player,distance=..40]
+waitload 4
+wait 100
+echo === Mariposas ===
+cmd time set 6000
+cmd weather clear
+cmd fill -16 219 -16 16 219 16 minecraft:grass_block
+cmdtry fill -16 220 -16 16 230 16 minecraft:air
+cmd fill -13 220 -13 -4 220 -4 minecraft:poppy
+cmd fill 4 220 -13 13 220 -4 minecraft:dandelion
+cmd fill -13 220 4 -4 220 13 minecraft:cornflower
+cmd fill 4 220 4 13 220 13 minecraft:oxeye_daisy
+cmd fill -3 220 -13 3 220 -8 minecraft:allium
+cmd gamemode spectator
+tp 0.5 221.5 14.5
+look 180 20
+wait 1200
+shot mariposas-prado-norte
+look 0 20
+tp 0.5 221.5 -14.5
+wait 100
+shot mariposas-prado-sur
+tp -8.5 221 -8.5
+look 135 35
+wait 60
+shot mariposas-amapolas-cerca
+tp 8.5 221 8.5
+look -45 35
+wait 60
+shot mariposas-margaritas-cerca
+# Entrar al prado como jugador: las de alrededor huyen
+cmd gamemode creative
+tp 0.5 220 0.5
+look 180 10
+wait 30
+shot mariposas-huyen
+cmd weather rain
+wait 160
+shot mariposas-lluvia
+cmd weather clear
+expect_nolog shineport.*(Exception|Error)

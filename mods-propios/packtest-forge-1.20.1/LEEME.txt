@@ -1,0 +1,182 @@
+PackTest -> mod de pruebas automaticas para Forge 1.20.1 (propio, solo cliente)   03-oct-2026
+==========================================================================================
+Ejecuta un guion de pasos en un mundo nuevo y deja capturas y un resumen en el log.
+NO HACE NADA salvo que la JVM lleve -Dpacktest.script=<ruta absoluta del guion>,
+asi que puede quedarse en la carpeta mods sin molestar.
+
+Compilar:  ./gradlew build --no-daemon -q   -> build/libs/packtest-1.0.0.jar
+Autoprueba del propio arnes (vanilla + packtest, sin cuenta):
+           ./run-test.sh   (runClient con el candado compartido; guion scripts/autoprueba.txt,
+                            capturas en run/screenshots, salida en run-client.out)
+
+USO CON EL PACK (Prism, instancia Prueba-Ports)
+  1. Copiar build/libs/packtest-1.0.0.jar a la carpeta mods de la instancia.
+  2. Anadir a los argumentos de la JVM de la instancia:
+       -Dpacktest.script=/home/grec/Minecraft/desarrollo/mods-propios/packtest-forge-1.20.1/scripts/ports.txt
+  3. Lanzar: prismlauncher --launch Prueba-Ports --profile Greciant
+  4. Mirar logs/latest.log (grep "\[packtest\]") y screenshots/packtest-NN-*.png
+     de la instancia. El juego se cierra solo al terminar.
+  Quitar la propiedad (o el jar) para volver a jugar normal.
+
+QUE HACE AL ARRANCAR
+  1. En la primera pantalla de titulo crea el mundo "packtest-<milisegundos>": tipo
+     de mundo por defecto (minecraft:normal, con el worldgen real del pack), semilla
+     aleatoria, creativo, dificultad FACIL (en pacifico desaparecen los hostiles y
+     jefes), trucos activados, sin ciclo de dia ni de clima, mobGriefing apagado.
+     Pone pauseOnLostFocus=false (si el juego pierde el foco no se pausa) y cierra
+     el menu de pausa si aparece solo.
+  2. Espera a que el jugador exista y el servidor integrado haya hecho ticks; luego
+     gamerules doMobSpawning/doPatrolSpawning/doTraderSpawning/doInsomnia false y
+     disableRaids true (sin patrullas ni tiendas de illagers en la plataforma),
+     resistencia al empuje 1, forceload alrededor de 0,0, tp a 0.5 220 0.5, resistencia/vision nocturna/caida
+     lenta infinitas, mediodia, cielo despejado, y una plataforma de piedra 33x33 en
+     y=219 con /fill (reintenta cada 2 s hasta 5 min si el chunk no esta cargado),
+     rodeada por un anillo de barreras invisibles (x/z = +-17, y 220-223) para que
+     nada saque al jugador de la plataforma.
+  3. Espera: chunks del cliente cargados en radio 4 (level.hasChunk), al menos 600
+     ticks (30 s) desde el tp y FPS > 5 durante 100 ticks seguidos. Cada hito sale
+     en el log como "[packtest] ...". Si en 10 min algo no se cumple, avisa y sigue.
+  4. Ejecuta el guion paso a paso. Cada paso: "[packtest] step <n> <linea> -> ok|FAIL ...".
+     Entre pasos espera 40 ticks (cambiable con "gap").
+  5. Al final: "[packtest] fin pasos=<n> fallos=<m>", la lista de fallos,
+     "[packtest] errores tras entrar: <n>" (lineas ERROR/FATAL o con excepcion de
+     cualquier logger desde que se entro al mundo) con las 20 primeras, espera 100
+     ticks y llama a Minecraft.stop().
+  Tope de seguridad: 90 min en total (-Dpacktest.maxMinutes=N).
+
+FORMATO DEL GUION (una orden por linea; las lineas vacias y las que empiezan por # se ignoran)
+  wait <ticks>             esperar (20 ticks = 1 s)
+  cmd <comando>            comando sin barra, ejecutado en el servidor integrado como el
+                           jugador (permiso 4). Se registra la salida del comando. FAIL si
+                           el comando da un error (mensaje rojo) o no devuelve nada.
+  cmdretry <ticks> <cmd>   como cmd, pero si falla reintenta cada 5 s hasta <ticks>
+                           (util para /place cuando los chunks aun no estan cargados).
+  chatcmd <comando>        enviar el comando por la conexion del cliente (para comandos
+                           solo de cliente); no se sabe si funciono.
+  shot <nombre>            captura en screenshots/packtest-<NN>-<nombre>.png (el log dice
+                           el tipo de camara y la posicion del jugador)
+  look <yaw> <pitch>       girar la camara (yaw 0 = sur, 90 = oeste, -90 = este, 180 = norte)
+  tp <x> <y> <z>           teletransportar (mantiene la orientacion)
+  tpbiome <bioma>          "locate biome" y spreadplayers en ese x/z: deja al jugador sobre la
+                           superficie del bioma mas cercano (p.ej. tpbiome minecraft:forest)
+  inventory                abrir el inventario del jugador (en creativo Minecraft lo cambia
+                           por el inventario creativo; usar "cmd gamemode survival" antes
+                           si se quiere el normal)
+  close                    cerrar cualquier pantalla
+  pause                    abrir el menu de pausa (no se cierra solo hasta "close")
+  use <dx> <dy> <dz> [bloque]
+                           clic derecho sobre el bloque en esa posicion relativa a los pies
+                           del jugador (gameMode.useItemOn). FAIL si no hizo nada (PASS), si
+                           el bloque es aire o no es el esperado, o si el jugador esta a mas
+                           de 5 bloques de 0.5 220 0.5 (dice donde esta).
+  useat <x> <y> <z> [bloque]
+                           igual pero con coordenadas absolutas (mejor que use: no depende de
+                           donde haya acabado el jugador). FAIL si el bloque esta a mas de 6
+                           bloques de los ojos, si es aire o si no es el esperado
+                           (p.ej. useat 2 220 0 minecraft:chest).
+  useitem [ticks]          clic derecho con el objeto de la mano (gameMode.useItem); con
+                           ticks mantiene pulsado ese tiempo y suelta.
+  press use|attack         dejar pulsado clic derecho/izquierdo (no espera)
+  release                  soltar los clics
+  interact [tipo]          clic derecho sobre la entidad de la mira o, si se da un tipo
+                           (p.ej. archaion:last_of_deepslate), sobre la mas cercana de ese tipo
+  attack                   clic izquierdo / golpe a lo que apunta la mira
+  hotbar <0-8>             elegir ranura
+  view first|back|front    camara en primera persona / tercera detras / tercera delante
+  hud on|off               mostrar/ocultar el HUD
+  gap <ticks>              cambiar la espera entre pasos (por defecto 40)
+  waitload <radio>         esperar a que los chunks en ese radio esten cargados en el
+                           cliente (se limita a distancia de render - 1); registra cuanto
+                           tardo. FAIL a los 10 min.
+  expect_log <regex>       FAIL si ninguna linea del log escrita desde que empezo el guion
+                           coincide con la regex (Java, busqueda parcial). Las lineas del
+                           propio packtest no cuentan. Se captura con un appender de Log4j.
+  echo <texto>             escribir el texto en el log
+  cmdtry <comando>         como cmd, pero si el comando falla solo se anota (no cuenta como
+                           fallo). Para limpiezas que pueden no tener nada que hacer.
+  expect_nolog <regex>     FAIL si alguna linea del log del guion o de logs/latest.log (todo el
+                           arranque incluido) coincide.
+  expect_diff <shotA> <shotB> [pct]
+                           FAIL si las dos capturas (por nombre, sin el numero) se diferencian
+                           en menos de pct % de pixeles (por defecto 2; muestra de 96x54).
+                           Sirve para comprobar que un fotograma "a mitad de animacion" no es
+                           igual al final.
+  watch <tipo...>          empezar a vigilar entidades de esos tipos en el cliente (cada tick)
+  expect_seen <tipo>       FAIL si no se vio ninguna entidad de ese tipo desde su "watch"
+                           (prueba que un proyectil/ola existio aunque viva pocos ticks)
+  expect_effect <efecto>   FAIL si el jugador (cliente) no tiene ese efecto ahora
+  setfield <clase> <ruta> <valor>
+                           cambia un campo de otro mod por reflexion (int/boolean/float/
+                           double/long/String). La ruta empieza en un campo o metodo estatico
+                           sin argumentos: p.ej.
+                             setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled false
+                             setfield com.pycodder.reanimated.config.ReAnimatedConfig get().animationSpeedTicks 40
+                           Registra el valor anterior. No guarda nada en disco.
+  placestruct <ticks> <estructura> <x> <z>
+                           como "place structure" (reintenta cada 5 s hasta <ticks> si los
+                           chunks no estan cargados) pero guarda la caja de la estructura y la
+                           escribe en el log.
+  frame <dist|auto> [pitch] [yaw] [altura]
+                           tp del jugador para encuadrar la ultima estructura de placestruct:
+                           mirando al punto (centro x/z, minY + altura*(alto)) desde <dist>
+                           bloques con ese pitch (positivo = mirando abajo, 25 por defecto) y
+                           yaw (45 por defecto; misma convencion que look). altura 0-1, 0.5
+                           por defecto. "auto" = 1.3 x el lado mayor de la caja (minimo 20).
+                           Para que entre la caja entera: distancia >= ~1.2-1.3 x el lado mayor.
+  tpbox <dx> <dy> <dz> [yaw pitch]
+                           tp al centro de la ultima caja + desplazamiento (p.ej. dentro de una
+                           estructura enterrada).
+  forceloadbox [remove]    forceload add/remove de los chunks de la ultima caja (bloques y
+                           entidades cargados aunque el jugador este lejos).
+  clearabove [margen] [alto]
+                           pone aire encima de la ultima caja: x/z de la caja +-margen (3), desde
+                           maxY+1 hasta maxY+alto (30). Para estructuras que quedan bajo nieve,
+                           hielo, arboles o roca.
+  findblock <regex de id>  busca en la ultima caja (servidor) bloques cuyo id coincida entero y
+                           guarda el mas cercano al centro. FAIL si no hay ninguno (entonces
+                           guarda el centro de la caja).
+  findentity <tipo>        busca la entidad cargada de ese tipo mas cercana al centro de la caja
+                           (o al jugador). FAIL si no hay (guarda el centro / el jugador).
+  framefound <dist> [pitch] [yaw]
+                           como frame pero mirando al punto de findblock/findentity.
+  expect_block <x> <y> <z> <regex de id>
+                           FAIL si el bloque en esa posicion (servidor) no coincide.
+  expect_same <shotA> <shotB> [pct]
+                           lo contrario de expect_diff: FAIL si se diferencian en MAS de pct %
+                           (30 por defecto). P.ej. comprobar que una pantalla sigue a mitad de
+                           cerrarse.
+  fly on|off               volar (solo creativo); para capturas desde algo mas alto.
+  toasts on|off            off (por defecto) borra los avisos de logros/recetas cada tick.
+  cursor park|free|<x> <y> park (por defecto) mueve el cursor a 0,0 al abrir cada pantalla
+                           (sin tooltips por pasar el raton); free lo deja; x y lo mueve ya.
+  particles all|decreased|minimal
+                           cambia la opcion de particulas (registra la anterior).
+
+Ejemplo:
+  cmd setblock 2 220 0 minecraft:chest
+  look -90 30
+  use 2 0 0
+  wait 40
+  shot cofre
+  close
+
+PROPIEDADES OPCIONALES (-D...)
+  packtest.preset=minecraft:normal   tipo de mundo
+  packtest.gap=40                    espera entre pasos al empezar
+  packtest.readyRadius=4             radio de chunks a esperar antes del guion (minimo 4)
+  packtest.readyTicks=600            ticks minimos tras el tp (minimo 600)
+  packtest.maxMinutes=90             tope total
+
+GUIONES
+  scripts/autoprueba.txt   prueba del arnes en runClient (vanilla). Los dos ultimos pasos
+                           fallan a proposito.
+  scripts/ports.txt        todos los ports con el pack completo (Spatial GUI, ReAnimated,
+                           Monoliths, Timeless Echoes, Archaion + AAA Particles, Noble
+                           Phantasms). Unos 15 min de juego mas las cargas.
+
+NOTAS
+  - El jar no lleva mixins ni nada de servidor; con un servidor dedicado no hace nada.
+  - En la instancia Prueba-Ports, Ji AFK Cinematic esta apagado (config/ji-afk-cinematic.json
+    "modEnabled": false; copia original en ji-afk-cinematic.json.antes-packtest): con 30 s
+    sin entrada su camara cinematica se quedaba con las capturas.
+  - El mundo de prueba se queda en saves/ (packtest-<ms>); se puede borrar a mano.

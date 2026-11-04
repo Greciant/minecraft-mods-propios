@@ -1,0 +1,42 @@
+# Guion de packtest: efectos de ambiente de shineport (1.6.0) con el pack completo, en un bosque real.
+# Lanzar con -Dpacktest.script=/home/grec/Minecraft/desarrollo/mods-propios/packtest-forge-1.20.1/scripts/shineport.txt
+# De dia: pajaros, mariposas, hojas que caen y polen. Con lluvia: mas hojas y charcos.
+# De noche: luciernagas. Al final, que shineport no haya escrito errores en el log.
+gap 40
+hud on
+view first
+waitload 4
+wait 100
+echo === Bosque de dia ===
+cmd gamemode spectator
+cmd time set 6000
+cmd weather clear
+tpbiome minecraft:forest
+cmd tp @s ~ ~1.6 ~
+waitload 4
+wait 1400
+look 0 10
+shot dia-sur
+look 90 10
+shot dia-oeste
+look 180 10
+shot dia-norte
+look -90 10
+shot dia-este
+look 0 -30
+shot dia-copas
+echo === Lluvia ===
+cmd weather rain
+wait 400
+look 0 25
+shot lluvia
+cmd weather clear
+echo === Noche ===
+cmd time set 18000
+wait 600
+look 0 5
+shot noche-sur
+look 180 5
+shot noche-norte
+cmd time set 6000
+expect_nolog shineport.*(Exception|Error)

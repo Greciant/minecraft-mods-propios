@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="packtest"
+version="1.0.0"
+displayName="PackTest (pruebas automaticas)"
+authors="grec"
+description='''Ejecuta un guion de pruebas en un mundo nuevo. No hace nada salvo con -Dpacktest.script=<ruta absoluta>.'''
+displayTest="IGNORE_ALL_VERSION"
+
+[[dependencies.packtest]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.packtest]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.20.2)"
+    ordering="NONE"
+    side="CLIENT"

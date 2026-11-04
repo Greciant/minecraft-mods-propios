@@ -1,0 +1,33 @@
+// Chispas que suben de fogatas y hogueras. Ejemplo de anchor "block".
+// Para probarlo: pon "enabled": true, guarda y escribe /shineport reload.
+{
+  "id": "chispas_fogata",
+  "enabled": false,
+  "sprite": "minecraft:spark_5",
+  "render": "emissive",
+  "spawn": {
+    "anchor": "block",
+    "blocks": ["#minecraft:campfires"],
+    "range": 16,
+    "density": 0.08,
+    "max": 80,
+    "offset": { "x": [-0.3, 0.3], "y": [0.4, 0.8], "z": [-0.3, 0.3] }
+  },
+  "particle": {
+    "life": [25, 50],
+    "size": [0.03, 0.06],
+    "size_end": 0.3,
+    "velocity": { "x": [-0.015, 0.015], "y": [0.06, 0.12], "z": [-0.015, 0.015] },
+    "gravity": -0.002,
+    "drag": 0.04,
+    "wobble": 0.01,
+    "wobble_speed": 0.4,
+    "color": "#FFC860",
+    "color_end": "#FF4010",
+    "alpha": 1.0,
+    "fade_in": 2,
+    "fade_out": 12,
+    "twinkle": 0.4,
+    "twinkle_speed": 1.2
+  }
+}

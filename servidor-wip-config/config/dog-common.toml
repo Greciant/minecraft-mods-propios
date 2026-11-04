@@ -1,0 +1,289 @@
+
+[taunts]
+	#Whether the Devourer shows taunt text on screen.
+	enabled = true
+	#Minimum seconds between taunts triggered by damaging him.
+	#Range: 1 ~ 600
+	cooldownSeconds = 60
+	#Damage taunts only start once his health is below this fraction of
+	#his maximum.
+	#Range: 0.0 ~ 1.0
+	healthThreshold = 0.9
+	#Head hits landed before taunts move up to tier 2. Calamity escalates
+	#at 6 hits; this is about 3x that, since a Minecraft boss is hit more
+	#often.
+	#Range: 1 ~ 10000
+	tier2Hits = 40
+	#Head hits landed before taunts move up to tier 3. Calamity escalates
+	#at 10 hits; this is about 3x that.
+	#Range: 1 ~ 10000
+	tier3Hits = 80
+
+[auras]
+	#Whether players near the boss are given Slowness I.
+	gravityAuraEnabled = true
+	#Radius of the gravity aura, in blocks.
+	#Range: 8.0 ~ 256.0
+	gravityAuraRange = 96.0
+
+[lasers]
+	#Ticks between a laser telegraph appearing and the laser firing.
+	#20 ticks = 1 second.
+	#Range: 5 ~ 100
+	telegraphTicks = 24
+	#Chance from 0 to 1 that a volley mixes two firing patterns instead
+	#of using one.
+	#Range: 0.0 ~ 1.0
+	deceptiveChance = 0.35
+	#Number of volleys fired per laser phase.
+	#Range: 1 ~ 32
+	volleyCount = 8
+	#Ticks between a volley's last shot and the next telegraph.
+	#Range: 0 ~ 200
+	fireToNextGapTicks = 10
+
+[movement]
+	#Speed during the passive phase, in blocks per tick.
+	#Range: 0.2 ~ 10.0
+	passiveSpeed = 1.4
+	#Speed during the aggressive phase, in blocks per tick, before the
+	#charge surge multiplier is applied.
+	#Range: 0.2 ~ 10.0
+	aggressiveSpeed = 3.6
+	#Speed multiplier applied during a locked-on charge.
+	#Range: 1.0 ~ 6.0
+	surgeSpeedMultiplier = 2.25
+	#Turn rate during the passive phase, in degrees per tick. Turning
+	#radius is speed / radians(rate), so lower values give wider arcs and
+	#he overshoots and swings back instead of tracking the player closely.
+	#8 degrees at speed 1.4 is roughly a 10 block radius.
+	#Range: 1.0 ~ 90.0
+	passiveTurnRateDeg = 8.0
+	#Turn rate during the aggressive phase, in degrees per tick.
+	#10 degrees at speed 3.6 is roughly a 21 block radius.
+	#Range: 1.0 ~ 90.0
+	aggressiveTurnRateDeg = 10.0
+
+[combat]
+	#Base maximum health, for a single player. Only applies to a newly
+	#spawned boss: one already in the world keeps its current health and
+	#maximum until it is respawned.
+	#Range: 1.0 ~ 1000000.0
+	maxHealth = 2000.0
+	#Multiplies his outgoing damage in phase 2, covering the bite, body
+	#contact, fireballs and lasers. 1.0 means phase 2 deals the same
+	#damage as phase 1.
+	#Range: 1.0 ~ 10.0
+	phase2DamageMultiplier = 1.5
+	#Multiplies his movement speed in phase 2. 1.0 means phase 2 moves at
+	#the same speed as phase 1.
+	#Range: 1.0 ~ 6.0
+	phase2SpeedMultiplier = 1.3
+	#Damage dealt by the head touching a living entity. Applied through
+	#the attack damage attribute when he spawns.
+	#Range: 0.0 ~ 10000.0
+	biteDamage = 10.0
+	#Whether touching him deals damage at all, covering both the head
+	#bite and body contact. Turning this off makes the fight friendlier to
+	#melee builds, since the body is about 335 blocks long and passes
+	#through the player constantly. Lasers, fireballs and Cosmic Flame are
+	#not affected.
+	contactDamageEnabled = true
+	#Knockback applied when he touches an entity. Vanilla melee is around
+	#0.4. High values push melee players out of range faster than they can
+	#attack. 0 disables knockback.
+	#Range: 0.0 ~ 5.0
+	contactKnockback = 0.5
+	#Damage dealt by the body segments touching a living entity. Read per
+	#hit, so changes apply immediately.
+	#Range: 0.0 ~ 10000.0
+	segmentContactDamage = 8.0
+	#Fraction of damage dealt to a body segment that is passed on to his
+	#health. 1.0 makes the body as vulnerable as the head; lower values
+	#make hitting the head more effective. A single hit overlapping several
+	#segments still counts once, so this only scales damage.
+	#Range: 0.0 ~ 1.0
+	segmentDamageToHeadRatio = 0.9
+	#Whether one melee swing damages him only once when it overlaps
+	#several body segments, which is easy to do up close and with sweeping
+	#weapons. true counts a swing as a single hit. false lets every
+	#overlapped segment deal damage, multiplying melee damage by the number
+	#of segments caught. Projectiles are never merged either way, so each
+	#arrow or bullet that connects always counts.
+	mergeMeleeSegmentHits = true
+	#Invulnerability window covering his entire body. After a player
+	#damages him anywhere, further damage from that same player is ignored
+	#for this many ticks. 20 ticks = 1 second, 0 disables it.
+	#
+	#He is ~100 segments, so area damage hits many at once and multiplies
+	#accordingly. This caps that, but also caps genuine multi-hit weapons
+	#(a volley of arrows counts once per window).
+	#Raise towards 5 for packs with persistent area-damage weapons.
+	#Range: 0 ~ 100
+	bossHitCooldownTicks = 2
+	#Whether vanilla status effects such as poison, wither and slowness
+	#are blocked from applying to him. Modded effects are not covered,
+	#because weapon mods often build their mechanics on their own effects.
+	#Use blockedEffects below to block specific ids.
+	blockVanillaEffects = true
+	#Effect ids that never apply to him, from any source. Defaults to his
+	#own Cosmic Flame. Add ids here to block anything that trivialises the
+	#fight in your pack.
+	blockedEffects = ["dog:cosmic_flame"]
+	#Damage dealt by each laser hit. Read per hit, so changes apply
+	#immediately.
+	#Range: 0.0 ~ 10000.0
+	laserDamage = 12.0
+	#Damage dealt by a fireball hit, which also sets the target on fire.
+	#Range: 0.0 ~ 10000.0
+	fireballDamage = 7.0
+	#Fireballs become available once his health is below this fraction of
+	#his maximum. Calamity uses 0.75.
+	#Range: 0.0 ~ 1.0
+	fireballHealthThreshold = 0.75
+	#Ticks between fireballs during the passive phase. 20 ticks = 1
+	#second.
+	#Range: 5 ~ 400
+	fireballIntervalTicks = 45
+	#Fireball speed in blocks per tick. 2.5 is 50 blocks per second.
+	#Range: 0.2 ~ 10.0
+	fireballSpeed = 2.5
+	#Damage per Cosmic Flame tick, plus 1 per amplifier level. Damage per
+	#second is damage x 20 / procIntervalTicks, so the defaults give about
+	#4 per second. Vanilla fire is 1 per second.
+	#Range: 0.0 ~ 100.0
+	cosmicFlameDamage = 2.0
+	#Ticks between Cosmic Flame damage ticks. 20 is once per second.
+	#Range: 1 ~ 100
+	cosmicFlameProcIntervalTicks = 10
+	#Cosmic Flame duration applied by a fireball hit, in ticks.
+	#20 ticks = 1 second.
+	#Range: 1 ~ 2400
+	cosmicFlameDurationTicks = 100
+	#Whether Cosmic Flame stops the affected entity healing from any
+	#source, including regeneration, golden apples, potions and natural
+	#regeneration. Off by default, as it is a large difficulty increase.
+	cosmicFlameBlocksHealing = false
+	#Armor points removed while Cosmic Flame is active. Armor toughness is
+	#reduced by a quarter of this value. Applied as an attribute modifier,
+	#so it shows in tooltips and is removed when the effect ends.
+	#0 disables it.
+	#Range: 0.0 ~ 30.0
+	cosmicFlameArmorReduction = 0.0
+	#Levels of Resistance removed while Cosmic Flame is active, if the
+	#entity has any. Restored when the effect ends. 0 disables it.
+	#Range: 0 ~ 10
+	cosmicFlameResistanceReduction = 1
+
+[coopScaling]
+	#Health multiplier applied per player beyond the first, compounding.
+	#The player count is taken once, when he is summoned. At 1.5 with a
+	#base of 2000: 2 players 3000, 3 players 4500, 4 players 6750.
+	#1.0 disables health scaling.
+	#Range: 1.0 ~ 10.0
+	coopHealthMultiplierPerPlayer = 1.5
+	#Outgoing damage multiplier applied per player beyond the first,
+	#compounding. The player count is taken once, when he is summoned.
+	#1.0 disables damage scaling.
+	#Range: 1.0 ~ 10.0
+	coopDamageMultiplierPerPlayer = 1.15
+	#Radius in blocks used to count players for the co-op scaling above.
+	#Counted once, when he is summoned, so players who arrive later do not
+	#raise his health mid-fight.
+	#Range: 16.0 ~ 1024.0
+	coopPlayerRange = 256.0
+	#Whether creative mode players count toward the co-op scaling above.
+	#Spectators never count.
+	coopCountCreativePlayers = false
+
+[despawn]
+	#What ends the fight when the players cannot.
+	#NEVER: he stays until something kills him.
+	#ABANDONED: if no living player is within despawnRadius for
+	#despawnGraceSeconds, he opens a vortex and returns to his own realm.
+	#DEATH_COUNTDOWN: the party shares a budget of deaths, sized from the
+	#players present at the summon. Each death spends one, and he leaves
+	#when it reaches zero.
+	#Allowed Values: NEVER, ABANDONED, DEATH_COUNTDOWN
+	despawnMode = "DEATH_COUNTDOWN"
+	#ABANDONED only. How far from him a living player can be and still
+	#count as fighting, in blocks. Large by default, since he covers ground
+	#quickly and a player kiting him at range is still in the fight.
+	#Range: 16.0 ~ 1024.0
+	despawnRadius = 256.0
+	#ABANDONED only. Seconds with no living player in range before he
+	#leaves. Short by default, matching Terraria. The radius above is large
+	#enough that an empty one means a wipe rather than someone briefly
+	#stepping away.
+	#Range: 1 ~ 60
+	despawnGraceSeconds = 3
+	#DEATH_COUNTDOWN only. Deaths granted per player counted at the
+	#summon, using the same count as the co-op scaling above.
+	#Range: 1 ~ 100
+	deathBudgetPerPlayer = 2
+	#DEATH_COUNTDOWN only. Multiplies the whole budget, for a softer or
+	#harsher run without changing the per-player figure.
+	#Range: 0.1 ~ 10.0
+	deathBudgetMultiplier = 1.0
+	#DEATH_COUNTDOWN only. Minimum total budget, whatever the player count
+	#and multiplier work out to.
+	#Range: 1 ~ 100
+	deathBudgetMinimum = 2
+
+[server]
+	#Warn when the server's view distance is too low for him.
+	#He is only sent to a client within the view distance, so a low
+	#setting makes him go invisible mid-fight while still attacking.
+	#Recommended: view-distance 12+.
+	#NEVER / LOG_ONLY / OPERATORS / EVERYONE.
+	#Allowed Values: NEVER, LOG_ONLY, OPERATORS, EVERYONE
+	lowViewDistanceNotice = "EVERYONE"
+	#Mention it when this config still has pre-1.1.0 balance defaults.
+	#Existing config files never receive new defaults, so a balance pass
+	#only reaches fresh installs. Run '/dog config defaults' to take them;
+	#it only replaces values you have not changed yourself.
+	#Never shown if you have tuned any of them.
+	notifyOnOutdatedDefaults = true
+
+[progression]
+	#Whether the first Ender Dragon kill plays the devour cutscene, in
+	#which the Devourer tears in, eats the dragon and vanishes. Cosmetic
+	#only: the reward below still drops when this is off.
+	dragonDevourCutscene = true
+	#Whether killing the Ender Dragon gives the devour reward at all.
+	#What it gives is data driven rather than a config option: override the
+	#loot table dog:gameplay/dragon_devour in a datapack to change it, or
+	#empty it to grant nothing. His own drops come from
+	#dog:entities/devourer_head, and the Cosmic Worm recipe is a normal
+	#datapack recipe at dog:cosmic_worm.
+	dragonDropsCosmicLarva = true
+	#Whether the Cosmic Worm is used up when it summons him.
+	#Off by default, so one Worm can summon him repeatedly. Turn on to
+	#make every summon cost the full craft, which is the stricter
+	#progression and closer to how Terraria treats boss summons.
+	#Creative mode never consumes it either way.
+	consumeSummonItem = false
+	#Dimension ids in which the Cosmic Worm can summon him, for example
+	#"minecraft:overworld". An empty list allows any dimension.
+	summonableDimensions = ["minecraft:overworld"]
+	#Compatibility with Ender Dragon overhaul mods, which replace the
+	#dragon with a custom entity that a vanilla-only check would miss,
+	#breaking progression. When true, any sufficiently strong entity whose
+	#id contains "dragon" and which dies in the End also counts as the
+	#Ender Dragon. Set false to accept only the vanilla dragon and the list
+	#below.
+	autoDetectModdedDragons = true
+	#Additional entity type ids to treat as the Ender Dragon, for reworks
+	#the detection above misses, for example
+	#"somemod:true_ender_dragon". Always used, even when
+	#autoDetectModdedDragons is false.
+	extraDragonEntityTypes = []
+	#Sound ids stopped on nearby clients while the Devourer eats the
+	#dragon, so it never plays its death sound. Muting the entity is not
+	#enough, because dragon overhaul datapacks play their own death audio
+	#with /playsound, which only /stopsound can cancel. Ids that do not
+	#exist are ignored, so entries for other overhauls are harmless. The
+	#MUSIC category is also stopped; boss music is unaffected because it
+	#plays on the master channel.
+	dragonDeathSilencedSounds = ["minecraft:entity.ender_dragon.death", "minecraft:entity.ender_dragon.growl", "minecraft:entity.ender_dragon.hurt", "minecraft:entity.warden.sonic_boom", "true_ending:music.dragon_defeat"]
+

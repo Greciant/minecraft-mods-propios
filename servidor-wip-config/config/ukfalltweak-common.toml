@@ -1,0 +1,25 @@
+
+#Quita el dano de caida que provoca el doble salto de Ultrakill Mechanics,
+#sin desactivar el dano de caida normal.
+[general]
+	#Descontar de la caida la altura que aporta el doble salto.
+	compensar_doble_salto = true
+	#Bloques a descontar. El impulso es y=1.0, que son ~7 bloques.
+	#Subelo si aun te hace dano; bajalo si quieres que saltar desde
+	#alto siga doliendo.
+	#Range: 0.0 ~ 64.0
+	bloques_doble_salto = 7.0
+	#Escribe en el log cada doble salto y cada caida. Ponlo en false
+	#cuando confirmes que funciona.
+	diagnostico = false
+
+#Cuanto tardas en cruzar un portal del Nether.
+[portal]
+	#Acortar la espera dentro del portal. Vanilla son 80 ticks (4 s).
+	portal_rapido = true
+	#Ticks que hay que estar dentro antes de cruzar. 20 ticks = 1 s.
+	#Ponlo en 1 para que sea instantaneo; subelo si cruzas sin querer
+	#al pasar por al lado de un portal.
+	#Range: 1 ~ 80
+	ticks_dentro_del_portal = 10
+

@@ -1,0 +1,36 @@
+
+[teleport_settings]
+	#Delay in seconds before teleportation occurs after request is accepted. Set to 0 for instant teleport.
+	#传送请求被接受后的等待秒数。设为0则立即传送。
+	#Range: 0 ~ 60
+	teleport_delay = 5
+	#Cooldown in seconds between teleport requests. Set to 0 for no cooldown.
+	#传送请求之间的冷却秒数。设为0则无冷却。
+	#Range: 0 ~ 120
+	cooldown_time = 0
+	#Whether taking damage cancels a pending teleport.
+	#受到伤害是否取消待处理的传送。
+	damage_cancels_teleport = true
+	#Whether moving cancels a pending teleport.
+	#移动是否取消待处理的传送。
+	movement_cancels_teleport = false
+	#Whether to allow teleportation across dimensions (e.g., Nether, End).
+	#是否允许跨维度传送（如下界、末地）。
+	allow_cross_dimension = true
+	#Whether to show countdown message on screen center.
+	#是否在屏幕中央显示倒计时消息。
+	show_countdown_on_screen = true
+	#Timeout in seconds for /back command. Set to 0 to disable timeout.
+	#/back 命令的有效时间（秒）。设为0则无时间限制。
+	#Range: 0 ~ 300
+	back_timeout = 30
+
+[request_settings]
+	#Timeout in seconds for teleport requests before they expire.
+	#传送请求过期时间（秒）。
+	#Range: 10 ~ 300
+	request_timeout = 60
+	#Whether to play a notification sound when receiving a teleport request.
+	#收到传送请求时是否播放提示音。
+	play_request_sound = true
+

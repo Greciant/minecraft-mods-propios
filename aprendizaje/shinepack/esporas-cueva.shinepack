@@ -1,0 +1,36 @@
+// Esporas azuladas que brillan en cuevas oscuras (sin luz de cielo, por debajo de y=40).
+{
+  "id": "esporas_cueva",
+  "enabled": false,
+  "sprite": "minecraft:glow",
+  "render": "emissive",
+  "brightness": 0.8,
+  "when": {
+    "dimensions": ["minecraft:overworld"],
+    "max_y": 40,
+    "max_sky_light": 0,
+    "max_block_light": 7
+  },
+  "spawn": {
+    "anchor": "player",
+    "range": 14,
+    "height": [-3, 4],
+    "density": 0.6,
+    "max": 90
+  },
+  "particle": {
+    "life": [100, 200],
+    "size": [0.02, 0.04],
+    "drag": 0.05,
+    "wobble": 0.004,
+    "wobble_speed": 0.05,
+    "collide": "die",
+    "color": "#70C8FF",
+    "color_end": "#B080FF",
+    "alpha": 0.9,
+    "fade_in": 30,
+    "fade_out": 40,
+    "twinkle": 0.6,
+    "twinkle_speed": 0.15
+  }
+}

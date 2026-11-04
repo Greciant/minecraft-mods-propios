@@ -1,0 +1,582 @@
+# Guion de packtest para probar TODOS los ports con el pack completo (Prism "Prueba-Ports").
+# Lanzar con -Dpacktest.script=/home/grec/Minecraft/desarrollo/mods-propios/packtest-forge-1.20.1/scripts/ports.txt
+# El arnes ya deja al jugador en 0.5 220 0.5 sobre una plataforma de piedra 33x33 (y=219) con un
+# anillo de barreras invisibles en x/z=+-17 (y 220-223), creativo, resistencia/vision nocturna/
+# caida lenta, resistencia al empuje 1, mediodia, sin spawns naturales (doMobSpawning,
+# doPatrolSpawning, doTraderSpawning, doInsomnia false; disableRaids true) y espera la carga.
+# Entre pasos hay 40 ticks (2 s) salvo donde se cambia con "gap".
+# Orientacion: look 0 = sur (+z), 90 = oeste (-x), -90 = este (+x), 180 = norte (-z).
+# IMPORTANTE: en la instancia de prueba Ji AFK Cinematic tiene que estar apagado
+# (config/ji-afk-cinematic.json "modEnabled": false); si no, a los 30 s sin tocar nada
+# su camara cinematica (franjas negras, sin HUD) se queda con las capturas.
+# El arnes borra los avisos (logros/recetas) cada tick y aparta el cursor a 0,0 al abrir cada
+# pantalla (sin tooltips). Las limpiezas que pueden no tener nada que hacer (kill, fill de aire,
+# clear, effect ya activo) van con cmdtry para que "fallos" cuente solo fallos reales.
+
+gap 40
+hud on
+view first
+cmdtry kill @e[type=!player,distance=..40]
+cmdtry kill @e[type=#minecraft:raiders]
+cmdtry clear @s
+waitload 4
+wait 100
+shot 00-inicio-plataforma
+
+# =====================================================================
+# 1. Spatial GUI (spatial_gui): inventario y cofre como panel 3D
+# =====================================================================
+echo === Spatial GUI ===
+cmdtry fill -16 220 -16 16 235 16 minecraft:air
+cmdtry kill @e[type=#minecraft:raiders]
+# en supervivencia el inventario es el InventoryScreen normal (en creativo sale el creativo)
+cmd gamemode survival
+gap 10
+# por si acaso, volver a dar los efectos y la resistencia al empuje en supervivencia
+cmdtry effect give @s minecraft:resistance infinite 4 true
+cmdtry effect give @s minecraft:night_vision infinite 0 true
+cmdtry effect give @s minecraft:slow_falling infinite 0 true
+cmd attribute @s minecraft:generic.knockback_resistance base set 1
+cmd give @s minecraft:diamond_sword
+cmd give @s minecraft:bread 16
+cmd setblock 2 220 0 minecraft:chest[facing=west]
+cmd item replace block 2 220 0 container.0 with minecraft:diamond 5
+cmd item replace block 2 220 0 container.13 with minecraft:golden_apple 3
+gap 40
+tp 0.5 220 0.5
+look 0 15
+view back
+wait 40
+inventory
+wait 60
+shot spatialgui-inventario-tercera
+close
+# Con una pantalla capturada, OptionsMixin.getCameraType fuerza THIRD_PERSON_BACK salvo que
+# config.firstPersonModeInventory / firstPersonModeContainers sean true (por defecto false):
+# "view first" no basta. Para probar el modo en primera persona se activan los dos y luego
+# se devuelven a false.
+setfield org.tastytrash.spatialGUI.SpatialGUI config.firstPersonModeInventory true
+setfield org.tastytrash.spatialGUI.SpatialGUI config.firstPersonModeContainers true
+view first
+inventory
+wait 60
+shot spatialgui-inventario-primera
+close
+tp 0.5 220 0.5
+look -90 30
+useat 2 220 0 minecraft:chest
+wait 60
+shot spatialgui-cofre-primera
+close
+setfield org.tastytrash.spatialGUI.SpatialGUI config.firstPersonModeInventory false
+setfield org.tastytrash.spatialGUI.SpatialGUI config.firstPersonModeContainers false
+wait 20
+# por defecto (modo primera persona apagado) el cofre se ve en tercera persona
+view back
+useat 2 220 0 minecraft:chest
+wait 60
+shot spatialgui-cofre-tercera
+close
+view first
+wait 40
+
+# =====================================================================
+# 2. ReAnimated (reanimated): animaciones al abrir/cerrar pantallas
+#    Para la prueba se alargan las animaciones a 40 ticks (2 s) y se apaga Spatial GUI
+#    (si no, el inventario y el cofre son el panel 3D y no la pantalla vanilla animada).
+#    Se compara cada fotograma a mitad de animacion con el final (expect_diff).
+# =====================================================================
+echo === ReAnimated ===
+setfield com.pycodder.reanimated.config.ReAnimatedConfig get().animationSpeedTicks 40
+setfield com.pycodder.reanimated.config.ReAnimatedConfig get().pauseSpeedTicks 40
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled false
+tp 0.5 220 0.5
+look -90 30
+# sin espada en la mano (su balanceo) y con particulas minimas (nieve del bioma): asi lo unico
+# que cambia entre fotogramas es la pantalla
+hotbar 8
+particles minimal
+wait 40
+gap 0
+inventory
+wait 5
+shot reanimated-inventario-abriendo
+wait 60
+shot reanimated-inventario-abierto
+close
+wait 5
+shot reanimated-inventario-cerrando
+wait 60
+shot reanimated-inventario-cerrado
+useat 2 220 0 minecraft:chest
+wait 5
+shot reanimated-cofre-abriendo
+wait 60
+shot reanimated-cofre-abierto
+close
+wait 60
+pause
+wait 5
+shot reanimated-pausa-abriendo
+wait 60
+shot reanimated-pausa
+close
+wait 60
+gap 40
+expect_diff reanimated-inventario-abriendo reanimated-inventario-abierto 1.5
+# cerrando (5 ticks de una animacion de 40): la pantalla tiene que seguir ahi, asi que se
+# parece al fotograma abierto y se diferencia bastante del cerrado (sin pantalla)
+expect_same reanimated-inventario-cerrando reanimated-inventario-abierto 30
+expect_diff reanimated-inventario-cerrando reanimated-inventario-cerrado 20
+expect_diff reanimated-cofre-abriendo reanimated-cofre-abierto 1.5
+expect_diff reanimated-pausa-abriendo reanimated-pausa 1.5
+expect_nolog Screen\.onClose\(\) not found
+setfield com.pycodder.reanimated.config.ReAnimatedConfig get().animationSpeedTicks 6
+setfield com.pycodder.reanimated.config.ReAnimatedConfig get().pauseSpeedTicks 4
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled true
+particles all
+hotbar 0
+cmd gamemode creative
+cmd setblock 2 220 0 minecraft:air
+
+# =====================================================================
+# 3. Ancient Remnants: Monoliths (ancient_remnants)
+# =====================================================================
+echo === Ancient Remnants: Monoliths ===
+cmdtry fill -16 220 -16 16 235 16 minecraft:air
+cmdtry kill @e[type=!player,distance=..40]
+cmdtry kill @e[type=#minecraft:raiders]
+gap 10
+cmdtry clear @s
+cmd give @s ancient_remnants:monolith_codex{StoredResearch:["ancient_remnants:hunter_monolith","ancient_remnants:cherry_monument","ancient_remnants:warrior_monolith"]}
+cmd give @s ancient_remnants:research_scrap{StoredResearch:["ancient_remnants:sentinel_monolith"]}
+cmd give @s ancient_remnants:research_scrap{StoredResearch:["ancient_remnants:oakwood_monument"]} 2
+cmd give @s ancient_remnants:research_scrap{StoredResearch:["ancient_remnants:coniferous_monument"]}
+gap 40
+tp 0.5 220 0.5
+hotbar 0
+look 0 10
+useitem
+wait 60
+shot monoliths-codex
+close
+# Elderheart delante del jugador (5 bloques al sur), con el jugador en la plataforma
+tp 0.5 220 0.5
+look 0 5
+wait 20
+cmd execute at @s rotated 0 0 run summon ancient_remnants:elderheart ^ ^1 ^5 {PossibleBlessings:"ancient_remnants:hunter_monolith"}
+cmd execute if entity @e[type=ancient_remnants:elderheart,distance=..12]
+wait 160
+shot monoliths-elderheart
+wait 100
+shot monoliths-bendicion
+# la bendicion se guarda en ForgeData del jugador; falla si no la recibio
+cmd data get entity @s ForgeData.AncientRemnantsBlessing
+cmd ancient_remnants blessing @s set ancient_remnants:architect_reach
+cmdtry kill @e[type=ancient_remnants:elderheart]
+# monumentos colocados con placestruct (como /place, pero guarda la caja) y encuadrados
+# con frame <distancia> <pitch> <yaw> <altura 0-1>: mirando al centro de la caja
+cmd gamemode spectator
+cmd execute positioned 80 0 0 positioned over world_surface run tp @s ~-22 ~22 ~-22 facing ~8 ~ ~8
+waitload 4
+wait 200
+placestruct 1200 ancient_remnants:cherry_monument 80 0
+wait 100
+# caja ~70x96x60: a ~1.2-1.3 veces el lado mayor
+frame 110 25 -45 0.5
+waitload 4
+wait 160
+shot monoliths-cherry-monument
+cmd execute positioned -80 0 0 positioned over world_surface run tp @s ~22 ~22 ~-22 facing ~8 ~ ~8
+waitload 4
+wait 200
+placestruct 1200 ancient_remnants:hunter_monolith -80 0
+wait 100
+# caja de ~126 de alto: de lejos y casi horizontal para que entre la aguja entera
+frame 155 10 -45 0.5
+waitload 4
+wait 160
+shot monoliths-hunter-monolith
+frame 155 10 135 0.5
+waitload 4
+wait 120
+shot monoliths-hunter-monolith-b
+cmd execute positioned 0 0 -80 positioned over world_surface run tp @s ~-22 ~22 ~22 facing ~8 ~ ~8
+waitload 4
+wait 200
+placestruct 1200 ancient_remnants:warrior_monolith 0 -80
+wait 100
+# los monolitos flotan muy por encima del suelo y la caja mide ~126 de alto: mirar a media
+# altura desde ~155 bloques, casi horizontal
+frame 155 10 -135 0.5
+waitload 4
+wait 160
+shot monoliths-warrior-monolith
+frame 155 10 45 0.5
+waitload 4
+wait 120
+shot monoliths-warrior-monolith-b
+
+# =====================================================================
+# 4. Timeless Echoes (echoes)
+# =====================================================================
+echo === Timeless Echoes ===
+cmd gamemode creative
+tp 0.5 220 0.5
+waitload 4
+wait 100
+gap 10
+cmdtry fill -16 220 -16 16 235 16 minecraft:air
+cmdtry kill @e[type=!player,distance=..40]
+cmdtry kill @e[type=#minecraft:raiders]
+cmdtry clear @s
+cmd give @s echoes:echo_blade{"echoes:rarity":"rare","echoes:perks":[{perk:"echoes:extra_damage",amplifiers:[6.0f]}]}
+cmd give @s echoes:ramattra
+cmd give @s echoes:time_reaper
+cmd give @s echoes:gloombringer
+cmd give @s echoes:lucent_will
+cmd give @s echoes:soul_heart_container 3
+cmd give @s echoes:timelost_helmet
+cmd give @s echoes:prisma_shard 8
+cmd summon echoes:sculked -4 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon echoes:hollowed -1 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon echoes:soul_trader 3 220 8 {Rotation:[180f,0f]}
+cmd summon echoes:sculk_heart 0.5 220 13
+cmd setblock -5 220 4 echoes:display
+cmd setblock -2 220 4 echoes:casket
+cmd setblock 5 220 4 echoes:prisma_pane
+gap 40
+# vista de los mobs: un poco mas alto y atras para que entren todos, con la mano vacia
+# (ranura 8 libre) para que el objeto no tape un tercio de la imagen
+fly on
+tp 0.5 222 -2
+look 0 20
+hotbar 8
+wait 100
+shot echoes-mobs
+fly off
+tp 0.5 220 0.5
+# en creativo "inventory" abre el inventario creativo en la pestana Bloques de construccion;
+# en supervivencia sale el inventario normal con los objetos dados
+cmd gamemode survival
+hotbar 0
+wait 20
+# sin el panel 3D de Spatial GUI: inventario plano con los objetos a la vista
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled false
+inventory
+wait 60
+shot echoes-items
+close
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled true
+cmd gamemode creative
+# portal: va 2 bloques bajo WORLD_SURFACE_WG; segun el bioma quedan encima arboles, nieve,
+# hielo o piedra. Tras colocarlo se pone aire encima de la caja (clearabove: x/z +-3, desde
+# maxY+1 hasta maxY+30), se comprueba que el bloque echoes:portal esta y se encuadra ese bloque.
+cmd gamemode spectator
+cmd execute positioned 0 0 96 positioned over world_surface run tp @s ~-18 ~18 ~-18 facing ~8 ~ ~8
+waitload 4
+wait 200
+placestruct 1200 echoes:portal_structure 0 96
+wait 100
+clearabove 3 30
+wait 40
+findblock echoes:portal
+framefound 14 40 -45
+waitload 4
+wait 160
+shot echoes-portal
+framefound 22 88 0
+wait 100
+shot echoes-portal-desde-arriba
+
+# =====================================================================
+# 5. Archaion (archaion) + AAA Particles
+# =====================================================================
+echo === Archaion ===
+cmd gamemode creative
+tp 0.5 220 0.5
+waitload 4
+wait 100
+gap 10
+cmdtry fill -16 220 -16 16 235 16 minecraft:air
+cmdtry kill @e[type=!player,distance=..40]
+cmdtry kill @e[type=#minecraft:raiders]
+cmdtry clear @s
+cmd give @s archaion:echo_mace
+cmd give @s archaion:echos_grace
+cmd give @s archaion:echo_charge 16
+cmd give @s archaion:impact_pearl 16
+cmd give @s archaion:echo_key 2
+cmd give @s archaion:brave_rod
+cmd give @s archaion:brave_essence 4
+cmd summon archaion:brave -9 220 6 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon archaion:slated -6 220 6 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon archaion:wight -4 220 6 {NoAI:1b,isCharged:1b,Rotation:[180f,0f]}
+cmd summon archaion:grimoray 4 222 6 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon archaion:haunter 6 220 6 {NoAI:1b,isCharged:1b,Rotation:[180f,0f]}
+cmd summon archaion:deepslate_sentinel 10 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon archaion:last_of_deepslate 0.5 220 14.5
+cmd setblock -5 220 3 archaion:deepslate_vault
+cmd setblock 5 220 3 archaion:deepslate_spawner
+cmd setblock 2 220 3 archaion:deepslate_hologram
+cmd setblock -2 220 2 archaion:deepslate_teleporter
+gap 40
+# mas alto y atras para que entren todos (brave, slated y wight a la izquierda, sentinel a la
+# derecha) y con la mano vacia (ranura 8 libre): la maza tapaba un tercio de la imagen
+fly on
+tp 0.5 222 -2
+look 0 20
+hotbar 8
+wait 140
+shot archaion-mobs-y-jefe
+fly off
+# despertar al jefe con 4 Echo Charges (efectos de AAA Particles: lod_feed_charge, lod_aura)
+# (hay que estar cerca para interactuar; las capturas se hacen desde ~9.5 bloques)
+tp 0.5 220 9.5
+look 0 0
+hotbar 2
+wait 40
+gap 10
+interact archaion:last_of_deepslate
+wait 20
+interact archaion:last_of_deepslate
+wait 20
+interact archaion:last_of_deepslate
+wait 20
+interact archaion:last_of_deepslate
+tp 0.5 220 5
+look 0 -8
+wait 50
+shot archaion-jefe-despertando
+wait 140
+shot archaion-jefe-despierto
+gap 40
+expect_log Loaded effek archaion:lod_feed_charge
+expect_log Loaded effek archaion:lod_aura
+cmdtry kill @e[type=archaion:last_of_deepslate]
+tp 0.5 220 0.5
+look 180 5
+wait 40
+# Echo's Grace (arco) y Echo Charge: disparan Echo Stars (efek echo_star)
+gap 2
+hotbar 1
+press use
+wait 25
+shot archaion-echos-grace-tensado
+release
+# la Echo Star tarda unos ticks en aparecer y alejarse de la camara
+wait 3
+shot archaion-echos-grace-disparo
+wait 40
+hotbar 2
+useitem
+wait 3
+shot archaion-echo-charge
+wait 40
+# Echo Mace: lanzarla hacia la parte abierta de la plataforma y capturar 3 y 6 ticks despues
+# (en el tick del lanzamiento la maza se dibuja pegada a la camara y tapa todo)
+look 180 15
+wait 10
+hotbar 0
+press use
+wait 20
+gap 3
+release
+shot archaion-echo-mace-lanzada
+shot archaion-echo-mace-lanzada-b
+gap 2
+wait 60
+gap 40
+expect_log Loaded effek archaion:echo_star
+# Ancient Keep con placestruct lejos de la plataforma (es enorme: dar tiempo de sobra).
+# La Keep esta entera bajo tierra (caja tipica y -100..-10): no se encuadra desde fuera,
+# se mira desde dentro (en espectador se ven los huecos de la estructura a traves de la roca).
+cmdtry kill @e[type=!player,distance=..60]
+cmd gamemode spectator
+tp 600 120 600
+waitload 6
+wait 1200
+placestruct 6000 archaion:ancient_keep 600 600
+wait 600
+# mantener cargados los chunks de la caja (bloques y entidades) mientras se mira
+forceloadbox
+wait 300
+# sin jefes de otros mods (Frostmaw ponia su barra en todas las capturas) ni mobs sueltos;
+# el jefe de la Keep se respeta
+cmdtry kill @e[type=mowziesmobs:frostmaw]
+cmdtry kill @e[type=!player,type=!archaion:last_of_deepslate,distance=..150]
+# 1) centro de la caja
+tpbox 0 0 0 -45 20
+waitload 4
+wait 300
+shot archaion-keep-centro
+# 2) bloque de archaion mas cercano al centro (FAIL si la caja no tiene ninguno)
+findblock archaion:(deepslate_teleporter|teleporter|deepslate_vault|deepslate_spawner|soul_lamp)
+framefound 10 20 -45
+waitload 4
+wait 200
+shot archaion-keep-bloque
+# 3) arena del jefe: FAIL directo si no hay Last of Deepslate cargado (y entonces se usa el
+#    centro de la caja, que da otra vista que la del paso 2)
+findentity archaion:last_of_deepslate
+framefound 16 10 0
+waitload 4
+wait 300
+shot archaion-keep-arena
+look 90 15
+wait 100
+shot archaion-keep-arena-b
+look -90 15
+wait 100
+shot archaion-keep-arena-c
+framefound 30 89 0
+wait 160
+shot archaion-keep-desde-arriba
+forceloadbox remove
+
+# =====================================================================
+# 6. Noble Phantasms (noblephantasms)
+# =====================================================================
+echo === Noble Phantasms ===
+cmd gamemode creative
+tp 0.5 220 0.5
+waitload 6
+wait 200
+gap 10
+cmdtry fill -16 220 -16 16 235 16 minecraft:air
+cmdtry kill @e[type=!player,distance=..60]
+cmdtry kill @e[type=#minecraft:raiders]
+cmdtry clear @s
+cmd item replace entity @s hotbar.0 with noblephantasms:excalibur
+cmd item replace entity @s hotbar.1 with noblephantasms:gungnir
+cmd item replace entity @s hotbar.2 with noblephantasms:gram
+cmd item replace entity @s hotbar.3 with noblephantasms:xiuhcoatl
+cmd item replace entity @s hotbar.4 with noblephantasms:chimalli
+cmd item replace entity @s hotbar.5 with noblephantasms:tyrfing
+cmd item replace entity @s hotbar.6 with noblephantasms:kusanagi_no_tsurugi
+cmd item replace entity @s hotbar.7 with noblephantasms:holy_grail
+cmd item replace entity @s hotbar.8 with noblephantasms:kazaguruma
+cmd give @s noblephantasms:eye_of_horus
+cmd give @s noblephantasms:ankh
+cmd give @s noblephantasms:pridwen
+cmd give @s noblephantasms:rhongomyniad
+cmd give @s noblephantasms:megingjord
+cmd give @s noblephantasms:yasakani_no_magatama
+cmd give @s noblephantasms:mythical_reliquary
+cmd summon noblephantasms:anubite -4 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon noblephantasms:draugr -2 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon noblephantasms:oni 0.5 220 8 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon noblephantasms:jaguar_micqui 3 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd summon noblephantasms:ecclesiastic 5 220 7 {NoAI:1b,Rotation:[180f,0f]}
+cmd setblock -3 220 4 noblephantasms:reliquary_station
+cmd setblock 3 220 4 noblephantasms:brazier[lit=true]
+gap 40
+# vista de los mobs: mas alto y atras; la barra rapida esta llena, asi que se oculta el HUD
+# (con F1 tampoco se dibuja la mano) para que el objeto no tape la imagen
+fly on
+tp 0.5 222 -2
+look 0 20
+hotbar 0
+hud off
+wait 140
+shot noblephantasms-mobs
+hud on
+fly off
+tp 0.5 220 0.5
+# inventario normal (en creativo saldria la pestana Bloques de construccion)
+cmd gamemode survival
+wait 20
+# sin el panel 3D de Spatial GUI: inventario plano con los objetos a la vista
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled false
+inventory
+wait 60
+shot noblephantasms-reliquias
+close
+setfield org.tastytrash.spatialGUI.SpatialGUI config.enabled true
+cmd gamemode creative
+# usar reliquias apuntando a los mobs (al sur). Cuentas con gap 2 (press en T):
+#   Excalibur se dispara sola al llegar a 20 ticks de carga.
+tp 0.5 220 0.5
+look 0 8
+watch noblephantasms:excalibur_projectile noblephantasms:gungnir noblephantasms:xiuhcoatl
+wait 40
+gap 2
+hotbar 0
+# T
+press use
+# shot en T+12 (cargando)
+wait 8
+shot noblephantasms-excalibur-cargando
+# shot en T+22 (se dispara hacia T+20/21)
+wait 6
+shot noblephantasms-excalibur-onda
+release
+shot noblephantasms-excalibur-onda-b
+wait 60
+expect_seen noblephantasms:excalibur_projectile
+hotbar 1
+press use
+wait 30
+shot noblephantasms-gungnir-cargando
+release
+wait 2
+shot noblephantasms-gungnir-lanzada
+wait 60
+expect_seen noblephantasms:gungnir
+# Xiuhcoatl dispara al usar (sin carga, con enfriamiento): un solo uso y capturas 3 y 6 ticks
+# despues (en el tick del disparo el proyectil sale pegado a la camara y llena la imagen)
+hotbar 3
+wait 10
+gap 3
+useitem
+shot noblephantasms-xiuhcoatl
+shot noblephantasms-xiuhcoatl-b
+gap 2
+wait 60
+expect_seen noblephantasms:xiuhcoatl
+hotbar 2
+press use
+wait 25
+release
+wait 1
+shot noblephantasms-gram
+wait 40
+# Chimalli: bloquear y al soltar da un impulso hacia delante + velocidad + rafaga
+tp 0.5 220 0.5
+look 0 8
+wait 10
+hotbar 4
+press use
+wait 25
+shot noblephantasms-chimalli
+release
+shot noblephantasms-chimalli-impulso
+wait 2
+shot noblephantasms-chimalli-impulso-b
+expect_effect minecraft:speed
+wait 40
+gap 40
+# golpe con Tyrfing a un mob
+tp 0.5 220 5
+look 0 10
+hotbar 5
+wait 40
+attack
+wait 20
+shot noblephantasms-tyrfing-golpe
+# tercera persona de frente: lejos de los mobs y mirando al norte, para que la camara
+# (que va delante del jugador) no quede dentro del Oni; los mobs salen detras
+tp 0.5 220 0.5
+look 180 10
+view front
+wait 40
+shot noblephantasms-tercera-persona
+view first
+
+# =====================================================================
+# fin
+# =====================================================================
+echo === fin del guion de ports ===
+tp 0.5 220 0.5
+wait 100
+shot 99-final

@@ -1,0 +1,39 @@
+
+["GamePlay Config"]
+	#Can cast spells while stun (true/false) #default false
+	can_cast_while_stun = false
+	#
+	#Annihilation School Fire/Ender Bonus Multiplier #default 0.5
+	annihliation_fire_bonus = 0.5
+	annihliation_ender_bonus = 0.5
+
+["Equipment Config"]
+	#Annihilators Protocol Dodge Chance (0.0 ~ 1.0) #default 0.1
+	annihilators_protocol_dodge_chance = 0.1
+
+["Spell Config"]
+
+	["Spell Config"."Annihilation Arrow"]
+		#Enable Annihilation Arrow HP Damage #default true
+		annihilation_arrow_hp_damage = true
+
+	["Spell Config"."Annihilation Beam"]
+		#Enable Annihilation Beam HP Damage #default true
+		annihilation_beam_hp_damage = true
+
+	["Spell Config"."Annihilation Bomb"]
+		#Enable Annihilation Bomb HP Damage #default true
+		annihilation_bomb_hp_damage = true
+
+	["Spell Config"."Annihilation Shockwave"]
+		#Enable Annihilation Shockwave HP Damage #default true
+		annihilation_shockwave_hp_damage = true
+
+	["Spell Config"."Flameborn Drift"]
+		#Enable Flameborn Drift HP Damage #default true
+		flameborn_drift_hp_damage = true
+
+	["Spell Config"."Possessed Soul Blade"]
+		#Possessed Soul Blade Second School (String) #default irons_spellbooks:blood
+		possessed_soul_blade_second_school = "irons_spellbooks:blood"
+

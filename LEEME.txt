@@ -1,0 +1,52 @@
+MINECRAFT - indice de carpetas                        reorganizado 2026-09-03
+
+VER PRIMERO: MAPA.md (rutas actuales, flujo portatil->PC->pool, reglas de recursos)
+
+servidores/
+  wip-1.20.1-ACTIVO/          <- EL QUE SE USA. Forge 47.4.16 + Sinytra Connector.
+                                 Arranque con consola:  ./start-consola.sh
+                                 Mandar comandos:       ./cmd.sh <comando>
+                                 (start.sh directo deja el server sin consola)
+  testk-1.21.1-aparcado/         NeoForge 1.21.1. Parado desde 20-ago.
+  antiguo-1.20.1-aparcado/       Servidor viejo, 9,1 GB (world 7,8 GB).
+
+clientes/
+  wip-1.20.1-ACTIVO/             Copia local del cliente del PC. El cliente real
+                                 vive en el PC (Prism) y se ve por CIFS en
+                                 ~/instancia-pc cuando el PC esta encendido.
+  testk-1.21.1-aparcado/         Parado desde 19-ago.
+
+mods/
+  pool-1.20.1/                   Almacen de mods del cliente (271 activos).
+                                 _retirados/ dentro tiene los descartados.
+
+desarrollo/
+  mods-propios/                  Codigo fuente de los mods hechos aqui:
+                                   teleport77            /home /tpa /back cross-dim
+                                   betterresolution      escalado de resolucion (desde cero)
+                                   ji-afk-cinematic-1201 port propio a 1.20.1
+  shine-port/                    Port parcial de SHINE a Forge 1.20.1.
+                                 Compilar todo con:  ./gradlew build
+                                 (todos llevan org.gradle.java.home a Java 21;
+                                  el java del sistema es 25 y Gradle no lo traga)
+
+recursos/
+  texturas-y-packs/              Punchy refined, WIP-EnergyBeam.
+
+paquetes/
+  para-la-pc-20260820-YA-APLICADO/   entrega vieja, ya instalada. Solo historico.
+  testk-1.21.1-curseforge-export/    export CurseForge de TestK (228 de 233 jars
+                                     repetidos con clientes/testk-1.21.1-aparcado)
+  export-curseforge-sin-nombre/      export CurseForge sin identificar
+
+EL MODPACK LISTO PARA INSTALAR NO ESTA AQUI, esta en:
+    ~/Sync/Compartida/Modpack-WIP/        (se sincroniza solo al PC)
+
+FUERA DE ESTA CARPETA
+  ~/Proyectos-web/Minecraft Servers Confi/   app Next.js, NO es un servidor.
+                                             Estaba mal archivada entre las de MC.
+
+ESPACIO
+  2026-09-03: borrados los 21 GB de simplebackups/ de antiguo-1.20.1-aparcado
+  (5 zips world_2026-07-27 .. world_2026-08-03). El mundo NO se toco: sigue
+  en world/ con 7,8 GB. Ese servidor paso de 30 GB a 9,1 GB.

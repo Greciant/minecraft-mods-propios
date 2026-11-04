@@ -1,0 +1,10 @@
+.gradle/
+build/
+run/
+runs/
+out/
+.idea/
+*.iml
+bin/
+.vscode/
+run-compat*/

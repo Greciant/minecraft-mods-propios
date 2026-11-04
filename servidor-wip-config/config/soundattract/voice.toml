@@ -1,0 +1,24 @@
+
+#Sound Attract Mod - Voice Chat Configuration
+[voice_chat]
+
+	[voice_chat."Simple VC"]
+		#[DEPRECATED as of 6.3.3] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		enableVoiceChatIntegration = true
+		#[DEPRECATED as of 6.3.4] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		#Range: 1 ~ 64
+		voiceChatWhisperRange = 16
+		#[DEPRECATED as of 6.3.4] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		#Range: 1 ~ 128
+		voiceChatNormalRange = 32
+		#[DEPRECATED as of 6.3.4] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		#Range: 0.0 ~ 10.0
+		voiceChatWeight = 9.0
+		#[DEPRECATED as of 6.3.4] Moved to soundattract/server-rules.toml (SERVER config).
+		#The value here is no longer read at runtime; kept only so existing config files do not error.
+		voiceChatDbThresholdMap = ["110:2.0", "90:1.8", "75:1.5", "50:1.0", "30:0.7", "10:0.3", "0:0.05"]
+

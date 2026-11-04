@@ -1,0 +1,285 @@
+
+#Settings for other mod integrations
+[integration]
+	enableQuantifiedIntegration = true
+	enableSmartBrainLibIntegration = true
+	enableCustomNpcsIntegration = true
+
+	[integration.quantified_cache]
+		enableQuantifiedCacheIntegration = true
+		#Range: 0 ~ 65536
+		quantifiedCacheMemoryLimitMB = 256
+		disableQuantifiedCacheOnMemoryPressure = true
+		triggerQuantifiedCacheCleanupOnMemoryPressure = true
+		enableQuantifiedSoundScoreSliceCache = true
+		quantifiedSoundScoreSliceCachePersistent = false
+		#Range: 1 ~ 72000
+		quantifiedSoundScoreSliceCacheTtlTicks = 20
+		#Range: 64 ~ 1000000
+		quantifiedSoundScoreSliceCacheMaxEntries = 4096
+
+	[integration.enhanced_ai_inspired]
+		enableBlockBreaking = false
+		#Range: -1.0 ~ 100.0
+		blockBreakingTimeMultiplier = 1.5
+		blockBreakingToolOnly = false
+		blockBreakingProperToolOnly = false
+		enableTeleportToSound = false
+		#Range: 0.0 ~ 1.0
+		teleportChance = 0.35
+		#Range: 0 ~ 72000
+		teleportCooldownTicks = 300
+		teleportCanTeleportTag = "enhancedai:mobs/teleport_to_target/can_teleport"
+		#EntityType tag used to decide which mobs can be teleported. Defaults to EnhancedAI's tag.
+		teleportCanBeTeleportedTag = "enhancedai:mobs/teleport_to_target/can_be_teleported"
+		#Enable special AI: mobs with the specified tag can pick up another mob and throw it toward the sound location.
+		enablePickUpAndThrowToSound = false
+		#Chance [0..1] for a thrower mob to attempt the pick-up-and-throw behavior. If EnhancedAI is installed, its difficulty-based chance is used instead.
+		#Range: 0.0 ~ 1.0
+		pickUpChance = 0.05
+		#Cooldown (in ticks) after a throw action. If EnhancedAI is installed, its value is used instead.
+		#Range: 0 ~ 72000
+		pickUpCooldownTicks = 600
+		#Minimum distance from the sound for the mob to consider picking up a target.
+		#Range: 0 ~ 1024
+		pickUpMinDistanceToPickUp = 5
+		#Max distance to the sound within which the mob will release/throw the picked-up mob.
+		#Range: 0 ~ 1024
+		pickUpMaxDistanceToThrow = 24
+		#Speed modifier applied to the mob while approaching the pick-up target.
+		#Range: 0.0 ~ 10.0
+		pickUpSpeedModifier = 1.25
+		#EntityType tag used to decide which mobs can perform pick-up-and-throw. Defaults to EnhancedAI's tag.
+		pickUpCanPickUpTag = "enhancedai:mobs/pick_up_and_throw/can_pick_up"
+		#EntityType tag used to decide which mobs can be picked up. Defaults to EnhancedAI's tag.
+		pickUpCanBePickedUpTag = "enhancedai:mobs/pick_up_and_throw/can_be_picked_up"
+		#Enable XRAY targeting compat: mobs in the apply_xray tag can detect players through walls up to a configured range.
+		enableXrayTargeting = false
+		#EntityType tag used to decide which mobs can have XRAY detection. Defaults to EnhancedAI's tag.
+		xrayApplyTag = "enhancedai:mobs/targeting/apply_xray"
+		#Require the mob to also be in the Better Nearby Targeting tag to apply XRAY (mirrors EnhancedAI behavior).
+		xrayRequireBetterNearby = false
+		#EntityType tag for Better Nearby Targeting. Used only if xrayRequireBetterNearby is true.
+		xrayBetterNearbyTag = "enhancedai:mobs/targeting/better_nearby_targeting"
+		#Minimum XRAY follow range (blocks) for fallback when EnhancedAI is not present. 0..128
+		#Range: 0 ~ 128
+		xrayMinRange = 16
+		#Maximum XRAY follow range (blocks). 0 disables XRAY fallback.
+		#Range: 0 ~ 128
+		xrayMaxRange = 24
+		#Chance [0..1] for a mob in the XRAY tag to get the XRAY range (fallback when EnhancedAI is not present).
+		#Range: 0.0 ~ 1.0
+		xrayChance = 0.5
+
+	[integration.relentless_undead_inspired]
+		enableRelentlessClimbing = false
+		relentlessEligibleMobs = ["minecraft:zombie", "minecraft:husk", "minecraft:drowned"]
+		zombiesIgnoreHeight = false
+		zombiesCanStack = true
+		#Range: 0.0 ~ 10.0
+		zombieFallDamageMultiplier = 0.5
+
+	[integration.immersive_melodies]
+		#Enable integration with Immersive Melodies: playing instruments attracts mobs.
+		enableImmersiveMelodiesIntegration = true
+		#How often (in ticks) to check if a player is playing an instrument. A higher value reduces overhead and increases the gap in the sound trail.
+		#Range: 1 ~ 1200
+		immersiveMelodiesPollInterval = 40
+		#Default attraction range for instruments.
+		#Range: 0.0 ~ 512.0
+		immersiveMelodiesDefaultRange = 48.0
+		#Default weight for instruments.
+		#Range: 0.0 ~ 100.0
+		immersiveMelodiesDefaultWeight = 30.0
+		#List of instrument item IDs and their weight multipliers (e.g. 'immersive_melodies:drum:2.0').
+		immersiveMelodiesInstrumentMultipliers = ["immersive_melodies:drum:1.5"]
+		#List of melody IDs and their custom range:weight (e.g. 'immersive_melodies:test_melody:32.0:3.0').
+		immersiveMelodiesMelodyOverrides = []
+
+	[integration.spore]
+		#Master toggle for Spore mod integration. Enables sound attraction, stealth bridge, and Proto deployment for Spore entities.
+		enableSporeIntegration = true
+		#Inject FollowScentGoal into Spore Infected entities so they can follow player scent trails.
+		enableSporeScentTrail = true
+		#Bridge Sound Attract's camouflage system with Spore's MARKER effect. Degraded camo applies MARKER, making the entity visible to all Infected through walls.
+		enableStealthMarkerBridge = true
+		#When a player with high scent-blocking camo is near a Spore ScentEntity, accelerate its dissipation.
+		enableScentBlockSuppression = true
+		#Allow Proto to react to high-weight sounds by deploying Vigil scouts toward the sound source.
+		enableProtoSoundDeployment = true
+		#Allow linked Infected to propagate sound positions to nearby linked Infected via their searchPos.
+		enableSoundRelay = true
+		#Proto waits for scout confirmation before spreading biomass toward sound. If false, spreads immediately.
+		smartSpreadToSound = true
+		#Visual camo strength below which MARKER is applied when degrading from above.
+		#Range: 0.0 ~ 1.0
+		stealthMarkerCamoThreshold = 0.3
+		#How often (in ticks) the stealth bridge scans for camo transitions and ScentEntity suppression.
+		#Range: 1 ~ 1200
+		stealthBridgeCheckIntervalTicks = 40
+		#Extra dissipation ticks added per bridge cycle to ScentEntities near camo'd entities.
+		#Range: 1 ~ 600
+		scentEntityDissipationAccel = 40
+		#Minimum sound weight for Proto to consider deploying scouts.
+		#Range: 0.0 ~ 100.0
+		protoSoundWeightThreshold = 10.0
+		#Cooldown (in ticks) between Proto scout deployments.
+		#Range: 0 ~ 72000
+		protoSoundDeploymentCooldownTicks = 200
+		#Minimum biomass for Proto to deploy scouts.
+		#Range: 0 ~ 10000
+		protoSoundBiomassThreshold = 20
+		#Maximum distance from Proto's NODE for biased biomass spread toward sound. Beyond this, no spread occurs.
+		#Range: 0.0 ~ 512.0
+		protoSpreadMaxDistance = 256.0
+		#How far toward the sound source to bias the spread center (0.0=at NODE, 1.0=at sound).
+		#Range: 0.0 ~ 1.0
+		protoSpreadLerpFactor = 0.35
+		#Range (blocks) for linked Infected sound propagation to nearby Infected.
+		#Range: 0.0 ~ 256.0
+		soundRelayRange = 32.0
+
+		[integration.spore.predatory_creep]
+			#If true, when a Vigil spots a player, the Proto will creep biomass toward their location.
+			enableProtoPredatoryCreep = true
+			#Distance (blocks) the biomass advances per creeping step.
+			#Range: 1.0 ~ 64.0
+			protoCreepAdvanceDistance = 8.0
+			#Ticks between creeping steps. Higher values reduce CPU usage.
+			#Range: 20 ~ 12000
+			protoCreepIntervalTicks = 200
+			#Sound played by the Vigil when spotting a player to alert the Proto. Default is Spore's eye stare sound.
+			vigilSightedSound = "spore:vigil_eye_use"
+			#Sound played by the Proto when it begins a predatory hunt.
+			protoHuntBeginSound = "spore:proto_ambient"
+			#Particle played at the Proto's NODE when a hunt begins.
+			protoHuntBeginParticle = "minecraft:sculk_soul"
+			#Neural-Net Influence: Loud sounds bias Proto toward heavy units; quiet sounds bias it toward scouts.
+			enableProtoNeuralInfluence = true
+			#Harmonic Fear: Hive Tumors panic if players make sound while standing on biomass.
+			enableHarmonicFear = true
+			#Deluge of Sound: Delusionares warp nearby infected to noisy players.
+			enableDelugeOfSound = true
+			#Range (blocks) for Hive Tumor biomass sound detection.
+			#Range: 1.0 ~ 512.0
+			harmonicFearRange = 32.0
+			#Minimum sound weight to trigger Delusionare's mass teleportation.
+			#Range: 1.0 ~ 100.0
+			delugeOfSoundWeightThreshold = 20.0
+
+	#CS Grenades integration settings
+	[integration.csgrenades_integration]
+		#Master switch for all CS Grenades integration behaviors.
+		enableCsgrenadesIntegration = true
+		#Flashbang blinds mobs within range + LOS + FOV.
+		enableFlashbangBlinding = true
+		#Maximum blocks from flash at which a mob can still be blinded.
+		#Range: 2.0 ~ 64.0
+		flashbangBlindRadius = 16.0
+		#Base blind duration; actual = base * (1 - dist/radius).
+		#Range: 1 ~ 6000
+		flashbangBlindDurationTicks = 300
+		#If true, mob must have LOS to the flash to be blinded.
+		flashbangRequireLineOfSight = true
+		#If true, mob must have the flash inside its FOV to be blinded.
+		flashbangRequireFov = true
+		#Max mobs evaluated per flashbang activation (hard cap).
+		#Range: 8 ~ 512
+		flashbangMobScanBudget = 64
+		#Active smoke grenades block line-of-sight through their cloud.
+		enableSmokeLosBlocking = true
+		#Radius of the smoke sphere used for LOS intersection.
+		#Range: 1.0 ~ 16.0
+		smokeCloudRadius = 4.0
+		#Safety cap: ignore smoke entities older than this many ticks since activation.
+		#Range: 20 ~ 6000
+		smokeLifetimeMaxTicks = 400
+		#Eligible non-fire-immune mobs flee from active incendiary/molotov grenades.
+		enableFireFlee = true
+		#A mob this close to an active fire grenade is considered in danger.
+		#Range: 1.0 ~ 32.0
+		fireFleeDangerRadius = 6.0
+		#Blocks the mob tries to sprint away from fire.
+		#Range: 4.0 ~ 64.0
+		fireFleeAwayDistance = 16.0
+		#Speed multiplier applied while fleeing fire.
+		#Range: 0.5 ~ 3.0
+		fireFleeSpeedModifier = 1.4
+		#Minimum ticks between re-triggering flee for the same mob.
+		#Range: 1 ~ 600
+		fireFleeCooldownTicks = 40
+		#Entity IDs eligible to receive FleeFromFireGoal. mob.fireImmune()==true is always excluded.
+		fleeFromFireEligibleMobs = ["minecraft:zombie", "minecraft:husk", "minecraft:drowned", "minecraft:skeleton", "minecraft:stray", "minecraft:creeper", "minecraft:spider", "minecraft:cave_spider", "minecraft:wolf", "minecraft:villager", "minecraft:iron_golem", "minecraft:piglin", "minecraft:piglin_brute", "minecraft:zoglin", "minecraft:hoglin", "minecraft:witch", "minecraft:pillager", "minecraft:vindicator", "minecraft:evoker", "minecraft:ravager"]
+		#How often the active-grenade cache rebuilds (smoke/fire).
+		#Range: 1 ~ 40
+		csgrenadesTrackerScanIntervalTicks = 5
+
+	#HotBath integration settings
+	[integration.hotbath]
+		#Enable optional HotBath integration for scent and camouflage wash behavior.
+		enableHotBathIntegration = true
+		#Target interval for refreshing each online player's HotBath scent/camo state. Work is spread across ticks.
+		#Range: 1 ~ 24000
+		hotBathPollIntervalTicks = 80
+		#Scent multiplier at 100% HotBath dirtiness. Interpolates linearly from 1.0 when clean.
+		#Range: 0.0 ~ 100.0
+		maxDirtyScentMultiplier = 2.0
+		#Fallback duration for bath aroma scent modifiers after bathing or splash cleanup.
+		#Range: 0 ~ 72000
+		defaultBathAromaDurationTicks = 2400
+		#Built-in HotBath fluid scent modifiers. Format: 'fluid_id;scent_multiplier;duration_ticks'.
+		hotBathFluidScentModifiers = ["hotbath:hot_water_fluid;0.70;2400", "hotbath:milk_bath_fluid;0.45;3000", "hotbath:herbal_bath_fluid;0.55;3000", "hotbath:honey_bath_fluid;0.85;2400", "hotbath:peony_bath_fluid;0.80;2400", "hotbath:rose_bath_fluid;1.10;2400"]
+		#Bath aroma biome modifiers. Format: 'fluid_id;biome_id_or_#biome_tag;multiplier'.
+		hotBathBiomeScentModifiers = ["hotbath:herbal_bath_fluid;#minecraft:is_desert;1.35"]
+		#Gradual camo wash while standing in HotBath fluids. Format: 'fluid_id;skin_rate;armor_rate'. Values remove that fraction per poll.
+		hotBathCamoWashRates = ["hotbath:hot_water_fluid;0.08;0.08", "hotbath:milk_bath_fluid;0.05;0.05", "hotbath:herbal_bath_fluid;0.06;0.06", "hotbath:honey_bath_fluid;0.03;0.03", "hotbath:peony_bath_fluid;0.04;0.04", "hotbath:rose_bath_fluid;0.04;0.04"]
+		#Camo wash when hit by HotBath splash bottles. Format: 'fluid_id;skin_fraction;armor_fraction'. Values remove that fraction instantly.
+		hotBathSplashCamoWashRates = ["hotbath:hot_water_fluid;0.50;0.50", "hotbath:milk_bath_fluid;0.50;0.50", "hotbath:herbal_bath_fluid;0.50;0.50", "hotbath:honey_bath_fluid;0.40;0.40", "hotbath:peony_bath_fluid;0.45;0.45", "hotbath:rose_bath_fluid;0.45;0.45"]
+		#Custom HotBath datapack fluid scent modifiers. Format: 'fluid_id;scent_multiplier;duration_ticks'.
+		hotBathCustomFluidScentModifiers = []
+		#Custom HotBath datapack fluid camo wash rates. Format: 'fluid_id;skin_rate;armor_rate'.
+		hotBathCustomFluidCamoWashRates = []
+
+	#ToughAsNails integration settings
+	[integration.tough_as_nails]
+		#Enable ToughAsNails scent and sound integration.
+		enableToughAsNailsIntegration = true
+		#How often each player's ToughAsNails state is refreshed.
+		#Range: 1 ~ 24000
+		toughAsNailsPollIntervalTicks = 40
+		#Scent multipliers by ToughAsNails temperature. Format: 'LEVEL;multiplier'.
+		temperatureScentMultipliers = ["ICY;0.75", "COLD;0.90", "NEUTRAL;1.00", "WARM;1.20", "HOT;1.50"]
+		#Scent multiplier while hyperthermia is active.
+		#Range: 0.0 ~ 100.0
+		hyperthermiaScentMultiplier = 1.4
+		#Player-action sound multiplier while hyperthermia is active.
+		#Range: 0.0 ~ 100.0
+		hyperthermiaSoundMultiplier = 1.15
+		#Scent multiplier when thirst is empty.
+		#Range: 0.0 ~ 100.0
+		thirstScentMultiplierAtEmpty = 1.25
+		#Player-action sound multiplier when thirst is empty.
+		#Range: 0.0 ~ 100.0
+		thirstSoundMultiplierAtEmpty = 1.1
+		#Sound multiplier for each worn wool armor piece.
+		#Range: 0.0 ~ 100.0
+		woolArmorSoundMultiplierPerPiece = 0.92
+		#Lowest sound multiplier from wool armor.
+		#Range: 0.0 ~ 100.0
+		woolArmorMinimumSoundMultiplier = 0.7
+		#Scent multiplier for each wool piece while warm.
+		#Range: 0.0 ~ 100.0
+		woolWarmScentMultiplierPerPiece = 1.05
+		#Scent multiplier for each wool piece while hot.
+		#Range: 0.0 ~ 100.0
+		woolHotScentMultiplierPerPiece = 1.1
+		#Highest scent multiplier from hot wool armor.
+		#Range: 0.0 ~ 100.0
+		woolHeatMaximumScentMultiplier = 1.6
+		#Scent multiplier for each worn leaf armor piece.
+		#Range: 0.0 ~ 100.0
+		leafArmorScentMultiplierPerPiece = 0.97
+		#Lowest scent multiplier from leaf armor.
+		#Range: 0.0 ~ 100.0
+		leafArmorMinimumScentMultiplier = 0.9
+

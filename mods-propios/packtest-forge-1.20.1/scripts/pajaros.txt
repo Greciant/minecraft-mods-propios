@@ -1,0 +1,33 @@
+# Guion de packtest: pajaros de shineport 1.5.0 con el pack completo (Prism "Prueba-Ports").
+# Lanzar con -Dpacktest.script=/home/grec/Minecraft/desarrollo/mods-propios/packtest-forge-1.20.1/scripts/pajaros.txt
+# Baja de la plataforma al terreno real (spreadplayers), espera a que aparezcan bandadas,
+# saca capturas mirando alrededor, pone lluvia (deben irse) y comprueba el log.
+gap 40
+hud off
+view first
+cmdtry kill @e[type=!player,distance=..40]
+waitload 4
+wait 100
+echo === Pajaros ===
+cmd time set 6000
+cmd weather clear
+cmd gamemode spectator
+cmd spreadplayers 400 400 0 300 false @s
+cmd tp @s ~ ~1.5 ~
+waitload 4
+wait 1600
+look 0 -5
+shot pajaros-sur
+look 90 -5
+shot pajaros-oeste
+look 180 -5
+shot pajaros-norte
+look -90 -5
+shot pajaros-este
+look 0 40
+shot pajaros-suelo
+cmd weather rain
+wait 200
+shot pajaros-lluvia
+cmd weather clear
+expect_nolog shineport.*(Exception|Error)

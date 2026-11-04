@@ -1,0 +1,20 @@
+{
+  "power.awakened.seiryuu": "Seiryuu",
+  "power.awakened.seiryuu.desc": "Las tecnicas del dragon azul, sin perder tu forma humana.",
+  "ability.wipspowers.seiryuu_thunder_bagua": "Thunder Bagua",
+  "ability.wipspowers.seiryuu_thunder_bagua.desc": "Raimei Hakke: un golpe de rayo demoledor.",
+  "ability.wipspowers.seiryuu_flame_cloud": "Flame Cloud Strike",
+  "ability.wipspowers.seiryuu_flame_cloud.desc": "Embestida que deja un rastro de nube en llamas.",
+  "ability.wipspowers.seiryuu_draconic_thunder": "Draconic Thunder",
+  "ability.wipspowers.seiryuu_draconic_thunder.desc": "Manten para invocar rayos de dragon.",
+  "ability.wipspowers.seiryuu_bolo_barrage": "Bolo Barrage",
+  "ability.wipspowers.seiryuu_bolo_barrage.desc": "Carga y haz llover meteoros sobre la zona apuntada.",
+  "ability.wipspowers.seiryuu_blast_breath": "Blast Breath",
+  "ability.wipspowers.seiryuu_blast_breath.desc": "Carga y libera el aliento devastador del dragon.",
+  "ability.wipspowers.gamma_island_shaker": "Island Shaker",
+  "ability.wipspowers.gamma_island_shaker.desc": "Shima Yurashi: sacude el suelo a tu alrededor con un temblor violento.",
+  "ability.wipspowers.graviton_chibaku_tensei": "Chibaku Tensei",
+  "ability.wipspowers.graviton_chibaku_tensei.desc": "Lanza una singularidad gravitacional que sube al cielo, arrastra todo en 22 bloques hasta formar un planetoide flotante, lo aplasta y al final implosiona y lo estrella contra el suelo con una gran onda expansiva.",
+  "ability.wipspowers.graviton_chibaku_tensei.busy": "Tu Chibaku Tensei sigue activo.",
+  "subtitles.wipspowers.scaler.giant_step": "Pisadas gigantes"
+}

@@ -1,0 +1,8 @@
+{
+  "haki_king": {
+    "subtitle": "subtitles.haki.haki_king",
+    "sounds": [
+      { "name": "haki:haki_king", "stream": true }
+    ]
+  }
+}

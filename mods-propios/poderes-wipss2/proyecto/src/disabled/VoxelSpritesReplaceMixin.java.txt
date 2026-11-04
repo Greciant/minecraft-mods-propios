@@ -1,0 +1,20 @@
+package wips.powers.mixin;
+
+import com.awakenedmod.awakened.content.vfx.VoxelSprites;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+/**
+ * REEMPLAZO Pyrokinetic: fuera las explosiones y estelas de fuego de voxeles (el "fuego viejo");
+ * las reemplazan los anillos de ignicion, brasas y espirales de wipspowers. El chorro del rayo y
+ * de los propulsores (stream) se queda: es la forma del ataque.
+ */
+@Mixin(value = VoxelSprites.class, remap = false)
+public abstract class VoxelSpritesReplaceMixin {
+    @Inject(method = {"burst", "impactFlare", "inrush", "gather", "trail", "wake"}, at = @At("HEAD"), cancellable = true, require = 0)
+    private static void wips$replaced(CallbackInfo ci) {
+        ci.cancel();
+    }
+}

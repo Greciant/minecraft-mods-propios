@@ -1,0 +1,4 @@
+{"format_version":"1.8.0","animations":{"testlow":{"loop":true,"animation_length":2,
+ "bones":{"right_arm":{"rotation":{"0":[0,0,-60],"2":[0,0,-60]}},"left_arm":{"rotation":{"0":[0,0,60],"2":[0,0,60]}},
+          "head":{"rotation":{"0":[-30,0,0],"2":[-30,0,0]}},"torso":{"rotation":{"0":[-15,0,0],"2":[-15,0,0]}},
+          "right_leg":{"rotation":{"0":[0,0,-10],"2":[0,0,-10]}},"left_leg":{"rotation":{"0":[0,0,10],"2":[0,0,10]}}}}},"geckolib_format_version":2}

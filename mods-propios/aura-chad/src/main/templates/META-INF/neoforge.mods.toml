@@ -1,0 +1,44 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[mixins]]
+config="aurachad.mixins.json"
+
+# Player Animation Library: opcional. Con ella las poses del modo chad se reproducen como animacion PAL (capa aurachad:chad);
+# sin ella se usa el Mixin de respaldo en PlayerModel.setupAnim.
+[[dependencies.${mod_id}]]
+    modId="player_animation_library"
+    type="optional"
+    versionRange="[1.1.6,)"
+    ordering="AFTER"
+    side="CLIENT"
+
+# Bendy-lib (KosmX, viene dentro de Emotecraft): opcional. Con ella el modo chad dobla codos y rodillas; sin ella, extremidades rectas.
+[[dependencies.${mod_id}]]
+    modId="bendylib"
+    type="optional"
+    versionRange="[5.0,)"
+    ordering="AFTER"
+    side="CLIENT"

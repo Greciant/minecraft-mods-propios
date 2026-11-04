@@ -1,0 +1,35 @@
+
+["Pandemonium Voting"]
+
+	["Pandemonium Voting"."Main Configuration"]
+		#Should Pandemonium Voting and Pandemonium Curses be active and enabled?
+		"Enable Pandemonium Voting" = true
+		#Define how long a Pandemonium Voting session would last in seconds.
+		#Range: 0.0 ~ 1.7976931348623157E308
+		"Pandemonium Voting Time" = 120.0
+		#Should Pandemonium Voting Results display player names and what they voted for in chat?
+		#Warning: Disabling "Display Pandemonium Voting Results in Chat" in the client will render this config useless.
+		"Include Pandemonium Voting Player Results in Chat" = true
+		#How many Pandemonium Curses are allowed in a world?
+		#Note: [-1] means no curse limit.
+		#Warning: Reducing this value will NOT remove curses that are already active.
+		#Range: > -1
+		"Maximum Pandemonium Curses" = -1
+		#Pandemonium Curses that shouldn't show up in the Pandemonium Voting.
+		#Format example: ["behemoths:relentless", "behemoths:gravebreaker_momentum"]
+		"Pandemonium Voting Curse Blacklist" = []
+
+	["Pandemonium Voting"."Voting Triggers"]
+		#Advancements that trigger Pandemonium Voting only once when earned by any player.
+		#Format example: ["minecraft:story/mine_diamond", "minecraft:story/enter_the_nether"]
+		"Pandemonium Voting: Once Advancements" = ["minecraft:story/mine_diamond", "minecraft:story/enter_the_nether", "minecraft:story/enter_the_end", "minecraft:nether/netherite_armor", "minecraft:adventure/voluntary_exile", "minecraft:end/elytra"]
+		#Advancements that trigger Pandemonium Voting every time they are earned by any player.
+		#Format example: ["minecraft:story/mine_diamond", "minecraft:story/enter_the_nether"]
+		"Pandemonium Voting: Repeat Advancements" = ["minecraft:end/kill_dragon"]
+		#Entities that trigger Pandemonium Voting only the first time they are killed by any player.
+		#Format example: ["minecraft:zombie", "minecraft:skeleton"]
+		"Pandemonium Voting: Once Entities" = []
+		#Entities that trigger Pandemonium Voting every time they are killed by any player.
+		#Format example: ["minecraft:zombie", "minecraft:skeleton"]
+		"Pandemonium Voting: Repeat Entities" = []
+

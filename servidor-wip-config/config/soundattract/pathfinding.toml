@@ -1,0 +1,31 @@
+
+#Sound Attract Mod - Pathfinding Configuration
+[pathfinding]
+
+	[pathfinding.flow_field]
+		#Enable collaborative diffusion flow field for large group movement (raids and normal hordes).
+		enableFlowField = true
+		#Minimum number of mobs in a group to activate flow field pathfinding instead of individual A*.
+		#Range: 1 ~ 200
+		flowFieldMobThreshold = 15
+
+	[pathfinding.nav_limiter]
+		#Minimum ticks between moveTo calls per mob. Prevents excessive pathfinding recalculations.
+		#Range: 0 ~ 100
+		moveToCooldownTicks = 5
+		#Minimum distance change before issuing a new moveTo. Prevents redundant path updates.
+		#Range: 0.0 ~ 10.0
+		moveToMinDelta = 0.5
+		#Maximum moveTo calls per group per tick. 0 = unlimited.
+		#Range: 0 ~ 200
+		moveToTeamBudgetPerTick = 8
+
+	[pathfinding.scheduling]
+		#Maximum pathfinding attempts per dimension per tick. Caps total path computation cost.
+		#Range: 0 ~ 200
+		maxPathAttemptsPerTick = 10
+
+	[pathfinding.node_router]
+		#Enable NodeRouter waypoint selection for smarter pathfinding with ray penalties and visibility bonuses.
+		enableNodeRouter = true
+

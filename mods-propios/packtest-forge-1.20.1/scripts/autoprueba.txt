@@ -1,0 +1,65 @@
+# Guion minimo para probar el propio arnes con ./gradlew runClient (vanilla + packtest)
+echo prueba del arnes
+cmd say hola desde packtest
+expect_log hola desde packtest
+cmd setblock 2 220 0 minecraft:chest
+cmd give @s minecraft:diamond_sword
+hotbar 0
+look 0 30
+shot plataforma
+use 2 0 0
+wait 20
+shot cofre-abierto
+close
+inventory
+wait 20
+shot inventario
+close
+view back
+shot tercera-persona
+view first
+tp 40 222 40
+waitload 3
+tp 0.5 220 0.5
+cmd summon minecraft:pig ~ ~ ~3 {NoAI:1b}
+look 0 25
+wait 20
+attack
+cmd summon minecraft:cow ~2 ~ ~3 {NoAI:1b}
+cmd give @s minecraft:bucket
+hotbar 1
+interact minecraft:cow
+gap 0
+inventory
+wait 3
+shot gap0-inventario
+close
+pause
+wait 3
+shot pausa
+close
+gap 40
+cmd give @s minecraft:bow
+cmd give @s minecraft:arrow 16
+hotbar 3
+look 180 0
+gap 2
+press use
+wait 20
+shot arco-tensado
+release
+wait 5
+shot flecha
+gap 40
+hotbar 0
+useitem
+cmd gamemode spectator
+cmd execute positioned 64 0 64 positioned over world_surface run tp @s ~-20 ~20 ~-20 facing ~8 ~ ~8
+waitload 3
+cmdretry 600 place structure minecraft:village_plains 64 0 64
+wait 60
+shot aldea
+cmd gamemode creative
+# estos dos DEBEN fallar (comprobar que el arnes detecta fallos)
+cmd comando_que_no_existe
+expect_log zzz_esta_linea_no_existe_zzz

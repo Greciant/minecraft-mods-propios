@@ -1,0 +1,192 @@
+
+#Sound Attract Mod - Stealth & Detection Configuration
+[sound_attract_stealth]
+
+	#--- Field of View Settings ---
+	[sound_attract_stealth.fov]
+		#Default horizontal Field of View (degrees). Mobs can detect entities within this horizontal arc.
+		#Range: 0.0 ~ 360.0
+		defaultHorizontalFov = 200.0
+		#Default vertical Field of View (degrees). Mobs can detect entities within this vertical arc.
+		#Range: 0.0 ~ 360.0
+		defaultVerticalFov = 135.0
+		#List of custom FOV overrides. Format: 'modid:mob_id, horizontal_fov, vertical_fov'
+		#Example: 'minecraft:spider, 360.0, 360.0'
+		customFovOverrides = ["minecraft:spider, 360.0, 360.0", "minecraft:cave_spider, 360.0, 360.0", "minecraft:phantom, 200.0, 280.0", "minecraft:vex, 200.0, 280.0", "minecraft:allay, 200.0, 280.0", "minecraft:bat, 20.0, 20.0", "minecraft:parrot, 200.0, 280.0", "minecraft:ghast, 200.0, 280.0", "minecraft:blaze, 200.0, 280.0", "minecraft:axolotl, 270.0, 90.0", "minecraft:camel, 270.0, 90.0", "minecraft:chicken, 270.0, 90.0", "minecraft:cow, 270.0, 90.0", "minecraft:donkey, 270.0, 90.0", "minecraft:goat, 270.0, 90.0", "minecraft:horse, 270.0, 90.0", "minecraft:mule, 270.0, 90.0", "minecraft:mooshroom, 270.0, 90.0", "minecraft:panda, 270.0, 90.0", "minecraft:pig, 270.0, 90.0", "minecraft:rabbit, 270.0, 90.0", "minecraft:sheep, 270.0, 90.0", "minecraft:sniffer, 270.0, 90.0", "minecraft:strider, 270.0, 90.0", "minecraft:turtle, 270.0, 90.0", "minecraft:villager, 270.0, 90.0", "minecraft:wandering_trader, 270.0, 90.0", "minecraft:slime, 270.0, 120.0", "minecraft:magma_cube, 270.0, 120.0", "minecraft:cod, 300.0, 100.0", "minecraft:pufferfish, 300.0, 100.0", "minecraft:salmon, 300.0, 100.0", "minecraft:squid, 300.0, 100.0", "minecraft:glow_squid, 300.0, 100.0", "minecraft:tadpole, 300.0, 100.0", "minecraft:tropical_fish, 300.0, 100.0", "minecraft:cat, 140.0, 140.0", "minecraft:ocelot, 140.0, 140.0", "minecraft:wolf, 140.0, 140.0", "minecraft:polar_bear, 140.0, 140.0", "minecraft:fox, 140.0, 140.0", "minecraft:frog, 140.0, 140.0", "minecraft:zombie, 200.0, 135.0", "minecraft:husk, 200.0, 135.0", "minecraft:drowned, 200.0, 135.0", "minecraft:skeleton, 200.0, 135.0", "minecraft:stray, 200.0, 135.0", "minecraft:pillager, 200.0, 135.0", "minecraft:vindicator, 200.0, 135.0", "minecraft:evoker, 200.0, 135.0", "minecraft:witch, 200.0, 135.0", "minecraft:piglin, 200.0, 135.0", "minecraft:piglin_brute, 200.0, 135.0", "minecraft:iron_golem, 200.0, 135.0", "minecraft:creeper, 90.0, 90.0", "minecraft:enderman, 180.0, 240.0", "minecraft:guardian, 320.0, 180.0", "minecraft:elder_guardian, 320.0, 180.0", "minecraft:ravager, 160.0, 100.0", "minecraft:hoglin, 160.0, 100.0", "minecraft:zoglin, 160.0, 100.0", "minecraft:shulker, 270.0, 45.0"]
+		#List of mobs that will COMPLETELY IGNORE the FOV system (e.g. Warden). They will have 360-degree vision.
+		fovExclusionList = ["minecraft:warden"]
+		#List of blocks that DO NOT block line-of-sight checks (e.g. glass, bars).
+		nonBlockingVisionAllowList = []
+
+	#General Stealth System Settings
+	[sound_attract_stealth.general_stealth_settings]
+		#Master switch for all custom stealth mechanics.
+		enableStealthMechanics = true
+		#How often (in ticks) to check stealth logic.
+		#Range: 5 ~ 100
+		stealthCheckInterval = 40
+		#Grace period (ticks) before losing aggro after stealth check fails.
+		#Range: 0 ~ 200
+		stealthGracePeriodTicks = 100
+
+	#Base detection ranges for players based on stance.
+	[sound_attract_stealth.player_stance_detection_ranges]
+		#Range: 0.0 ~ 512.0
+		standingDetectionRangePlayer = 32.0
+		#Range: 0.0 ~ 512.0
+		sneakingDetectionRangePlayer = 12.0
+		#Range: 0.0 ~ 512.0
+		crawlingDetectionRangePlayer = 4.0
+
+	#Environmental Factors
+	[sound_attract_stealth.environmental_factors]
+
+		[sound_attract_stealth.environmental_factors.light_level]
+			#Range: 0 ~ 15
+			neutralLightLevel = 7
+			#Range: 0.0 ~ 0.5
+			lightLevelSensitivity = 0.3
+			#Range: 0.01 ~ 1.0
+			minLightFactor = 0.2
+			#Range: 1.0 ~ 5.0
+			maxLightFactor = 3.0
+			#Range: 0 ~ 5
+			lightSampleRadiusHorizontal = 2
+			#Range: 0 ~ 3
+			lightSampleRadiusVertical = 1
+
+		[sound_attract_stealth.environmental_factors.weather]
+			#Range: 0.1 ~ 1.0
+			rainStealthFactor = 0.8
+			#Range: 0.1 ~ 1.0
+			thunderStealthFactor = 0.6
+
+	#Player Actions
+	[sound_attract_stealth.player_actions]
+
+		[sound_attract_stealth.player_actions.movement]
+			#Range: 1.0 ~ 3.0
+			movementStealthPenalty = 1.2
+			#Range: 0.1 ~ 1.0
+			stationaryStealthBonusFactor = 0.8
+			#Range: 1.0E-4 ~ 0.1
+			movementThreshold = 0.003
+
+		[sound_attract_stealth.player_actions.invisibility]
+			#Range: 0.0 ~ 1.0
+			invisibilityStealthFactor = 0.1
+
+	#Camouflage System
+	[sound_attract_stealth.camouflage_system]
+		enableCamouflage = true
+		enableHeldItemPenalty = true
+		#Range: 1.0 ~ 2.0
+		heldItemPenaltyFactor = 1.1
+		enableEnchantmentPenalty = true
+		#Range: 1.0 ~ 2.0
+		armorEnchantmentPenaltyFactor = 1.15
+		#Range: 1.0 ~ 2.0
+		heldItemEnchantmentPenaltyFactor = 1.15
+
+		[sound_attract_stealth.camouflage_system.item_camouflage]
+			camouflageArmorItems = []
+			requireFullSetForCamouflageBonus = false
+			#Range: 0.0 ~ 1.0
+			fullArmorStealthBonus = 0.85
+			#Range: 0.0 ~ 1.0
+			helmetCamouflageEffectiveness = 0.15
+			#Range: 0.0 ~ 1.0
+			chestplateCamouflageEffectiveness = 0.3
+			#Range: 0.0 ~ 1.0
+			leggingsCamouflageEffectiveness = 0.25
+			#Range: 0.0 ~ 1.0
+			bootsCamouflageEffectiveness = 0.15
+			#Range: 0.0 ~ 0.99
+			maxCamouflageEffectivenessCap = 0.85
+			allowPartialBonusIfFullSetRequired = true
+
+		[sound_attract_stealth.camouflage_system.environmental_camouflage]
+			enableEnvironmentalCamouflage = true
+			enableEnvironmentalMismatchPenalty = true
+			#Range: 0.0 ~ 1.0
+			environmentalCamouflageMaxEffectiveness = 0.7
+			#Range: 0 ~ 765
+			environmentalCamouflageColorMatchThreshold = 90
+			#Range: 1.0 ~ 3.0
+			environmentalMismatchPenaltyFactor = 1.3
+			#Range: 0 ~ 765
+			environmentalMismatchThreshold = 100
+			environmentalCamouflageOnlyDyedLeather = false
+			#Custom armor colors for camouflage mismatch calculations. Format: 'modid:item_id;#RRGGBB'
+			customArmorColors = ["minecraft:leather_helmet;#804F27", "minecraft:leather_chestplate;#804F27", "minecraft:leather_leggings;#804F27", "minecraft:leather_boots;#804F27", "minecraft:chainmail_helmet;#58585A", "minecraft:chainmail_chestplate;#58585A", "minecraft:chainmail_leggings;#58585A", "minecraft:chainmail_boots;#58585A", "minecraft:iron_helmet;#CACACA", "minecraft:iron_chestplate;#CACACA", "minecraft:iron_leggings;#CACACA", "minecraft:iron_boots;#CACACA", "minecraft:golden_helmet;#F5E54C", "minecraft:golden_chestplate;#F5E54C", "minecraft:golden_leggings;#F5E54C", "minecraft:golden_boots;#F5E54C", "minecraft:diamond_helmet;#39D5CD", "minecraft:diamond_chestplate;#39D5CD", "minecraft:diamond_leggings;#39D5CD", "minecraft:diamond_boots;#39D5CD", "minecraft:netherite_helmet;#403B3B", "minecraft:netherite_chestplate;#403B3B", "minecraft:netherite_leggings;#403B3B", "minecraft:netherite_boots;#403B3B", "minecraft:turtle_helmet;#7B8834", "toughasnails:leaf_helmet;#48B518", "toughasnails:leaf_chestplate;#48B518", "toughasnails:leaf_leggings;#48B518", "toughasnails:leaf_boots;#48B518", "toughasnails:wool_helmet;#FFFFFF", "toughasnails:wool_chestplate;#FFFFFF", "toughasnails:wool_leggings;#FFFFFF", "toughasnails:wool_boots;#FFFFFF"]
+			#Range: 0 ~ 3
+			envColorSampleRadius = 1
+			#Range: -2 ~ 2
+			envColorSampleYOffsetStart = 0
+			#Range: -2 ~ 2
+			envColorSampleYOffsetEnd = -1
+			#Environmental color sampler: average_area, viewer_backdrop, or hybrid.
+			environmentalCamouflageSamplingMode = "hybrid"
+			#How far behind the target to look for backdrop blocks.
+			#Range: 1 ~ 16
+			envBackdropMaxDistance = 4
+			#How many target silhouette rays to sample.
+			#Range: 1 ~ 5
+			envBackdropSampleRays = 5
+			#Minimum backdrop hits needed for a color.
+			#Range: 1 ~ 5
+			envBackdropMinSamples = 2
+			#Nearby mobs in the same cell share backdrop results.
+			#Range: 1 ~ 64
+			envBackdropViewerCellSize = 6
+			#How long backdrop color results stay fresh.
+			#Range: 1 ~ 200
+			envBackdropCacheTtlTicks = 2
+			#Below this TPS, use the cheaper sampler.
+			#Range: 1.0 ~ 20.0
+			envBackdropMinTps = 17.0
+			#TPS needed before backdrop sampling resumes.
+			#Range: 1.0 ~ 20.0
+			envBackdropRecoveryTps = 18.5
+			#Use sky color when the backdrop is open sky.
+			envBackdropUseSkyColor = true
+			#Backdrop color for clear daytime sky.
+			envBackdropDaySkyColor = "#77ADFF"
+			#Backdrop color for night sky.
+			envBackdropNightSkyColor = "#0B1026"
+			#Backdrop color for rain and thunder sky.
+			envBackdropRainSkyColor = "#596772"
+
+		[sound_attract_stealth.camouflage_system.layered_camouflage]
+			enableLayeredCamouflage = true
+			#Range: 1 ~ 10
+			maxCamoLayers = 3
+			#Range: 100 ~ 1000000
+			baseCamoDurationTicks = 12000
+			#Range: 0.0 ~ 1.0
+			waterDegradationRate = 0.02
+			#Range: 0.0 ~ 1.0
+			sprintDegradationRate = 0.02
+			#Range: 0.0 ~ 1.0
+			damageDegradationRate = 0.1
+			#Range: 0.0 ~ 1.0
+			biomeMismatchDegradationRate = 0.01
+			#Range: 0.0 ~ 1.0
+			scentMismatchPenaltyFactor = 0.3
+			#Range: 0.0 ~ 1.0
+			camoAppliedScentBlockStrength = 1.0
+			#Format: namespace:item_id ; #HexColor ; category ; blocksScent
+			camouflageMaterials = ["minecraft:snowball;#CACACA;snow;true", "minecraft:mud;#5C3A1E;mud;true", "minecraft:coarse_dirt;#6B5A4A;earth;false", "minecraft:sand;#D4C98A;earth;false", "minecraft:red_sand;#B86434;earth;false", "minecraft:oak_sapling;#2D6B1B;foliage;false", "minecraft:spruce_sapling;#1A3D14;foliage;false", "minecraft:moss_block;#4A7A3C;foliage;false"]
+			#Format: category ; preferredTempRange(low-high) ; waterSensitive
+			camoCategoryRules = ["snow;0.0-0.3;true", "mud;0.0-1.5;true", "earth;0.0-2.0;false", "foliage;0.6-0.95;false"]
+			#Resolution of the procedurally generated camouflage smudge textures. Higher values look smoother but use more memory.
+			#Range: 16 ~ 1024
+			camoTextureResolution = 256
+
+	#Detection Range Limits
+	[sound_attract_stealth.detection_range_limits]
+		#Range: 0.0 ~ 64.0
+		minStealthDetectionRange = 0.5
+		#Range: 1.0 ~ 1024.0
+		maxStealthDetectionRange = 64.0
+

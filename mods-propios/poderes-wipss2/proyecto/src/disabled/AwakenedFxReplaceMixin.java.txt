@@ -1,0 +1,21 @@
+package wips.powers.mixin;
+
+import com.awakenedmod.awakened.core.Fx;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+/**
+ * REEMPLAZO: las particulas decorativas genericas de Awakened (estallidos, abanicos de escombros,
+ * esferas y anillos de particulas, impactos y ondas de suelo) se apagan; las reemplazan los VFX de
+ * wipspowers. Sonidos y temblores de camara se mantienen.
+ */
+@Mixin(value = Fx.class, remap = false)
+public abstract class AwakenedFxReplaceMixin {
+    @Inject(method = {"burst", "debrisFan", "sphereShell", "ring", "disk", "sheet", "groundImpact", "groundShockwave", "blockSpall"},
+            at = @At("HEAD"), cancellable = true, require = 0)
+    private static void wips$replaced(CallbackInfo ci) {
+        ci.cancel();
+    }
+}
