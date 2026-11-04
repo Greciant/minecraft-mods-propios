@@ -37,27 +37,33 @@ public final class SeiryuuPower extends Power {
 
     public static final class FlameCloud extends GlBridgeAbility {
         public FlameCloud() {
-            super("seiryuu_flame_cloud", 20.0F, 1, new FormAbility(SeiryuAbilities.FLAME_CLOUD), "seiryuu_flame_cloud");
+            super("seiryuu_flame_cloud", 20.0F, 2, new FormAbility(SeiryuAbilities.FLAME_CLOUD), "seiryuu_flame_cloud");
         }
     }
 
     public static final class DraconicThunder extends GlBridgeAbility {
         public DraconicThunder() {
-            super("seiryuu_draconic_thunder", 30.0F, 2, new FormAbility(SeiryuAbilities.DRACONIC_THUNDERFALL), "seiryuu_draconic_thunder", "hybrid");
+            super("seiryuu_draconic_thunder", 30.0F, 5, new FormAbility(SeiryuAbilities.DRACONIC_THUNDERFALL), "seiryuu_draconic_thunder", "hybrid");
         }
     }
 
     public static final class BoloBarrage extends GlBridgeAbility {
         public BoloBarrage() {
-            super("seiryuu_bolo_barrage", 40.0F, 3, new FormAbility(SeiryuAbilities.BOLO_BREATH,
-                    AbilityModifiers.variant("dragon").damage(1.5F).range(1.5F).energyCost(1.4F)
+            super("seiryuu_bolo_barrage", 40.0F, 8, new FormAbility(SeiryuAbilities.BOLO_BREATH,
+                    AbilityModifiers.variant("dragon").damage(2.5F).range(2.0F).energyCost(1.4F)
                             .animation(UoUoSeiryu.anim("dragon/bolo_breath")).build()), "seiryuu_bolo_barrage", "dragon");
+        }
+
+        /** Forma dragon completa: carga 3 s (la de Grand Line es 1,2 s). Lo masivo esta en BoloDragonMixin. */
+        @Override
+        protected int chargeTicks() {
+            return 60;
         }
     }
 
     public static final class BlastBreath extends GlBridgeAbility {
         public BlastBreath() {
-            super("seiryuu_blast_breath", 45.0F, 4, new FormAbility(SeiryuAbilities.BLAST_BREATH,
+            super("seiryuu_blast_breath", 45.0F, 10, new FormAbility(SeiryuAbilities.BLAST_BREATH,
                     AbilityModifiers.variant("dragon").damage(3.5F).range(3.0F).energyCost(1.6F)
                             .animation(UoUoSeiryu.anim("dragon/blast_breath")).build()), "seiryuu_blast_breath", "hybrid");
         }
@@ -65,7 +71,12 @@ public final class SeiryuuPower extends Power {
 
     public static final class IslandShaker extends GlBridgeAbility {
         public IslandShaker() {
-            super("gamma_island_shaker", 35.0F, 2, new FormAbility(com.devilfruits.fruits.gura_gura.GuraAbilities.SHIMA_YURASHI), "gamma_island_shaker");
+            super("gamma_island_shaker", 35.0F, 10, new FormAbility(com.devilfruits.fruits.gura_gura.GuraAbilities.SHIMA_YURASHI), "gamma_island_shaker");
+        }
+
+        @Override
+        protected int fixedCooldown() {
+            return 500; // 25 s
         }
     }
 }

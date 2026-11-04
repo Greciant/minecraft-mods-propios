@@ -21,7 +21,12 @@
     "ScalerLeapMixin",
     "ClamberDashMixin",
     "TerrainVetoMixin",
-    "RuinDiagnosticMixin"
+    "RuinDiagnosticMixin",
+    "PyroFireDamageMixin",
+    "SeiryuFlameDamageMixin",
+    "BoloDragonMixin",
+    "ScalerStompMixin",
+    "ScalerLeapLandMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",
