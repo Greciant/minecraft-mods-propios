@@ -13,6 +13,10 @@ public final class WipsSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> GIANT_STEP = SOUNDS.register("scaler.giant_step",
             () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(WipsPowers.MOD_ID, "scaler.giant_step")));
 
+    /** Carga del Mass Leap (mp3 que paso el usuario). Se corta al saltar. */
+    public static final DeferredHolder<SoundEvent, SoundEvent> MASS_LEAP_CHARGE = SOUNDS.register("scaler.mass_leap_charge",
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(WipsPowers.MOD_ID, "scaler.mass_leap_charge")));
+
     private WipsSounds() {
     }
 }

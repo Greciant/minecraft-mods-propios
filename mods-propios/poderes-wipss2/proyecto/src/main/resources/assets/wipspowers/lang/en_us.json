@@ -21,5 +21,6 @@
   "item.wipspowers.stamina_charm_2": "Stamina Charm II",
   "item.wipspowers.stamina_charm_3": "Stamina Charm III",
   "item.wipspowers.stamina_charm.tip": "+%s%% power energy regeneration",
-  "item.wipspowers.stamina_charm.tip2": "Works while carried or in the necklace slot (Curios). Does not stack."
+  "item.wipspowers.stamina_charm.tip2": "Works while carried or in the necklace slot (Curios). Does not stack.",
+  "subtitles.wipspowers.scaler.mass_leap_charge": "Mass Leap charges"
 }

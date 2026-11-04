@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "hyper_n_hieis_shenanigans"
+    }
+  ],
+  "type": "neoforge:add_table",
+  "table": "wipspowers:gameplay/ten_shadows_scroll",
+  "conditions": [
+    {
+      "condition": "minecraft:killed_by_player"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "type": "minecraft:player"
+        }
+      }
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.01
+    }
+  ]
+}

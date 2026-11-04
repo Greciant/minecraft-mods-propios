@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "hyper_n_hieis_shenanigans"
+    }
+  ],
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "hyper_n_hieis_shenanigans:ten_shadows_scroll"
+        }
+      ]
+    }
+  ]
+}

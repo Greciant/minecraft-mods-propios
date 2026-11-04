@@ -35,6 +35,14 @@ public final class WipsPowers {
                 var hidden = net.minecraft.core.registries.BuiltInRegistries.ITEM.stream().filter(wips.powers.content.ContentFilter::hidden).count();
                 LOGGER.info("[wipspowers] AUDIT items ocultos: {} | sniffer biome modifiers y amuletos: {}", hidden,
                         wips.powers.item.WipsItems.STAMINA_CHARM_3.getId());
+                var reg = e.getServer().registryAccess();
+                LOGGER.info("[wipspowers] AUDIT santuario: {}", reg.registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE)
+                        .containsKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(MOD_ID, "ritual_shrine")));
+                LOGGER.info("[wipspowers] AUDIT plantilla: {}", e.getServer().getStructureManager()
+                        .get(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(MOD_ID, "ritual_shrine")).map(t -> t.getSize().toString()).orElse("NO"));
+                if (net.neoforged.fml.ModList.get().isLoaded("irons_spellbooks")) {
+                    wips.powers.compat.AuditSpells.log();
+                }
                 LOGGER.info("[wipspowers] AUDIT OK");
                 e.getServer().halt(false);
             });

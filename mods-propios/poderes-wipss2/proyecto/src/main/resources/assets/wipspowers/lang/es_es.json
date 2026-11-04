@@ -21,5 +21,6 @@
   "item.wipspowers.stamina_charm_2": "Amuleto de estamina II",
   "item.wipspowers.stamina_charm_3": "Amuleto de estamina III",
   "item.wipspowers.stamina_charm.tip": "+%s%% de regeneracion de energia del poder",
-  "item.wipspowers.stamina_charm.tip2": "Funciona con llevarlo encima o en el collar (Curios). No se suman."
+  "item.wipspowers.stamina_charm.tip2": "Funciona con llevarlo encima o en el collar (Curios). No se suman.",
+  "subtitles.wipspowers.scaler.mass_leap_charge": "Mass Leap se carga"
 }

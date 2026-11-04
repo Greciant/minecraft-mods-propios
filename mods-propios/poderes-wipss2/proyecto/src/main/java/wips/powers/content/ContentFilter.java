@@ -31,6 +31,9 @@ public final class ContentFilter {
         if (ns.equals("awakened")) {
             return !AWAKENED_KEEP.contains(id.getPath());
         }
+        if (ns.equals(HyperFilter.MOD)) {
+            return HyperFilter.hiddenItem(id.getPath());
+        }
         if (ns.equals(LegendaryMonstersFilter.MOD)) {
             return LegendaryMonstersFilter.hiddenItem(item, id.getPath());
         }
