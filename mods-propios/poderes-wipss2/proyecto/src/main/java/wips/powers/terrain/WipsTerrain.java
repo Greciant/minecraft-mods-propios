@@ -3,7 +3,6 @@ package wips.powers.terrain;
 import com.awakenedmod.awakened.core.terrain.TempTerrain;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -33,7 +32,8 @@ import wips.powers.WipsPowers;
 public final class WipsTerrain {
     private record Hole(ServerLevel level, BlockPos pos, BlockState state, long restoreAt) {}
 
-    private static final List<Hole> PENDING = new ArrayList<>();
+    /** Ordenados por momento de vuelta: cada tick solo mira los que ya vencieron. */
+    private static final java.util.PriorityQueue<Hole> PENDING = new java.util.PriorityQueue<>(java.util.Comparator.comparingLong(Hole::restoreAt));
     private static final int FLAGS = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
 
     private WipsTerrain() {
@@ -95,28 +95,31 @@ public final class WipsTerrain {
         if (PENDING.isEmpty()) {
             return;
         }
-        Iterator<Hole> it = PENDING.iterator();
-        List<Hole> later = new ArrayList<>();
+        List<Hole> later = null;
         int budget = 1500; // como mucho 1500 bloques por tick
-        while (it.hasNext() && budget > 0) {
-            Hole h = it.next();
+        while (budget > 0 && !PENDING.isEmpty()) {
+            Hole h = PENDING.peek();
             if (h.level().getGameTime() < h.restoreAt()) {
-                continue;
+                break; // el resto vence despues
             }
-            it.remove();
+            PENDING.poll();
             budget--;
             if (!h.level().isLoaded(h.pos())) {
                 continue;
             }
             AABB box = new AABB(h.pos());
-            List<Entity> inside = h.level().getEntities((Entity) null, box, e -> e.isAlive() && !e.isSpectator() && e.isPushable());
-            if (!inside.isEmpty()) {
+            if (!h.level().getEntities((Entity) null, box, e -> e.isAlive() && !e.isSpectator() && e.isPushable()).isEmpty()) {
+                if (later == null) {
+                    later = new ArrayList<>();
+                }
                 later.add(new Hole(h.level(), h.pos(), h.state(), h.level().getGameTime() + 20)); // alguien adentro: espera
                 continue;
             }
             restore(h);
         }
-        PENDING.addAll(later);
+        if (later != null) {
+            PENDING.addAll(later);
+        }
     }
 
     private static void restore(Hole h) {

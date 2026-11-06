@@ -33,7 +33,8 @@
     "MageKitsMixin",
     "NpcMasteryCapMixin",
     "AwakenFxMixin",
-    "MassLeapSoundMixin"
+    "MassLeapSoundMixin",
+    "ArrowEmptyStackSaveMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",
