@@ -66,7 +66,7 @@ public final class CastSigil {
 
     /** start: abre (o reabre) el sello por `ticks`; release: estalla y se apaga en `ticks`. */
     public static void send(ServerPlayer player, String ability, int ticks, boolean release) {
-        PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new Payload(player.getId(), ability, ticks, release));
+        wips.powers.kit.PowerKit.sendAround(player, new Payload(player.getId(), ability, ticks, release));
     }
 
     static void receive(Payload p) {

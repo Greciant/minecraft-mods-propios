@@ -21,7 +21,27 @@
     "ScalerLeapMixin",
     "ClamberDashMixin",
     "TerrainVetoMixin",
-    "RuinDiagnosticMixin"
+    "RuinDiagnosticMixin",
+    "SeiryuFlameDamageMixin",
+    "BoloDragonMixin",
+    "ScalerStompMixin",
+    "ScalerLeapLandMixin",
+    "StaminaCharmMixin",
+    "PyroFireDamageMixin$Beam",
+    "PyroFireDamageMixin$Backdraft",
+    "PyroFireDamageMixin$Ground",
+    "MageKitsMixin",
+    "NpcMasteryCapMixin",
+    "AwakeningCinematicMixin",
+    "ParticleMuteMixin",
+    "MassLeapSoundMixin",
+    "ArrowEmptyStackSaveMixin",
+    "QuestRewardPurgeMixin",
+    "ItemGrantPurgeMixin",
+    "MasteryScalingMixin",
+    "PlayerCasterScalingMixin",
+    "ReelInReachMixin",
+    "BrawlerUnliftableMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",
@@ -34,7 +54,8 @@
     "FlameCloudSmokeMixin",
     "IslandShakerLookMixin",
     "DenseAuraMixin",
-    "VfxShaderTierMixin"
+    "VfxShaderTierMixin",
+    "NominationOffMixin"
   ],
   "injectors": {
     "defaultRequire": 1

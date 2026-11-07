@@ -28,6 +28,8 @@ public abstract class GlBridgeAbility extends Ability {
     private final String langName;
     private final String visualForm;
     private final Map<UUID, Run> runs = this.activeState();
+    /** Contextos creados por wipspowers (no por la fruta): los mixins los usan para ajustar solo nuestras tecnicas. */
+    public static final java.util.Set<AbilityContext> OURS = java.util.Collections.newSetFromMap(new java.util.WeakHashMap<>());
 
     protected GlBridgeAbility(String id, float stamina, int unlock, FormAbility entry, String langName) {
         this(id, stamina, unlock, entry, langName, null);
@@ -52,13 +54,30 @@ public abstract class GlBridgeAbility extends Ability {
         int level = PowerService.data(player).masteryLevel();
         data.setMastery(Mth.clamp(1 + level / 2, 1, 10));
         AbilityContext ctx = new AbilityContext(this.entry, player, data, charge);
+        synchronized (OURS) {
+            OURS.add(ctx);
+        }
         // menos escombros volando que con la fruta (40 por lanzamiento): ensuciaban la camara
         for (int i = 0; i < DEBRIS_REMOVED && ctx.budget().takeDebris(); i++) {
         }
         return ctx;
     }
 
+    /** Enfriamiento fijo en ticks; -1 = el de Grand Line. */
+    protected int fixedCooldown() {
+        return -1;
+    }
+
+    /** Ticks de carga completa; por defecto los de Grand Line. */
+    protected int chargeTicks() {
+        return this.entry.ability().maxChargeTicks();
+    }
+
     private int cooldownTicks(float charge) {
+        int fixed = this.fixedCooldown();
+        if (fixed >= 0) {
+            return fixed;
+        }
         return Math.round(this.entry.ability().cooldownTicks(charge) * this.entry.modifiers().cooldown());
     }
 
@@ -69,7 +88,7 @@ public abstract class GlBridgeAbility extends Ability {
         long now = player.serverLevel().getGameTime();
         AbilityContext ctx = this.context(player, type == CastType.INSTANT ? 1.0F : 0.0F);
         int window = switch (type) {
-            case CHARGED -> gl.maxChargeTicks() + 40 + 160;
+            case CHARGED -> this.chargeTicks() + 40 + 160;
             case HELD -> gl.maxChannelTicks() + 160;
             default -> 160;
         };
@@ -83,7 +102,7 @@ public abstract class GlBridgeAbility extends Ability {
             case CHARGED -> {
                 this.runs.put(player.getUUID(), new Run(ctx, now));
                 gl.onChargeStart(ctx);
-                ServerFx.chargeStart(player, gl, (float) gl.maxChargeTicks(), ctx.seed());
+                ServerFx.chargeStart(player, gl, (float) this.chargeTicks(), ctx.seed());
             }
             case HELD -> {
                 this.runs.put(player.getUUID(), new Run(this.context(player, 1.0F), now));
@@ -113,7 +132,7 @@ public abstract class GlBridgeAbility extends Ability {
         }
         if (gl.castType() == CastType.CHARGED) {
             gl.onChargeTick(run.ctx(), ticks);
-            if (ticks >= gl.maxChargeTicks() + 40) {
+            if (ticks >= this.chargeTicks() + 40) {
                 this.finish(player, false);
             }
         } else if (gl.castType() == CastType.HELD) {
@@ -148,7 +167,7 @@ public abstract class GlBridgeAbility extends Ability {
         this.showForm(player, 160);
         CastSigil.send(player, this.id(), 16, true);
         if (gl.castType() == CastType.CHARGED) {
-            float charge = Mth.clamp((float) ticks / (float) gl.maxChargeTicks(), 0.0F, 1.0F);
+            float charge = Mth.clamp((float) ticks / (float) this.chargeTicks(), 0.0F, 1.0F);
             gl.release(this.context(player, charge));
             ServerFx.chargeStop(player, gl, true);
             this.startCooldown(player, this.cooldownTicks(charge));

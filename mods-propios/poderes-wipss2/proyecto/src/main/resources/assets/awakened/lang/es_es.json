@@ -1,0 +1,16 @@
+{
+  "entity.awakened.summoning_mage": "Invocador",
+  "entity.awakened.hydrokinetic_mage": "Hidrokinetico",
+  "entity.awakened.kinetic_charger_mage": "Cargador Kinetico",
+  "entity.awakened.velocity_mage": "Velocista",
+  "entity.awakened.graviton_mage": "Gravitón",
+  "entity.awakened.ruin_mage": "Ruina",
+  "entity.awakened.storm_caller_mage": "Invocatormentas",
+  "entity.awakened.phytokinetic_mage": "Fitokinetico",
+  "entity.awakened.scaler_mage": "Escalador",
+  "entity.awakened.gamma_mage": "Gamma",
+  "entity.awakened.seiryuu_mage": "Seiryuu",
+  "entity.awakened.ice_mage": "Hielo",
+  "entity.awakened.slime_mage": "Slime",
+  "entity.awakened.fighter_mage": "Luchador"
+}

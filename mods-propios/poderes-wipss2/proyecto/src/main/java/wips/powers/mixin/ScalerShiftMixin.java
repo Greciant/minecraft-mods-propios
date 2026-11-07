@@ -18,6 +18,9 @@ public abstract class ScalerShiftMixin {
             player.serverLevel().playSound(null, player.getX(), player.getY(), player.getZ(), wips.powers.WipsSounds.GIANT_STEP.get(),
                     net.minecraft.sounds.SoundSource.PLAYERS, 1.2F, silhouetteScale >= 4.5 ? 0.8F : 0.95F);
         }
+        if (growing) {
+            wips.powers.scaler.ScalerWaves.growWave(player, silhouetteScale); // Titan o mas: la onda golpea
+        }
         WipsFx.around(player, "scaler_shift", player.position(), Vec3.ZERO, (float) silhouetteScale, player.getRandom().nextLong(), growing ? 1 : 0);
     }
 }

@@ -19,10 +19,18 @@ public abstract class AwakenedPowersMixin {
     @Inject(method = "registerAll", at = @At("TAIL"))
     private static void wips$afterRegister(CallbackInfo ci) {
         PowerRegistry.register(new SeiryuuPower());
+        PowerRegistry.register(new wips.powers.ice.IcePower());
+        PowerRegistry.register(new wips.powers.slime.SlimePower());
+        PowerRegistry.register(new wips.powers.fighter.FighterPower());
         // Gamma: Island Shaker ocupa el slot 5 en lugar de Ragdoll Slam (Thunderclap se queda en el 2)
         wips$replace("gamma", "gamma_slam", new SeiryuuPower.IslandShaker());
-        // Graviton ranura 5: Chibaku Tensei reemplaza a Event Horizon
-        wips$replace("graviton", "event_horizon", new ChibakuTensei());
+        // Graviton ranura 5: Shinra Tensei reemplaza a Event Horizon (antes Chibaku Tensei)
+        wips$replace("graviton", "event_horizon", new wips.powers.graviton.ShinraTensei());
+        // Gamma 2: Thunderclap se puede mantener para cargar (hasta 5 s)
+        wips$replace("gamma", "gamma_thunderclap", new wips.powers.gamma.ThunderclapHeld());
+        // Ruin 4 y 5 rehechas con terreno propio (las de Awakened no rompian nada en el pack)
+        wips$replace("ruin", "ruin_breach", new wips.powers.ruin.RuinBreachWips());
+        wips$replace("ruin", "ruin_collapse", new wips.powers.ruin.RuinCollapseWips());
     }
 
     private static void wips$replace(String powerId, String oldAbility, Ability replacement) {

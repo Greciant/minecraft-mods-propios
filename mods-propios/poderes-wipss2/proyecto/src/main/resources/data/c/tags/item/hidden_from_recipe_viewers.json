@@ -1,0 +1,173 @@
+{
+ "replace": false,
+ "values": [
+  {
+   "id": "awakened:shadow_blade",
+   "required": false
+  },
+  {
+   "id": "awakened:archevoker_staff",
+   "required": false
+  },
+  {
+   "id": "awakened:sun_axe",
+   "required": false
+  },
+  {
+   "id": "awakened:dormant_core",
+   "required": false
+  },
+  {
+   "id": "awakened:sun_axe_head",
+   "required": false
+  },
+  {
+   "id": "awakened:sun_axe_handle",
+   "required": false
+  },
+  {
+   "id": "awakened:blank_sun_axe",
+   "required": false
+  },
+  {
+   "id": "awakened:cordon_core",
+   "required": false
+  },
+  {
+   "id": "awakened:cordon_spear",
+   "required": false
+  },
+  {
+   "id": "awakened:nuke_charge",
+   "required": false
+  },
+  {
+   "id": "awakened:raw_adamantium",
+   "required": false
+  },
+  {
+   "id": "awakened:adamantium_ingot",
+   "required": false
+  },
+  {
+   "id": "awakened:adamantium_ore",
+   "required": false
+  },
+  {
+   "id": "awakened:relic",
+   "required": false
+  },
+  {
+   "id": "awakened:tracker",
+   "required": false
+  },
+  {
+   "id": "awakened:arbiter_summons",
+   "required": false
+  },
+  {
+   "id": "awakened:web_gauntlets",
+   "required": false
+  },
+  {
+   "id": "awakened:relic_belt",
+   "required": false
+  },
+  {
+   "id": "awakened:containment_jar",
+   "required": false
+  },
+  {
+   "id": "awakened:prism",
+   "required": false
+  },
+  {
+   "id": "awakened:energy_bar",
+   "required": false
+  },
+  {
+   "id": "awakened:infusion_tank",
+   "required": false
+  },
+  {
+   "id": "awakened:iai_blade",
+   "required": false
+  },
+  {
+   "id": "awakened:verdict_chain",
+   "required": false
+  },
+  {
+   "id": "awakened:reaper_scythe",
+   "required": false
+  },
+  {
+   "id": "awakened:scythe_edge",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_warhammer",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_gauntlets",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_boots",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_chestplate",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_leggings",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_helmet",
+   "required": false
+  },
+  {
+   "id": "awakened:exosavant_chip",
+   "required": false
+  },
+  {
+   "id": "awakened:soul_vessel",
+   "required": false
+  },
+  {
+   "id": "awakened:soul_core",
+   "required": false
+  },
+  {
+   "id": "awakened:siege_altar",
+   "required": false
+  },
+  {
+   "id": "awakened:challenge_post",
+   "required": false
+  },
+  {
+   "id": "awakened:water_flask",
+   "required": false
+  },
+  {
+   "id": "awakened:water_canteen",
+   "required": false
+  },
+  {
+   "id": "awakened:water_reservoir",
+   "required": false
+  },
+  {
+   "id": "awakened:tidal_vessel",
+   "required": false
+  },
+  {
+   "id": "awakened:reservoir_core",
+   "required": false
+  }
+ ]
+}

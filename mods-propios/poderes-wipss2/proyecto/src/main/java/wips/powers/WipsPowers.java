@@ -14,12 +14,58 @@ public final class WipsPowers {
     public static final Set<String> KEEP = Set.of(
             "pyrokinetic", "summoning", "hydrokinetic", "kinetic_charger", "velocity",
             "graviton", "ruin", "storm_caller", "phytokinetic", "scaler", "gamma",
-            SeiryuuPower.ID);
+            SeiryuuPower.ID, wips.powers.ice.IcePower.ID, wips.powers.slime.SlimePower.ID,
+            wips.powers.fighter.FighterPower.ID);
 
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.level.LevelConfig.SPEC, "wipspowers-nivel.toml");
+        wips.powers.level.WipsLevel.ATTACHMENTS.register(modBus);
+        wips.powers.kit.WipsEntities.ENTITIES.register(modBus);
+        modBus.addListener(wips.powers.kit.WipsEntities::attributes);
         modBus.addListener(WipsPowers::registerPayloads);
+        if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient() && net.neoforged.fml.ModList.get().isLoaded("lodestar_trail")) {
+            wips.powers.client.compat.CompassTrail.register();
+        }
+        if (Boolean.getBoolean("wips.audit")) {
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e) -> {
+                LOGGER.info("[wipspowers] AUDIT: aplicando todos los mixins");
+                org.spongepowered.asm.mixin.MixinEnvironment.getCurrentEnvironment().audit();
+                var level = e.getServer().overworld();
+                int n = 0;
+                for (var kit : com.awakenedmod.awakened.core.npc.NpcKits.all()) {
+                    var npc = kit.type().get().create(level);
+                    LOGGER.info("[wipspowers] AUDIT mago {} -> {} ({} movimientos)", kit.id(), npc == null ? "NULL" : npc.getName().getString(),
+                            kit.createMoves().size());
+                    n++;
+                }
+                LOGGER.info("[wipspowers] AUDIT magos: {} | maestria max: {}", n, com.awakenedmod.awakened.core.npc.NpcConfig.maxMastery());
+                var hidden = net.minecraft.core.registries.BuiltInRegistries.ITEM.stream().filter(wips.powers.content.ContentFilter::hidden).count();
+                LOGGER.info("[wipspowers] AUDIT items ocultos: {} | sniffer biome modifiers y amuletos: {}", hidden,
+                        wips.powers.item.WipsItems.STAMINA_CHARM_3.getId());
+                var reg = e.getServer().registryAccess();
+                LOGGER.info("[wipspowers] AUDIT santuario: {}", reg.registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE)
+                        .containsKey(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(MOD_ID, "ritual_shrine")));
+                LOGGER.info("[wipspowers] AUDIT plantilla: {}", e.getServer().getStructureManager()
+                        .get(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(MOD_ID, "ritual_shrine")).map(t -> t.getSize().toString()).orElse("NO"));
+                if (net.neoforged.fml.ModList.get().isLoaded("irons_spellbooks")) {
+                    wips.powers.compat.AuditSpells.log();
+                }
+                wips.powers.level.BalanceDump.log();
+                LOGGER.info("[wipspowers] AUDIT OK");
+                e.getServer().halt(false);
+            });
+        }
         WipsSounds.SOUNDS.register(modBus);
+        wips.powers.item.WipsItems.ITEMS.register(modBus);
+        wips.powers.content.ItemPurge.LOOT.register(modBus);
+        modBus.addListener(wips.powers.content.ContentFilter::onBuildTabs);
+        modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onSpawnPlacements);
+        modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onAttributes);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.LegendaryMonstersFilter::onJoin);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.SnifferSpawns::onJoin);
+        modBus.addListener(wips.powers.content.SnifferSpawns::onSpawnPlacements);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(wips.powers.content.LegendaryMonstersFilter::onPositionCheck);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
@@ -29,6 +75,20 @@ public final class WipsPowers {
                 (payload, ctx) -> ctx.enqueueWork(() -> CastSigil.receive(payload)));
         event.registrar("1").optional().playToClient(wips.powers.fx.WipsFx.Payload.TYPE, wips.powers.fx.WipsFx.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.fx.WipsFx.receive(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.level.WipsLevel.Sync.TYPE, wips.powers.level.WipsLevel.Sync.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.LevelHud.receive(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.ice.IcePower.IceSteps.State.TYPE, wips.powers.ice.IcePower.IceSteps.State.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.IceClient.state(payload)));
+        event.registrar("1").optional().playToServer(wips.powers.ice.IcePower.IceSteps.Jump.TYPE, wips.powers.ice.IcePower.IceSteps.Jump.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> {
+                    if (ctx.player() instanceof net.minecraft.server.level.ServerPlayer sp) {
+                        wips.powers.ice.IcePower.IceSteps.onAirJump(sp);
+                    }
+                }));
+        event.registrar("1").optional().playToClient(wips.powers.slime.SlimePower.BallForm.Form.TYPE, wips.powers.slime.SlimePower.BallForm.Form.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.SlimeClient.form(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.fighter.FighterPower.GritSync.TYPE, wips.powers.fighter.FighterPower.GritSync.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.LevelHud.grit(payload)));
         event.registrar("1").optional().playToClient(wips.powers.crit.Criticals.Payload.TYPE, wips.powers.crit.Criticals.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.crit.ClientCrit.receive(payload)));
     }

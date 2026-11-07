@@ -18,5 +18,19 @@ public final class ClientSetup {
         // un efecto propio por habilidad (reemplaza las capas genericas de ElementalFx/ArcaneFx/SampleFx,
         // que solo conservan las estelas de proyectiles en su tick)
         AbilityFx.register();
+        AwakenGlow.register();
+        IceClient.register();
+        SlimeClient.register();
+    }
+
+    @SubscribeEvent
+    public static void onRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+        IceClient.renderers(event);
+        SlimeClient.renderers(event);
+    }
+
+    @SubscribeEvent
+    public static void onGuiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
+        LevelHud.register(event);
     }
 }

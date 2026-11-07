@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class BoloChargeMixin {
     @ModifyConstant(method = "start", constant = @Constant(floatValue = 3.5F))
     private float wips$humanSizedCharge(float v) {
-        return 1.3F;
+        return 2.4F;
     }
 }

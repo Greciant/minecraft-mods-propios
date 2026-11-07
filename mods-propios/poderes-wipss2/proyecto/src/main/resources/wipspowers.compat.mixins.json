@@ -1,0 +1,20 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "wips.powers.mixin.compat",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "WeaponLevelCapMixin",
+    "StackModifierTrackMixin",
+    "ZoltraakNerfMixin",
+    "HyperSpellsMixin",
+    "HyperScrollTabMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "client": [
+    "PunchyHandsMixin",
+    "TouchNMotionHandsMixin"
+  ]
+}

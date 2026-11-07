@@ -98,6 +98,22 @@ public final class FxAutotest {
         return out.toArray(new Cast[0]);
     }
 
+    /** WIPS_SET=nw: poderes nuevos de la 3.5.0 (Hielo, Slime, Luchador), Shinra Tensei, despertar y HUD de nivel. */
+    private static final int[] NW = {3, 10, 20, 35, 55, 80};
+    private static final Cast[] NWC = {
+        new Cast("aw_despertar_hielo", "ice", 0, 0, 130, false, new int[]{1, 6, 12, 20, 30, 42, 55}, "awaken"),
+        new Cast("i1_ventisca", "ice", 1, 0, 150, true, NW, "hud"),
+        new Cast("i3_tempanos", "ice", 3, 0, 150, true, new int[]{2, 8, 16, 26, 40, 60}, ""),
+        new Cast("i4_congelacion", "ice", 4, 0, 150, true, NW, ""),
+        new Cast("s0_minis", "slime", 0, 0, 150, true, NW, ""),
+        new Cast("s2_disparo", "slime", 2, 0, 130, true, new int[]{5, 15, 30, 50}, ""),
+        new Cast("s3_explosion", "slime", 3, 0, 150, true, new int[]{2, 8, 16, 30, 60, 90}, ""),
+        new Cast("s4_pelota", "slime", 4, 0, 150, false, NW, "ball"),
+        new Cast("f2_represalia", "fighter", 2, 0, 120, false, new int[]{1, 3, 6, 10, 18}, "grit"),
+        new Cast("f4_golpe_serio", "fighter", 4, 100, 260, false, new int[]{20, 60, 98, 102, 106, 112, 125, 150, 190}, ""),
+        new Cast("g4_shinra", "graviton", 4, 0, 150, false, new int[]{4, 12, 16, 20, 26, 34, 50, 80}, ""),
+    };
+
     private static final Cast[] CASTS = {
         new Cast("0_thunder_bagua", "seiryuu", 0, 0),
         new Cast("1_flame_cloud", "seiryuu", 1, 0),
@@ -126,7 +142,7 @@ public final class FxAutotest {
         }
         if (!created && mc.screen instanceof TitleScreen) {
             created = true;
-            for (Cast c : "fb".equals(SET) ? FB : "gs".equals(SET) ? GS : ("es".equals(SET) || "ar".equals(SET)) ? ES : CASTS) {
+            for (Cast c : "nw".equals(SET) ? NWC : "fb".equals(SET) ? FB : "gs".equals(SET) ? GS : ("es".equals(SET) || "ar".equals(SET)) ? ES : CASTS) {
                 if (ONLY == null || java.util.Arrays.stream(ONLY.split(",")).anyMatch(o -> c.name().startsWith(o + "_"))) PLAN.add(c);
             }
             createWorld(mc);
@@ -226,6 +242,23 @@ public final class FxAutotest {
             return;
         }
         if (dt == 0) server.execute(() -> prepare(server, c));
+        if ("hud".equals(c.extra()) || "grit".equals(c.extra())) mc.options.hideGui = dt < c.span() - 2 ? false : true;
+        if ("grit".equals(c.extra()) && dt == 45) server.execute(() -> wips.powers.fighter.FighterPower.Grit.set(player(server), 0.8F));
+        if ("hud".equals(c.extra()) && dt == 45) server.execute(() -> wips.powers.level.WipsLevel.setLevel(player(server), 27));
+        if ("ball".equals(c.extra()) && dt > 52 && dt < 140) server.execute(() -> {
+            ServerPlayer p = player(server);
+            if (fdt % 30 == 0) p.setDeltaMovement(0.4, 0.9, 0.2);
+            p.hurtMarked = true;
+        });
+        if ("awaken".equals(c.extra())) {
+            if (dt == 50) server.execute(() -> {
+                ServerPlayer p = player(server);
+                wips.powers.fx.AwakenBurst.play(p, com.awakenedmod.awakened.core.power.PowerRegistry.get(c.power()));
+                log(c.name() + ": despertar reproducido");
+            });
+            for (int s : c.shots()) if (dt == 50 + s) shot(mc, c.name() + "_" + String.format("%03d", s));
+            return;
+        }
         if (dt == 50) server.execute(() -> {
             ServerPlayer p = player(server);
             PowerService.activate(p, c.slot());
@@ -301,7 +334,9 @@ public final class FxAutotest {
         cmd(server, p, "fill -20 -61 -20 20 -61 30 minecraft:grass_block");
         cmd(server, p, "fill -20 -60 -20 20 -50 30 minecraft:air");
         if (c.name().startsWith("r3_")) cmd(server, p, "fill -3 -60 4 3 -56 6 minecraft:" + System.getenv().getOrDefault("WIPS_WALL", "stone"));
-        cmd(server, p, "tp @s 0 -60 0 0 " + (c.name().startsWith("3_") ? "14" : c.name().startsWith("g4_") ? "-28" : "0"));
+        cmd(server, p, "tp @s 0 -60 0 0 " + (c.name().startsWith("3_") ? "14" : c.name().startsWith("g4_") ? "-28" : c.name().startsWith("s3_") || c.name().startsWith("i1_") ? "30" : "0"));
+        if (c.name().startsWith("g4_shinra") || c.name().startsWith("f4_")) cmd(server, p, "fill -12 -64 6 12 -61 40 minecraft:stone");
+        if (c.name().startsWith("f4_")) cmd(server, p, "fill -8 -60 8 8 -52 40 minecraft:stone");
         ServerLevel level = p.serverLevel();
         for (int i = 0; i < 3; i++) {
             Mob m = EntityType.HUSK.create(level);

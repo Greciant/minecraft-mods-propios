@@ -2,10 +2,32 @@
   "scaler.giant_step": {
     "subtitle": "subtitles.wipspowers.scaler.giant_step",
     "sounds": [
-      {"name": "wipspowers:giant_step1", "attenuation_distance": 48},
-      {"name": "wipspowers:giant_step2", "attenuation_distance": 48},
-      {"name": "wipspowers:giant_step3", "attenuation_distance": 48},
-      {"name": "wipspowers:giant_step4", "attenuation_distance": 48}
+      {
+        "name": "wipspowers:giant_step1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "wipspowers:giant_step2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "wipspowers:giant_step3",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "wipspowers:giant_step4",
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "scaler.mass_leap_charge": {
+    "subtitle": "subtitles.wipspowers.scaler.mass_leap_charge",
+    "sounds": [
+      {
+        "name": "wipspowers:mass_leap_charge",
+        "attenuation_distance": 32,
+        "stream": true
+      }
     ]
   }
 }
