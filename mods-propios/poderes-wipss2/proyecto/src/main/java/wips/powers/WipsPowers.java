@@ -14,7 +14,8 @@ public final class WipsPowers {
     public static final Set<String> KEEP = Set.of(
             "pyrokinetic", "summoning", "hydrokinetic", "kinetic_charger", "velocity",
             "graviton", "ruin", "storm_caller", "phytokinetic", "scaler", "gamma",
-            SeiryuuPower.ID, wips.powers.ice.IcePower.ID, wips.powers.slime.SlimePower.ID);
+            SeiryuuPower.ID, wips.powers.ice.IcePower.ID, wips.powers.slime.SlimePower.ID,
+            wips.powers.fighter.FighterPower.ID);
 
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
@@ -86,6 +87,8 @@ public final class WipsPowers {
                 }));
         event.registrar("1").optional().playToClient(wips.powers.slime.SlimePower.BallForm.Form.TYPE, wips.powers.slime.SlimePower.BallForm.Form.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.SlimeClient.form(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.fighter.FighterPower.GritSync.TYPE, wips.powers.fighter.FighterPower.GritSync.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.LevelHud.grit(payload)));
         event.registrar("1").optional().playToClient(wips.powers.crit.Criticals.Payload.TYPE, wips.powers.crit.Criticals.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.crit.ClientCrit.receive(payload)));
     }

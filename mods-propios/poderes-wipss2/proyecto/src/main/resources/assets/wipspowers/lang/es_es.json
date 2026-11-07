@@ -63,5 +63,18 @@
   "message.wipspowers.slime_retarget": "Tus slimes cambian de objetivo.",
   "entity.wipspowers.mini_slime": "Mini slime",
   "entity.wipspowers.slime_glob": "Gota de baba",
-  "entity.wipspowers.slime_shot": "Disparo de baba"
+  "entity.wipspowers.slime_shot": "Disparo de baba",
+  "power.awakened.fighter": "Luchador",
+  "power.awakened.fighter.desc": "Cuanto más te golpean, más fuerte respondes. La determinación se llena con el daño que recibes.",
+  "ability.wipspowers.fighter_burning_fists": "Puños ardientes",
+  "ability.wipspowers.fighter_burning_fists.desc": "Durante 10 s tus golpes básicos arden, se vuelven hasta un 20 % más fuertes con cada golpe seguido y sueltan una pequeña onda.",
+  "ability.wipspowers.fighter_retaliation": "Golpe de represalia",
+  "ability.wipspowers.fighter_retaliation.desc": "Una onda enorme hacia adelante. Consume tu determinación: cuanto más llena, más pega. El centro hace 200 %; los bordes y el final, 60 %.",
+  "ability.wipspowers.fighter_impact_leap": "Salto de impacto",
+  "ability.wipspowers.fighter_impact_leap.desc": "Pulsa para agacharte y saltar muy alto. Pulsa otra vez en el aire para caer en picada: la onda al aterrizar crece con la altura.",
+  "ability.wipspowers.fighter_serious_punch": "GOLPE SERIO",
+  "ability.wipspowers.fighter_serious_punch.desc": "Mantén para cargar (hasta 5 s) y suelta una onda colosal hacia adelante. A carga máxima destruye para siempre el terreno de enfrente.",
+  "message.wipspowers.fighter_leap_ground": "Necesitas estar en el suelo para saltar.",
+  "message.wipspowers.serious_charge": "Golpe serio: %s %%",
+  "hud.wipspowers.grit": "Determinación %s %%"
 }

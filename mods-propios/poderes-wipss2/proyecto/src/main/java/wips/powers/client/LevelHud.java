@@ -15,6 +15,11 @@ public final class LevelHud {
     private static float xp;
     private static float need = 1;
     private static int max = 50;
+    private static float grit;
+
+    public static void grit(wips.powers.fighter.FighterPower.GritSync s) {
+        grit = s.value();
+    }
 
     private LevelHud() {
     }
@@ -44,5 +49,11 @@ public final class LevelHud {
         float f = level >= max ? 1f : Math.min(1f, xp / need);
         g.fill(x, by, x + w, by + 3, 0xAA000000);
         g.fill(x, by, x + Math.round(w * f), by + 3, level >= max ? 0xFFFFD24A : 0xFF4FC3F7);
+        if (grit > 0.001F) {
+            int gy = by + 6;
+            g.drawString(mc.font, Component.translatable("hud.wipspowers.grit", Math.round(grit * 100)), x, gy, 0xFFB070, true);
+            g.fill(x, gy + 10, x + w, gy + 14, 0xAA000000);
+            g.fill(x, gy + 10, x + Math.round(w * grit), gy + 14, grit > 0.66F ? 0xFFFF4A1A : 0xFFFF9A3A);
+        }
     }
 }

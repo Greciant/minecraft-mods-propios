@@ -21,6 +21,7 @@ public abstract class AwakenedPowersMixin {
         PowerRegistry.register(new SeiryuuPower());
         PowerRegistry.register(new wips.powers.ice.IcePower());
         PowerRegistry.register(new wips.powers.slime.SlimePower());
+        PowerRegistry.register(new wips.powers.fighter.FighterPower());
         // Gamma: Island Shaker ocupa el slot 5 en lugar de Ragdoll Slam (Thunderclap se queda en el 2)
         wips$replace("gamma", "gamma_slam", new SeiryuuPower.IslandShaker());
         // Graviton ranura 5: Shinra Tensei reemplaza a Event Horizon (antes Chibaku Tensei)

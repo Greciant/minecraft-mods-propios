@@ -39,7 +39,9 @@
     "QuestRewardPurgeMixin",
     "ItemGrantPurgeMixin",
     "MasteryScalingMixin",
-    "PlayerCasterScalingMixin"
+    "PlayerCasterScalingMixin",
+    "ReelInReachMixin",
+    "BrawlerUnliftableMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",

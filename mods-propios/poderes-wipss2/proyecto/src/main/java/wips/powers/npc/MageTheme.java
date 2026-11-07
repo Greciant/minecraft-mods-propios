@@ -96,6 +96,9 @@ public record MageTheme(
                 new MageTheme("slime", 0x7CCB5B, 0xC8F7A0, ParticleTypes.ITEM_SLIME, ParticleTypes.ITEM_SLIME,
                         SoundEvents.SLIME_JUMP, SoundEvents.SLIME_SQUISH, MobEffects.MOVEMENT_SLOWDOWN, 50, 2, 0.9,
                         skin("alex"), null),
+                new MageTheme("fighter", 0xFF7A2A, 0xFFD27A, ParticleTypes.CRIT, ParticleTypes.EXPLOSION,
+                        SoundEvents.PLAYER_ATTACK_STRONG, SoundEvents.PLAYER_ATTACK_KNOCKBACK, MobEffects.WEAKNESS, 40, 0, 1.6,
+                        skin("steve"), (v, f) -> v.igniteForSeconds(2.0F)),
         };
     }
 }

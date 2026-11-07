@@ -63,5 +63,18 @@
   "message.wipspowers.slime_retarget": "Your slimes change target.",
   "entity.wipspowers.mini_slime": "Mini Slime",
   "entity.wipspowers.slime_glob": "Slime Glob",
-  "entity.wipspowers.slime_shot": "Slime Shot"
+  "entity.wipspowers.slime_shot": "Slime Shot",
+  "power.awakened.fighter": "Fighter",
+  "power.awakened.fighter.desc": "The more they hit you, the harder you hit back. Grit fills with the damage you take.",
+  "ability.wipspowers.fighter_burning_fists": "Burning Fists",
+  "ability.wipspowers.fighter_burning_fists.desc": "For 10 s your basic punches burn, grow up to +20% stronger with each hit in a row and release a small shockwave.",
+  "ability.wipspowers.fighter_retaliation": "Retaliation",
+  "ability.wipspowers.fighter_retaliation.desc": "A huge wave forward. Consumes your Grit: the fuller it is, the harder it hits. The centre deals 200%, edges and the far end 60%.",
+  "ability.wipspowers.fighter_impact_leap": "Impact Leap",
+  "ability.wipspowers.fighter_impact_leap.desc": "Press to crouch and leap very high. Press again in the air to dive: the landing shockwave grows with the height.",
+  "ability.wipspowers.fighter_serious_punch": "SERIOUS PUNCH",
+  "ability.wipspowers.fighter_serious_punch.desc": "Hold to charge (up to 5 s) and release a colossal forward blast. At full charge it permanently obliterates the terrain ahead.",
+  "message.wipspowers.fighter_leap_ground": "You need to be on the ground to leap.",
+  "message.wipspowers.serious_charge": "Serious Punch: %s%%",
+  "hud.wipspowers.grit": "Grit %s%%"
 }
