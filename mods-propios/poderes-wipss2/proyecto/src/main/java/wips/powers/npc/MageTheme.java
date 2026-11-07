@@ -90,6 +90,12 @@ public record MageTheme(
                 new MageTheme("seiryuu", 0x4DB8FF, 0xFF8A2A, ParticleTypes.FLAME, ParticleTypes.ELECTRIC_SPARK,
                         SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_THUNDER, null, 0, 0, 1.0,
                         skin("efe"), (v, f) -> v.igniteForSeconds(4.0F)),
+                new MageTheme("ice", 0x9FE8FF, 0xFFFFFF, ParticleTypes.SNOWFLAKE, ParticleTypes.ITEM_SNOWBALL,
+                        SoundEvents.PLAYER_HURT_FREEZE, SoundEvents.GLASS_BREAK, MobEffects.MOVEMENT_SLOWDOWN, 60, 2, 0.5,
+                        skin("zuri"), (v, f) -> v.setTicksFrozen(Math.max(v.getTicksFrozen(), v.getTicksRequiredToFreeze() + 40))),
+                new MageTheme("slime", 0x7CCB5B, 0xC8F7A0, ParticleTypes.ITEM_SLIME, ParticleTypes.ITEM_SLIME,
+                        SoundEvents.SLIME_JUMP, SoundEvents.SLIME_SQUISH, MobEffects.MOVEMENT_SLOWDOWN, 50, 2, 0.9,
+                        skin("alex"), null),
         };
     }
 }

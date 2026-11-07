@@ -14,12 +14,14 @@ public final class WipsPowers {
     public static final Set<String> KEEP = Set.of(
             "pyrokinetic", "summoning", "hydrokinetic", "kinetic_charger", "velocity",
             "graviton", "ruin", "storm_caller", "phytokinetic", "scaler", "gamma",
-            SeiryuuPower.ID);
+            SeiryuuPower.ID, wips.powers.ice.IcePower.ID, wips.powers.slime.SlimePower.ID);
 
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.level.LevelConfig.SPEC, "wipspowers-nivel.toml");
         wips.powers.level.WipsLevel.ATTACHMENTS.register(modBus);
+        wips.powers.kit.WipsEntities.ENTITIES.register(modBus);
+        modBus.addListener(wips.powers.kit.WipsEntities::attributes);
         modBus.addListener(WipsPowers::registerPayloads);
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient() && net.neoforged.fml.ModList.get().isLoaded("lodestar_trail")) {
             wips.powers.client.compat.CompassTrail.register();
@@ -74,6 +76,16 @@ public final class WipsPowers {
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.fx.WipsFx.receive(payload)));
         event.registrar("1").optional().playToClient(wips.powers.level.WipsLevel.Sync.TYPE, wips.powers.level.WipsLevel.Sync.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.LevelHud.receive(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.ice.IcePower.IceSteps.State.TYPE, wips.powers.ice.IcePower.IceSteps.State.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.IceClient.state(payload)));
+        event.registrar("1").optional().playToServer(wips.powers.ice.IcePower.IceSteps.Jump.TYPE, wips.powers.ice.IcePower.IceSteps.Jump.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> {
+                    if (ctx.player() instanceof net.minecraft.server.level.ServerPlayer sp) {
+                        wips.powers.ice.IcePower.IceSteps.onAirJump(sp);
+                    }
+                }));
+        event.registrar("1").optional().playToClient(wips.powers.slime.SlimePower.BallForm.Form.TYPE, wips.powers.slime.SlimePower.BallForm.Form.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.SlimeClient.form(payload)));
         event.registrar("1").optional().playToClient(wips.powers.crit.Criticals.Payload.TYPE, wips.powers.crit.Criticals.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.crit.ClientCrit.receive(payload)));
     }

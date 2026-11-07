@@ -19,6 +19,14 @@ public final class ClientSetup {
         // que solo conservan las estelas de proyectiles en su tick)
         AbilityFx.register();
         AwakenGlow.register();
+        IceClient.register();
+        SlimeClient.register();
+    }
+
+    @SubscribeEvent
+    public static void onRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+        IceClient.renderers(event);
+        SlimeClient.renderers(event);
     }
 
     @SubscribeEvent

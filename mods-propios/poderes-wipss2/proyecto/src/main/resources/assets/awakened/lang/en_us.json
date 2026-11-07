@@ -9,5 +9,7 @@
   "entity.awakened.phytokinetic_mage": "Phytokinetic",
   "entity.awakened.scaler_mage": "Scaler",
   "entity.awakened.gamma_mage": "Gamma",
-  "entity.awakened.seiryuu_mage": "Seiryuu"
+  "entity.awakened.seiryuu_mage": "Seiryuu",
+  "entity.awakened.ice_mage": "Ice",
+  "entity.awakened.slime_mage": "Slime"
 }
