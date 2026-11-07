@@ -31,6 +31,22 @@ Todos los jars son los de tu instancia (verificados por SHA-1), con una excepci�
 
 Conclusión: 6 GB rinden igual que 8 GB en el servidor. ZGC iguala a G1 ajustado en promedio y mejora el peor tick, pero gasta más memoria fuera del heap. Por eso queda G1 ajustado como opción principal y ZGC como opción B para probar en el PC.
 
+### Validación final: antes contra después (misma sesión de máquina)
+- **A (antes):** pack original, sin Lithium, G1 por defecto, wipspowers 3.3.0.
+- **F (después):** Lithium 0.15.4 + G1 ajustado + wipspowers 3.4.0.
+- Las dos con heap de 8 GB y 2 repeticiones cada una; se informa la mediana. El arnés es `tools/final.sh`.
+
+| Serie | Arranque | Generación | MSPT medio | MSPT p95 | Peor tick | Pausa de GC máx. | Heap tras generar | Errores de la Phantom Dagger |
+|---|---|---|---|---|---|---|---|---|
+| A: antes | 20,8 s | 256 s | 6,7 ms | 12,75 ms | 38 ms | 584 ms | 2,16 GB | 2 por corrida |
+| F: después | 19,5 s | 253 s | **5,85 ms (−13 %)** | **10,4 ms (−18 %)** | 57 ms | **200 ms (−66 %)** | **1,25 GB** | **0** |
+
+Notas, sin maquillar:
+- **Peor tick:** en F salió peor (31,9 y 82,1 ms; en A, 31,5 y 44,6 ms). Con 2 repeticiones el peor tick es muy ruidoso, así que no hay conclusión firme. En la serie G1 de 3 repeticiones había bajado de 113 a 80 ms.
+- **Más entidades en F:** en F-r1 el escenario terminó con 257 entidades, frente a unas 130 del resto, por spawns de la generación, y aun así su MSPT fue menor.
+- **Tiempo total de GC:** con G1 ajustado hay más colecciones, pero más cortas. El total sumó 16,1 s frente a 12,0 s en toda la corrida, a cambio de pausas mucho menores: lo que se nota en juego son las pausas, no el total.
+- **Errores en el log:** bajaron de 28 a 27. El que desaparece es el de la daga. El resto es igual en A y F: avisos de otros mods al arrancar.
+
 **Mods evaluados y descartados por no dar mejora medible:** Noisium (generación 177,6 → 176,1 s, −0,8 %, dentro del ruido).
 
 ## Qué consume el servidor (perfil de CPU)

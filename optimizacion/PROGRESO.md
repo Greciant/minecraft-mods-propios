@@ -18,10 +18,11 @@
   - Protocolo de FPS y planilla: `cliente/PROTOCOLO-FPS.md` y `cliente/planilla-fps.csv`.
 - [x] Texturas: wipspowers ocupa 20 MB, sin duplicados ni archivos sin uso, y se cargan bajo demanda.
 
-## En curso
-- [ ] Series de GC y heap: G0 (G1 por defecto), G1 (G1 ajustado), Z1 (ZGC generacional) y H6 (6 GB).
+- [x] Series de GC y heap: G0, G1 (G1 ajustado, el elegido), Z1 (ZGC, opción B) y H6 (6 GB, igual que 8 GB).
+- [x] wipspowers 3.4.0 compilado, `runAudit` OK y PNG recomprimidos sin pérdida (20,07 → 15,99 MB, píxeles idénticos).
+- [x] Argumentos de JVM: cliente con 8 GB y G1 ajustado (`cliente/JVM-CURSEFORGE.md`); servidor con 6 GB y G1 ajustado (`servidor/user_jvm_args.txt`).
+- [x] Validación final A/F en la misma sesión: MSPT −13 %, p95 −18 %, pausa de GC máx. −66 %, heap tras generar 2,16 → 1,25 GB y 0 errores de la daga. Detalle en `INFORME.md`.
 
-## Pendiente
-- [ ] Compilar wipspowers 3.4.0 con `runAudit`, recomprimir sus PNG sin pérdida y hacer la validación final con el pack.
-- [ ] Argumentos de JVM para cliente (16 GB) y servidor, según los resultados.
-- [ ] Informe final y commit.
+## Pendiente (en el PC del usuario)
+- [ ] Medir FPS con `cliente/PROTOCOLO-FPS.md` y anotarlos en `cliente/planilla-fps.csv`.
+- [ ] Opcional: mandar `config/` y `options.txt` para ajustar los perfiles a su configuración exacta.
