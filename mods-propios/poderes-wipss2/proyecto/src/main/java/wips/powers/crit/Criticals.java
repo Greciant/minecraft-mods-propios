@@ -41,7 +41,7 @@ public final class Criticals {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onIncoming(LivingIncomingDamageEvent event) {
-        if (!CritConfig.ENABLED.get() || event.getAmount() <= 0.0F) {
+        if (!CritConfig.ENABLED.get() || event.getAmount() <= 0.0F || event.getSource().getEntity() instanceof net.neoforged.neoforge.common.util.FakePlayer) {
             return;
         }
         if (!(event.getSource().getEntity() instanceof ServerPlayer attacker) || event.getEntity() == attacker) {
@@ -58,7 +58,7 @@ public final class Criticals {
         LAST.put(attacker.getUUID(), now);
         float dealt = (float) (event.getAmount() * CritConfig.MULTIPLIER.get());
         event.setAmount(dealt);
-        if (attacker.connection.hasChannel(Payload.TYPE)) {
+        if (wips.powers.kit.PowerKit.real(attacker) && attacker.connection.hasChannel(Payload.TYPE)) {
             PacketDistributor.sendToPlayer(attacker, new Payload(event.getEntity().getId(), dealt));
         }
     }

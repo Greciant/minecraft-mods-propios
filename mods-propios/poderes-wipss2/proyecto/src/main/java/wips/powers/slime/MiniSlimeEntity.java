@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import wips.powers.kit.PowerKit;
 import wips.powers.kit.WipsEntities;
 
@@ -35,6 +36,7 @@ public class MiniSlimeEntity extends Slime {
     private ServerPlayer owner;
     private UUID ownerId;
     private int hitCooldown;
+    private int hopDelay;
     /** Autotest. */
     public static int hits;
 
@@ -112,6 +114,22 @@ public class MiniSlimeEntity extends Slime {
         }
         if (this.hitCooldown > 0) {
             this.hitCooldown--;
+        }
+        // movimiento propio: saltos hacia el objetivo (o hacia el dueno si quedo lejos); no depende de la IA vanilla
+        Vec3 goal = t != null ? t.position() : this.distanceToSqr(this.owner) > 6 * 6 ? this.owner.position() : null;
+        if (goal != null && this.onGround() && --this.hopDelay <= 0) {
+            Vec3 d = goal.subtract(this.position());
+            double len = Math.sqrt(d.x * d.x + d.z * d.z);
+            if (len > 0.4) {
+                float yaw = (float) (Math.atan2(d.z, d.x) * (180.0 / Math.PI)) - 90.0F;
+                this.setYRot(yaw);
+                this.yBodyRot = yaw;
+                double sp = Math.min(0.45, 0.15 + len * 0.05);
+                this.setDeltaMovement(d.x / len * sp, 0.42, d.z / len * sp);
+                this.hasImpulse = true;
+                this.playSound(SoundEvents.SLIME_JUMP_SMALL, 0.6F, 1.4F);
+            }
+            this.hopDelay = 6 + this.random.nextInt(5);
         }
         if (t != null && this.hitCooldown == 0 && this.getBoundingBox().inflate(0.35).intersects(t.getBoundingBox())) {
             t.invulnerableTime = 0;

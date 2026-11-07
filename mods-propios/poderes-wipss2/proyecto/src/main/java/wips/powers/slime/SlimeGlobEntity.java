@@ -28,6 +28,7 @@ public class SlimeGlobEntity extends Entity implements ItemSupplier {
     private static final int LIFE = 300;
     private static final ItemStack LOOK = new ItemStack(Items.SLIME_BALL);
     private UUID ownerId;
+    private ServerPlayer owner;
     /** Autotest. */
     public static int picked;
 
@@ -38,6 +39,7 @@ public class SlimeGlobEntity extends Entity implements ItemSupplier {
     public static SlimeGlobEntity spawn(ServerLevel level, ServerPlayer owner, Vec3 at) {
         SlimeGlobEntity g = new SlimeGlobEntity(WipsEntities.SLIME_GLOB.get(), level);
         g.ownerId = owner.getUUID();
+        g.owner = owner;
         g.setPos(at.x, at.y + 0.5, at.z);
         g.setDeltaMovement((level.random.nextDouble() - 0.5) * 0.2, 0.3, (level.random.nextDouble() - 0.5) * 0.2);
         level.addFreshEntity(g);
@@ -64,8 +66,9 @@ public class SlimeGlobEntity extends Entity implements ItemSupplier {
             this.discard();
             return;
         }
-        if (this.tickCount > 10 && this.level().getPlayerByUUID(this.ownerId) instanceof ServerPlayer owner
-                && owner.isAlive() && owner.getBoundingBox().inflate(0.6).intersects(this.getBoundingBox())) {
+        ServerPlayer owner = this.owner != null && !this.owner.isRemoved() ? this.owner
+                : this.level().getPlayerByUUID(this.ownerId) instanceof ServerPlayer sp ? sp : null;
+        if (this.tickCount > 10 && owner != null && owner.isAlive() && owner.getBoundingBox().inflate(0.6).intersects(this.getBoundingBox())) {
             float before = owner.getHealth();
             owner.heal(owner.getMaxHealth() * HEAL_FRACTION);
             picked++;

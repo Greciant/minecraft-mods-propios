@@ -22,6 +22,27 @@ public final class PowerKit {
     private PowerKit() {
     }
 
+    /** Jugador real (con conexion de red). Los jugadores falsos (de otros mods o del autotest) no reciben paquetes. */
+    public static boolean real(ServerPlayer p) {
+        return !(p instanceof net.neoforged.neoforge.common.util.FakePlayer);
+    }
+
+    /** Paquete al jugador, si es real. */
+    public static void send(ServerPlayer p, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+        if (real(p)) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, payload);
+        }
+    }
+
+    /** Paquete a quienes ven al jugador y a el mismo (si es real). */
+    public static void sendAround(ServerPlayer p, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+        if (real(p)) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayersTrackingEntityAndSelf(p, payload);
+        } else {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayersTrackingEntity(p, payload);
+        }
+    }
+
     /** El jugador tiene este poder activo ahora? */
     public static boolean has(ServerPlayer player, String powerId) {
         var data = PowerService.data(player);

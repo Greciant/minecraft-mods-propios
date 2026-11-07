@@ -474,7 +474,7 @@ public final class SlimePower extends Power {
             if (speed != null && !speed.hasModifier(SPEED)) {
                 speed.addTransientModifier(new AttributeModifier(SPEED, 0.6, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
             }
-            PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new Form(player.getId(), true));
+            PowerKit.sendAround(player, new Form(player.getId(), true));
             ServerLevel level = player.serverLevel();
             level.sendParticles(goo(), player.getX(), player.getY() + 1, player.getZ(), 60, 0.6, 0.6, 0.6, 0.2);
             Fx.sound(level, player.position(), SoundEvents.SLIME_BLOCK_PLACE, SoundSource.PLAYERS, 1.5F, 0.6F);
@@ -491,7 +491,7 @@ public final class SlimePower extends Power {
                 speed.removeModifier(SPEED);
             }
             p.resetFallDistance();
-            PacketDistributor.sendToPlayersTrackingEntityAndSelf(p, new Form(p.getId(), false));
+            PowerKit.sendAround(p, new Form(p.getId(), false));
             if (!p.isRemoved()) {
                 p.serverLevel().sendParticles(goo(), p.getX(), p.getY() + 1, p.getZ(), 40, 0.5, 0.6, 0.5, 0.15);
                 Fx.sound(p.level(), p.position(), SoundEvents.SLIME_SQUISH, SoundSource.PLAYERS, 1.2F, 1.0F);
@@ -550,6 +550,28 @@ public final class SlimePower extends Power {
         }
     }
 
+    /** Autotest: posicion del primer charco activo (o null). */
+    public static Vec3 firstPuddle() {
+        for (Burst.Puddle p : Burst.PUDDLES_ALIVE) {
+            if (p.age >= p.delay) {
+                return p.at;
+            }
+        }
+        return Burst.PUDDLES_ALIVE.isEmpty() ? null : Burst.PUDDLES_ALIVE.get(0).at;
+    }
+
+    /** Autotest: hay un charco bajo esta posicion? */
+    public static boolean onPuddle(Vec3 pos) {
+        for (Burst.Puddle p : Burst.PUDDLES_ALIVE) {
+            double dx = pos.x - p.at.x;
+            double dz = pos.z - p.at.z;
+            if (dx * dx + dz * dz <= Burst.PUDDLE_RADIUS * Burst.PUDDLE_RADIUS && Math.abs(pos.y - p.at.y) < 1.0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ---------------- tick global ----------------
 
     @SubscribeEvent
@@ -593,7 +615,7 @@ public final class SlimePower extends Power {
     @SubscribeEvent
     public static void onStartTracking(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof ServerPlayer target && BallForm.active(target) && event.getEntity() instanceof ServerPlayer viewer) {
-            PacketDistributor.sendToPlayer(viewer, new BallForm.Form(target.getId(), true));
+            PowerKit.send(viewer, new BallForm.Form(target.getId(), true));
         }
     }
 

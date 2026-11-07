@@ -30,7 +30,7 @@ public class SlimeShotEntity extends ThrowableItemProjectile {
         SlimeShotEntity s = new SlimeShotEntity(WipsEntities.SLIME_SHOT.get(), level);
         s.setOwner(owner);
         s.setPos(owner.getX(), owner.getEyeY() - 0.2, owner.getZ());
-        s.shootFromRotation(owner, owner.getXRot(), owner.getYRot(), 0.0F, 1.9F, 2.5F);
+        s.shootFromRotation(owner, owner.getXRot(), owner.getYRot(), 0.0F, 1.9F, 1.0F);
         level.addFreshEntity(s);
     }
 

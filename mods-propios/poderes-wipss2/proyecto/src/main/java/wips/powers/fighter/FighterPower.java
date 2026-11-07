@@ -152,7 +152,7 @@ public final class FighterPower extends Power {
         }
 
         static void sync(ServerPlayer p, float v) {
-            PacketDistributor.sendToPlayer(p, new GritSync(v));
+            PowerKit.send(p, new GritSync(v));
         }
     }
 
@@ -456,7 +456,7 @@ public final class FighterPower extends Power {
             INSTANCE = this;
         }
 
-        static void land(ServerPlayer p, double height) {
+        public static void land(ServerPlayer p, double height) {
             ServerLevel level = p.serverLevel();
             float base = Math.min(CAP, BASE + PER_BLOCK * (float) Math.max(0, height));
             lastHeight = height;
@@ -652,15 +652,20 @@ public final class FighterPower extends Power {
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
         for (ServerPlayer p : event.getServer().getPlayerList().getPlayers()) {
-            Grit.tick(p);
-            int[] f = BurningFists.ACTIVE.get(p.getUUID());
-            if (f != null) {
-                BurningFists.tick(p, f);
-            }
-            ImpactLeap.Leap l = ImpactLeap.LEAPS.get(p.getUUID());
-            if (l != null) {
-                ImpactLeap.tick(p, l);
-            }
+            tickPlayer(p);
+        }
+    }
+
+    /** Estado por jugador del Luchador (publico para el autotest con jugadores falsos, que el servidor no tickea). */
+    public static void tickPlayer(ServerPlayer p) {
+        Grit.tick(p);
+        int[] f = BurningFists.ACTIVE.get(p.getUUID());
+        if (f != null) {
+            BurningFists.tick(p, f);
+        }
+        ImpactLeap.Leap l = ImpactLeap.LEAPS.get(p.getUUID());
+        if (l != null) {
+            ImpactLeap.tick(p, l);
         }
     }
 

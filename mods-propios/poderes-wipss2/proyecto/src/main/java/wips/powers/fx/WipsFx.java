@@ -79,7 +79,7 @@ public final class WipsFx {
     public static void around(Entity source, String kind, Vec3 pos, Vec3 dir, float power, long seed, int extra) {
         Payload p = new Payload(kind, source.getId(), pos.x, pos.y, pos.z, (float) dir.x, (float) dir.y, (float) dir.z, power, seed, extra);
         if (source instanceof ServerPlayer sp) {
-            PacketDistributor.sendToPlayersTrackingEntityAndSelf(sp, p);
+            wips.powers.kit.PowerKit.sendAround(sp, p);
         } else {
             PacketDistributor.sendToPlayersTrackingEntity(source, p);
         }

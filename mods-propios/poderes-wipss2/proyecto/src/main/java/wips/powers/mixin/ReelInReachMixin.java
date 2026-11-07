@@ -47,6 +47,20 @@ public abstract class ReelInReachMixin {
         return 70;
     }
 
+    /**
+     * El Ender Dragon (y otros voladores con IA propia) pisan su velocidad cada tick: ademas de la velocidad, se los
+     * mueve por posicion el mismo paso, asi tambien llegan.
+     */
+    @org.spongepowered.asm.mixin.injection.Redirect(method = "lambda$drag$0", at = @At(value = "INVOKE",
+            target = "Lcom/awakenedmod/awakened/core/Harm;setMotion(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;DDD)Z"))
+    private boolean wips$setMotion(net.minecraft.world.entity.Entity source, net.minecraft.world.entity.Entity target, double x, double y, double z) {
+        boolean ok = com.awakenedmod.awakened.core.Harm.setMotion(source, target, x, y, z);
+        if (ok && (target instanceof net.minecraft.world.entity.boss.enderdragon.EnderDragon || target instanceof net.minecraft.world.entity.FlyingMob)) {
+            target.setPos(target.getX() + x, target.getY() + y, target.getZ() + z);
+        }
+        return ok;
+    }
+
     @Inject(method = "close", at = @At("HEAD"))
     private void wips$closeStart(CallbackInfo ci) {
         FighterPower.reeling = true;

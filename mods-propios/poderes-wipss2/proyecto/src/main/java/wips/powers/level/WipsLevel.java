@@ -147,7 +147,7 @@ public final class WipsLevel {
 
     public static void sync(ServerPlayer player) {
         Data d = data(player);
-        PacketDistributor.sendToPlayer(player, new Sync(d.level, (float) d.xp, (float) xpForNext(d.level), maxLevel()));
+        wips.powers.kit.PowerKit.send(player, new Sync(d.level, (float) d.xp, (float) xpForNext(d.level), maxLevel()));
     }
 
     /** Bioma nuevo para este jugador? (y lo marca). */

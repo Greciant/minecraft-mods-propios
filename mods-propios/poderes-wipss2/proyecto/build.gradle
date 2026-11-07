@@ -76,6 +76,11 @@ dependencies {
     compileOnly files('../_jars/ExplorersCompass-1.21.1-3.4.0-neoforge.jar')
     compileOnly files('../_jars/NaturesCompass-1.21.1-3.4.0-neoforge.jar')
     // Solo para probar: gradle runAudit -PauditMods (Iron's Spells, Hyper 'N Hiei, Zoltraak y sus dependencias)
+    // Solo para la prueba visual: gradle runFx -PwithLodestar (presentacion del despertar con el render de Lodestar)
+    if (project.hasProperty('withLodestar')) {
+        runtimeOnly files('../_jars/lodestar-trail-neoforge-1.21.1-0.1.1.jar')
+        runtimeOnly files('/home/user/wipss2-pack/mods/PlayerAnimationLibNeoforge-1.1.6+mc.1.21.1.jar')
+    }
     if (project.hasProperty('auditMods')) {
         runtimeOnly fileTree(dir: '../_jars/runtime', include: '*.jar')
     }

@@ -263,7 +263,7 @@ public final class IcePower extends Power {
             if (on) {
                 ON.add(player.getUUID());
             }
-            PacketDistributor.sendToPlayer(player, new State(on));
+            PowerKit.send(player, new State(on));
             player.displayClientMessage(Component.translatable(on ? "message.wipspowers.ice_steps_on" : "message.wipspowers.ice_steps_off"), true);
             this.startCooldown(player, 10);
             return true;

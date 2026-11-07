@@ -3,6 +3,13 @@
   "minVersion": "0.8",
   "package": "wips.powers.mixin.impact",
   "compatibilityLevel": "JAVA_21",
-  "client": ["ImpactFireGateMixin"],
-  "injectors": {"defaultRequire": 0}
+  "client": [
+    "ImpactFireGateMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "mixins": [
+    "ImpactFakePlayerMixin"
+  ]
 }

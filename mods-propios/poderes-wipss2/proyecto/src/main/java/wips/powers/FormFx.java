@@ -39,7 +39,7 @@ public final class FormFx {
     }
 
     public static void send(ServerPlayer player, String form, int ticks) {
-        PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new Payload(player.getId(), form, ticks));
+        wips.powers.kit.PowerKit.sendAround(player, new Payload(player.getId(), form, ticks));
     }
 
     static void receive(Payload p) {
