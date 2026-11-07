@@ -23,5 +23,8 @@
   "item.wipspowers.stamina_charm.tip": "+%s%% power energy regeneration",
   "item.wipspowers.stamina_charm.tip2": "Works while carried or in the necklace slot (Curios). Does not stack.",
   "subtitles.wipspowers.scaler.mass_leap_charge": "Mass Leap charges",
-  "message.wipspowers.compass_trail": "Lodestar is guiding you to: %s"
+  "message.wipspowers.compass_trail": "Lodestar is guiding you to: %s",
+  "ability.wipspowers.graviton_shinra_tensei": "Shinra Tensei",
+  "ability.wipspowers.graviton_shinra_tensei.desc": "Rise for an instant and release a colossal repulsion wave in every direction: everything within 20 blocks is blasted away and the terrain is torn apart for good.",
+  "quest.wipspowers.level_xp": "+%s level XP"
 }

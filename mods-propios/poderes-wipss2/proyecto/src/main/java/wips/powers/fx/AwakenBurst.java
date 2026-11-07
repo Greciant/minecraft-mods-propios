@@ -1,4 +1,4 @@
-package wips.powers.npc;
+package wips.powers.fx;
 
 import com.awakenedmod.awakened.core.Fx;
 import com.awakenedmod.awakened.core.power.Power;
@@ -19,20 +19,28 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import wips.powers.WipsPowers;
+import wips.powers.npc.MageTheme;
 
 /**
- * Despertar de un poder: encima del estallido de Awakened, 2 s de efecto propio del poder: tres anillos de choque
- * que se abren, una espiral doble que sube, particulas del elemento y su sonido. Gamma y Seiryuu (que no tenian
- * efecto propio) suman uno: pulsos de radiacion verde / dragon de fuego y rayo.
+ * EFECTO UNICO al obtener un poder (todos los caminos: mago, cerca de la muerte, reroll, admin, intercambio pasan por
+ * AwakeningCinematic.erupt). Reemplaza al estallido de Awakened y a los onAwaken de cada poder, que quedan mudos
+ * (AwakeningCinematicMixin + ParticleMuteMixin), asi no coexisten dos versiones.
+ * Servidor: 3 s de anillos de choque, espiral doble, columna y chispas del elemento del poder.
+ * Cliente: la presentacion de Lodestar (estrella de llegada y hadas con estela, con los mismos ajustes visuales de
+ * Lodestar) en client/AwakenGlow; si Lodestar no esta, solo quedan las particulas del servidor.
  */
 @EventBusSubscriber(modid = WipsPowers.MOD_ID)
-public final class AwakenFx {
+public final class AwakenBurst {
     private record Run(ServerPlayer player, Vec3 at, int color, int accent, ParticleOptions element, ParticleOptions burst, String id, int[] t) {}
 
     private static final List<Run> RUNS = new ArrayList<>();
-    private static final int TICKS = 40;
+    private static final int TICKS = 60;
+    /** Mientras es true, las particulas/rayos/vfx del servidor se descartan (efectos viejos del despertar). */
+    public static boolean MUTE;
+    /** Autotest: cuantas veces se reprodujo. */
+    public static int played;
 
-    private AwakenFx() {
+    private AwakenBurst() {
     }
 
     private static MageTheme theme(String id) {
@@ -44,7 +52,8 @@ public final class AwakenFx {
         return null;
     }
 
-    public static void erupt(ServerPlayer player, Power power) {
+    public static void play(ServerPlayer player, Power power) {
+        played++;
         String id = power.id();
         int color = power.themeColor() & 0xFFFFFF;
         MageTheme m = theme(id);
@@ -57,6 +66,16 @@ public final class AwakenFx {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), sig, SoundSource.PLAYERS, 1.4F, 0.8F);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 1.2F, 1.3F);
         Fx.shake(level, player.position(), 24.0, 0.25F, 4, 14);
+        WipsFx.around(player, "awaken_burst", player.position(), Vec3.ZERO, 1.0F, accent, color);
+    }
+
+    /** Durante el estallido viejo tambien se descartan sus rayos y entidades de vfx. */
+    @SubscribeEvent
+    public static void onJoin(net.neoforged.neoforge.event.entity.EntityJoinLevelEvent event) {
+        if (MUTE && (event.getEntity() instanceof LightningBolt
+                || event.getEntity() instanceof com.awakenedmod.awakened.content.vfx.AbstractFxEntity)) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -110,7 +129,15 @@ public final class AwakenFx {
         if (t == 8 || t == 20) {
             level.sendParticles(r.burst(), c.x, c.y + 1.0, c.z, 1, 0, 0, 0, 0);
         }
-        // 4. firma de los poderes que no tenian efecto
+        // 4. cierre: las hadas de Lodestar convergen arriba (cliente) y aca estalla la cupula del elemento
+        if (t == 46) {
+            Vec3 apex = c.add(0, 3.6, 0);
+            level.sendParticles(ParticleTypes.FIREWORK, apex.x, apex.y, apex.z, 40, 0.2, 0.2, 0.2, 0.25);
+            level.sendParticles(r.element(), apex.x, apex.y, apex.z, 30, 0.6, 0.6, 0.6, 0.08);
+            ring(level, Fx.dust(r.accent(), 1.8F), c, 3.2, 48, 0.1);
+            level.playSound(null, c.x, c.y, c.z, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.4F, 1.2F);
+        }
+        // 5. firma de los poderes que no tenian efecto
         if ("gamma".equals(r.id()) && t % 8 == 0) {
             double rad = 2.0 + t * 0.12;
             ring(level, ParticleTypes.GLOW, c, rad, 40, 0.3);

@@ -27,16 +27,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import wips.powers.combat.WipsDamage;
-import wips.powers.terrain.WipsTerrain;
+import wips.powers.terrain.WipsDestruction;
 
 /**
  * Ruin 5 - Collapse (rehecha). Golpe al suelo: una onda de podredumbre sale del jugador y el terreno se desmorona
  * en anillos (radio 10 a 20 segun maestria, 4 de hondo). Todo lo que este en la zona cae, recibe dano, Lentitud,
- * Marchitamiento y cargas de Ruin. El jugador no cae: su columna se mantiene. Los bloques vuelven a los 15 s.
+ * Marchitamiento y cargas de Ruin. El jugador no cae: su columna se mantiene. Destruccion PERMANENTE (WipsDestruction), sin restauracion: intencional.
  */
 public final class RuinCollapseWips extends Ability {
-    private static final int RESTORE_TICKS = 300;
-    private static final float MAX_HARDNESS = 50.0F;
     private static final int DEPTH = 4;
     private static final int GREY = 0x8F8F86;
 
@@ -115,7 +113,7 @@ public final class RuinCollapseWips extends Ability {
                 }
             }
         }
-        WipsTerrain.crumble(level, player, blocks, RESTORE_TICKS + wave.ring * 3, MAX_HARDNESS, 4);
+        WipsDestruction.destroy(level, blocks, 4);
         Vec3 c = Vec3.atBottomCenterOf(wave.centre);
         for (int i = 0; i < 24; i++) {
             double a = i * (Math.PI * 2 / 24);

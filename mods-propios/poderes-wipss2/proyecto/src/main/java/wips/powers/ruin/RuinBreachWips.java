@@ -25,17 +25,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import wips.powers.combat.WipsDamage;
-import wips.powers.terrain.WipsTerrain;
+import wips.powers.terrain.WipsDestruction;
 
 /**
  * Ruin 4 - Breach (rehecha). Mantener: la mano pudre todo lo que tiene enfrente y abre un tunel de 3x3 que avanza
  * mientras se mantiene (hasta 24-40 bloques segun maestria). Lo que este dentro del tunel recibe dano y cargas
  * de Ruin. Si se apunta a un enemigo cercano, el suelo bajo sus pies se pudre y cae en un pozo.
- * Los bloques vuelven a los 12 s. No depende del sistema de terreno de Awakened.
+ * Destruccion PERMANENTE (WipsDestruction), sin restauracion ni proteccion: intencional. No depende del sistema de terreno de Awakened.
  */
 public final class RuinBreachWips extends Ability {
-    private static final int RESTORE_TICKS = 240;
-    private static final float MAX_HARDNESS = 50.0F;
     private static final int GREY = 0x8F8F86;
 
     private static final class Bore {
@@ -71,9 +69,6 @@ public final class RuinBreachWips extends Ability {
     @Override
     public boolean activate(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
-        if (!WipsTerrain.enabled()) {
-            return this.fail(player, "awakened.ruin.nothing_to_rot");
-        }
         LivingEntity body = AimUtil.aimedLivingEntity(player, 7.0, e -> e != player && e.onGround() && Harm.allowed(player, e));
         if (body != null) {
             this.pit(player, level, body);
@@ -104,7 +99,7 @@ public final class RuinBreachWips extends Ability {
                 slice.add(BlockPos.containing(c.add(bore.right.scale(w)).add(bore.up.scale(h))));
             }
         }
-        int n = WipsTerrain.crumble(level, player, slice, RESTORE_TICKS + d * 2, MAX_HARDNESS, 3);
+        int n = WipsDestruction.destroy(level, slice, 3);
         Fx.burst(level, Fx.dust(GREY, 1.6F), c, 6, 0.9, 0.02);
         Fx.burst(level, ParticleTypes.ASH, c, 10, 1.0, 0.02);
         return n;
@@ -156,7 +151,7 @@ public final class RuinBreachWips extends Ability {
                 }
             }
         }
-        WipsTerrain.crumble(level, player, blocks, RESTORE_TICKS, MAX_HARDNESS, 2);
+        WipsDestruction.destroy(level, blocks, 2);
         Dmg.hurt(body, level, Dmg.by(player, WipsDamage.ABILITY), MasteryScaling.scaledDamage(6.0F, player, this.balanceKey()));
         Harm.effect(player, body, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
         if (RuinStacks.add(body, 3, player, body.position())) {

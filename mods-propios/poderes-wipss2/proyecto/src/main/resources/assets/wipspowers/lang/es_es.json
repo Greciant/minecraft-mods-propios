@@ -23,5 +23,8 @@
   "item.wipspowers.stamina_charm.tip": "+%s%% de regeneracion de energia del poder",
   "item.wipspowers.stamina_charm.tip2": "Funciona con llevarlo encima o en el collar (Curios). No se suman.",
   "subtitles.wipspowers.scaler.mass_leap_charge": "Mass Leap se carga",
-  "message.wipspowers.compass_trail": "Lodestar te guia a: %s"
+  "message.wipspowers.compass_trail": "Lodestar te guia a: %s",
+  "ability.wipspowers.graviton_shinra_tensei": "Shinra Tensei",
+  "ability.wipspowers.graviton_shinra_tensei.desc": "Te elevas un instante y liberas una onda de repulsión colosal en todas direcciones: todo en 20 bloques sale despedido y el terreno queda destruido para siempre.",
+  "quest.wipspowers.level_xp": "+%s XP de nivel"
 }

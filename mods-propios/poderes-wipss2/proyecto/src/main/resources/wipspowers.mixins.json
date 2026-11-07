@@ -32,9 +32,12 @@
     "PyroFireDamageMixin$Ground",
     "MageKitsMixin",
     "NpcMasteryCapMixin",
-    "AwakenFxMixin",
+    "AwakeningCinematicMixin",
+    "ParticleMuteMixin",
     "MassLeapSoundMixin",
-    "ArrowEmptyStackSaveMixin"
+    "ArrowEmptyStackSaveMixin",
+    "QuestRewardPurgeMixin",
+    "ItemGrantPurgeMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",
@@ -47,7 +50,8 @@
     "FlameCloudSmokeMixin",
     "IslandShakerLookMixin",
     "DenseAuraMixin",
-    "VfxShaderTierMixin"
+    "VfxShaderTierMixin",
+    "NominationOffMixin"
   ],
   "injectors": {
     "defaultRequire": 1

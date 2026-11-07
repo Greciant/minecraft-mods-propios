@@ -18,5 +18,6 @@ public final class ClientSetup {
         // un efecto propio por habilidad (reemplaza las capas genericas de ElementalFx/ArcaneFx/SampleFx,
         // que solo conservan las estelas de proyectiles en su tick)
         AbilityFx.register();
+        AwakenGlow.register();
     }
 }

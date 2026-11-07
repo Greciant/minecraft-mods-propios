@@ -23,6 +23,12 @@ import wips.powers.WipsPowers;
  */
 public final class CompassTrail {
     private static final java.util.Set<String> GUIDED = new java.util.HashSet<>();
+    /** Llegada horizontal: las estructuras/biomas no tienen altura fija, Lodestar mide en 3D (radio ~3). */
+    private static final double ARRIVE_H = 6.0;
+    private static final double SURFACE_FIX_H = 48.0;
+    /** Guia en curso iniciada por una brujula (null si no hay o el jugador cambio de destino). */
+    private static Place active;
+    private static boolean surfaceFixed;
     private static Field clientField;
     private static boolean explorers;
     private static boolean natures;
@@ -75,8 +81,10 @@ public final class CompassTrail {
         LocalPlayer player = mc.player;
         if (player == null || mc.level == null) {
             GUIDED.clear();
+            active = null;
             return;
         }
+        follow(mc, player);
         for (InteractionHand hand : InteractionHand.values()) {
             Found f = read(player.getItemInHand(hand));
             if (f == null || !GUIDED.add(f.signature())) {
@@ -96,14 +104,70 @@ public final class CompassTrail {
         try {
             String name = pretty(f.key());
             Place place = new Place(
-                    new Destination(mc.level.dimension().location().toString(), new Point(f.x() + 0.5, player.getY(), f.z() + 0.5)),
+                    new Destination(mc.level.dimension().location().toString(), new Point(f.x() + 0.5, surface(mc, f.x(), f.z(), player.getY()), f.z() + 0.5)),
                     name.length() > 48 ? name.substring(0, 48) : name,
                     f.structure() ? "explorerscompass:explorerscompass" : "naturescompass:naturescompass",
                     f.structure() ? 0xE0B040 : 0x4CC060);
             trail.guide(place);
+            active = place;
+            surfaceFixed = false;
             player.displayClientMessage(Component.translatable("message.wipspowers.compass_trail", name), true);
         } catch (RuntimeException e) {
             WipsPowers.LOGGER.warn("[wipspowers] No se pudo guiar con Lodestar a {}: {}", f.key(), e.toString());
+        }
+    }
+
+    private static double surface(Minecraft mc, int x, int z, double fallback) {
+        if (mc.level.getChunkSource().hasChunk(x >> 4, z >> 4)) {
+            return mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+        }
+        return fallback;
+    }
+
+    /**
+     * Arreglo del hada que no desaparecia: el destino se fijaba con la altura del jugador al encontrar la estructura
+     * y Lodestar solo da por llegado en 3D, asi que si el lugar estaba a otra altura nunca "llegaba". Ahora:
+     * 1) al acercarse (chunk cargado) el destino se corrige a la altura real del terreno;
+     * 2) al estar encima en horizontal, el destino se pone a la altura del jugador y Lodestar hace su llegada
+     *    normal (efecto de llegada, el hada se va y el rastro se borra).
+     */
+    private static void follow(Minecraft mc, LocalPlayer player) {
+        if (active == null) {
+            return;
+        }
+        TrailClient trail = trail();
+        if (trail == null || trail.book() == null || !active.equals(trail.book().activePlace())) {
+            active = null; // el jugador eligio otro destino o la guia termino
+            return;
+        }
+        Destination d = active.destination();
+        if (!d.inDimension(mc.level.dimension().location().toString())) {
+            return;
+        }
+        double dx = d.point().x() - player.getX();
+        double dz = d.point().z() - player.getZ();
+        double h = Math.sqrt(dx * dx + dz * dz);
+        Place next = null;
+        if (h <= ARRIVE_H) {
+            next = new Place(new Destination(d.dimension(), new Point(d.point().x(), player.getY(), d.point().z())), active.name(), active.icon(), active.color());
+        } else if (!surfaceFixed && h <= SURFACE_FIX_H) {
+            int x = (int) Math.floor(d.point().x());
+            int z = (int) Math.floor(d.point().z());
+            if (mc.level.getChunkSource().hasChunk(x >> 4, z >> 4)) {
+                surfaceFixed = true;
+                double y = surface(mc, x, z, d.point().y());
+                if (Math.abs(y - d.point().y()) > 1.0) {
+                    next = new Place(new Destination(d.dimension(), new Point(d.point().x(), y, d.point().z())), active.name(), active.icon(), active.color());
+                }
+            }
+        }
+        if (next != null) {
+            try {
+                trail.guide(next);
+                active = h <= ARRIVE_H ? null : next; // al llegar, Lodestar sigue solo (efecto de llegada y fin)
+            } catch (RuntimeException e) {
+                active = null;
+            }
         }
     }
 

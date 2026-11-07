@@ -52,6 +52,7 @@ public final class WipsPowers {
         }
         WipsSounds.SOUNDS.register(modBus);
         wips.powers.item.WipsItems.ITEMS.register(modBus);
+        wips.powers.content.ItemPurge.LOOT.register(modBus);
         modBus.addListener(wips.powers.content.ContentFilter::onBuildTabs);
         modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onSpawnPlacements);
         modBus.addListener(wips.powers.content.LegendaryMonstersFilter::onAttributes);
