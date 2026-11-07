@@ -18,6 +18,8 @@ public final class WipsPowers {
 
     public WipsPowers(IEventBus modBus, net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.crit.CritConfig.SPEC);
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, wips.powers.level.LevelConfig.SPEC, "wipspowers-nivel.toml");
+        wips.powers.level.WipsLevel.ATTACHMENTS.register(modBus);
         modBus.addListener(WipsPowers::registerPayloads);
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient() && net.neoforged.fml.ModList.get().isLoaded("lodestar_trail")) {
             wips.powers.client.compat.CompassTrail.register();
@@ -46,6 +48,7 @@ public final class WipsPowers {
                 if (net.neoforged.fml.ModList.get().isLoaded("irons_spellbooks")) {
                     wips.powers.compat.AuditSpells.log();
                 }
+                wips.powers.level.BalanceDump.log();
                 LOGGER.info("[wipspowers] AUDIT OK");
                 e.getServer().halt(false);
             });
@@ -69,6 +72,8 @@ public final class WipsPowers {
                 (payload, ctx) -> ctx.enqueueWork(() -> CastSigil.receive(payload)));
         event.registrar("1").optional().playToClient(wips.powers.fx.WipsFx.Payload.TYPE, wips.powers.fx.WipsFx.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.fx.WipsFx.receive(payload)));
+        event.registrar("1").optional().playToClient(wips.powers.level.WipsLevel.Sync.TYPE, wips.powers.level.WipsLevel.Sync.CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.client.LevelHud.receive(payload)));
         event.registrar("1").optional().playToClient(wips.powers.crit.Criticals.Payload.TYPE, wips.powers.crit.Criticals.Payload.CODEC,
                 (payload, ctx) -> ctx.enqueueWork(() -> wips.powers.crit.ClientCrit.receive(payload)));
     }

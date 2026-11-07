@@ -26,5 +26,7 @@
   "message.wipspowers.compass_trail": "Lodestar te guia a: %s",
   "ability.wipspowers.graviton_shinra_tensei": "Shinra Tensei",
   "ability.wipspowers.graviton_shinra_tensei.desc": "Te elevas un instante y liberas una onda de repulsión colosal en todas direcciones: todo en 20 bloques sale despedido y el terreno queda destruido para siempre.",
-  "quest.wipspowers.level_xp": "+%s XP de nivel"
+  "quest.wipspowers.level_xp": "+%s XP de nivel",
+  "message.wipspowers.level_up": "¡Nivel %s! Daño de poderes x%s",
+  "hud.wipspowers.level": "Nv %s"
 }

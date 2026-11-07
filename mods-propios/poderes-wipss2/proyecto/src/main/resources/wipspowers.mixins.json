@@ -37,7 +37,9 @@
     "MassLeapSoundMixin",
     "ArrowEmptyStackSaveMixin",
     "QuestRewardPurgeMixin",
-    "ItemGrantPurgeMixin"
+    "ItemGrantPurgeMixin",
+    "MasteryScalingMixin",
+    "PlayerCasterScalingMixin"
   ],
   "client": [
     "GammaSkinLayerMixin",

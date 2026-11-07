@@ -26,5 +26,7 @@
   "message.wipspowers.compass_trail": "Lodestar is guiding you to: %s",
   "ability.wipspowers.graviton_shinra_tensei": "Shinra Tensei",
   "ability.wipspowers.graviton_shinra_tensei.desc": "Rise for an instant and release a colossal repulsion wave in every direction: everything within 20 blocks is blasted away and the terrain is torn apart for good.",
-  "quest.wipspowers.level_xp": "+%s level XP"
+  "quest.wipspowers.level_xp": "+%s level XP",
+  "message.wipspowers.level_up": "Level %s! Power damage x%s",
+  "hud.wipspowers.level": "Lv %s"
 }

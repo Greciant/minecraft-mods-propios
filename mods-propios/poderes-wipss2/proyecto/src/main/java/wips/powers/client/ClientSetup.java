@@ -20,4 +20,9 @@ public final class ClientSetup {
         AbilityFx.register();
         AwakenGlow.register();
     }
+
+    @SubscribeEvent
+    public static void onGuiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
+        LevelHud.register(event);
+    }
 }
